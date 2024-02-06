@@ -12,9 +12,15 @@ const Signup = () => {
     if (password.length < 8){
       setError('Password must be longer than 8 characters')
     }
+    if (error.code === 'auth/email-already-exists') { 
+      // handle error, if you have multiple possible ones you could probably 
+      // try using switch statement 
+  } 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      setError('');
     } catch (error) {
+      setError(error.message)
     }
   };
 
@@ -36,7 +42,7 @@ const Signup = () => {
         />
         <button type="submit">Sign Up</button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
