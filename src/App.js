@@ -1,12 +1,19 @@
-import logo from './logo.svg';
-import Signup from './pages/signup'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Signup from './pages/signup';
+import Login from './pages/login';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Signup />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route exact path="/" element={<Navigate to="/login" />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/login" element={<Login />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
