@@ -5,6 +5,9 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   getFirestore
 } from "firebase/firestore"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import signup from './pages/signup'
+import login from './pages/login';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,8 +24,9 @@ const firebaseConfig = {
   measurementId: "G-6G1HQ9X398"
 };
 
+
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app)
+export const db = getFirestore(app);
 const analytics = getAnalytics(app);

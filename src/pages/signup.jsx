@@ -3,10 +3,12 @@ import { auth } from '../firebase'; // Import Firebase configuration
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
+import { Link } from 'react-router-dom';
 
-const userCol = collection(db, "users")
 
 const Signup = () => {
+  const userCol = collection(db, "users")
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -118,7 +120,9 @@ const Signup = () => {
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      <h1>
+        Sign Up
+      </h1>
       <form onSubmit={handleSignup}>
         <input
           type="email"
@@ -160,8 +164,14 @@ const Signup = () => {
         <button type="submit">Sign Up</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {/* Link to another page */}
+      <div>
+      <Link to="/login"> Log In </Link>
+      </div>
     </div>
   );
+  
 };
 
 export default Signup;
