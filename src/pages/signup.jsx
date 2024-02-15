@@ -115,7 +115,7 @@ const Signup = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       addUserToDB();
       await sendSignupNotification(userName, email);
-      navigate('/waitingForAccess')
+      navigate('/waiting-for-access')
     } catch (error) {
       console.log(error.message)
       if (error.code === 'auth/email-already-in-use') {

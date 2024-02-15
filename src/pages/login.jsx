@@ -17,6 +17,7 @@ const Login = () => {
     const [error, setError] = useState('');
     const [loginAttemptCount, setLoginAttemptCount] = useState(0);
     const [accountState, setAccountState] = useState('');
+    const [userType, setUserType] = useState('');
 
     const updateAcctState = async (email, newValue) =>{
         const q = query(userCol, where('email', '==', email));
@@ -53,6 +54,27 @@ const Login = () => {
             console.error("Error fetching account state", error)
         }
       }
+
+      const fetchAcctType = async (email) =>{
+        try{
+            const q = query(userCol, where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if(!querySnapshot.empty){
+                const userDoc = querySnapshot.docs[0];
+                const acctType = userDoc.data().userType;
+                console.log(acctType)
+                return acctType;
+            }else{
+                console.log('Not found')
+                return;
+            }
+    
+    
+        }catch(error){
+            console.error("Error fetching account state", error)
+        }
+      }
     
 
     const handleLogin = async (e) => {
@@ -69,8 +91,14 @@ const Login = () => {
             }
             else if(accountState ==='Pending Admin Approval'){
                 console.log('User has not been granted access by adminstrator')
-                navigate('/waitingForAccess')
+                navigate('/waiting-for-Access')
                 return;
+            }
+            else if(accountState === 'Active' && fetchAcctType(email) === 'Admin'){
+                await signInWithEmailAndPassword(auth,email,password);
+                setLoginAttemptCount(0);
+                navigate('/admin-page')
+
             }
             else{
                 await signInWithEmailAndPassword(auth,email,password);
