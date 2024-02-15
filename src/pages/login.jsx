@@ -1,32 +1,128 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase'; // Import Firebase configuration
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import signup from './signup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { db } from '../firebase'; //Import database
 
 
 
 const Login = () => {
+    const userCol = collection(db, "users")
+    const navigate = useNavigate();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const passwordAttemptCount = 0;
+    const [loginAttemptCount, setLoginAttemptCount] = useState(0);
+    const [accountState, setAccountState] = useState('');
+    const [userType, setUserType] = useState('');
+
+    const updateAcctState = async (email, newValue) =>{
+        const q = query(userCol, where('email', '==', email));
+        const querySnapshot = await getDocs(q);
+
+        if(!querySnapshot.empty){
+            const userDoc = querySnapshot.docs[0];
+            updateDoc(userDoc.ref, {
+                accountState: newValue
+            });
+            console.log('Account state updated successfully to: ', newValue)
+        }else{
+            console.log('Account not found')
+        }
+    }
+
+    const fetchAcctState = async (email) =>{
+        try{
+            const q = query(userCol, where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if(!querySnapshot.empty){
+                const userDoc = querySnapshot.docs[0];
+                const acctState = userDoc.data().accountState;
+                console.log(acctState)
+                return acctState;
+            }else{
+                console.log('Not found')
+                return;
+            }
+    
+    
+        }catch(error){
+            console.error("Error fetching account state", error)
+        }
+      }
+
+      const fetchAcctType = async (email) =>{
+        try{
+            const q = query(userCol, where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+
+            if(!querySnapshot.empty){
+                const userDoc = querySnapshot.docs[0];
+                const acctType = userDoc.data().userType;
+                console.log(acctType)
+                return acctType;
+            }else{
+                console.log('Not found')
+                return;
+            }
+    
+    
+        }catch(error){
+            console.error("Error fetching account state", error)
+        }
+      }
+    
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('')
 
         try {
-            await signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential;
-                });
+            setAccountState(await fetchAcctState(email));
+
+            if(accountState === 'Suspended' || accountState === 'suspended'){
+                console.log('User acct suspeneded')
+                setError('Account has been suspeneded. Please contact system adminstrator.')
+                return;
+            }
+            else if(accountState ==='Pending Admin Approval'){
+                console.log('User has not been granted access by adminstrator')
+                navigate('/waiting-for-Access')
+                return;
+            }
+            else if(accountState === 'Active' && fetchAcctType(email) === 'Admin'){
+                await signInWithEmailAndPassword(auth,email,password);
+                setLoginAttemptCount(0);
+                navigate('/admin-page')
+
+            }
+            else{
+                await signInWithEmailAndPassword(auth,email,password);
+                setLoginAttemptCount(0);
+            }
+
         } catch (error) {
             console.log(error.message)
-            if(error.code === 'auth/invalid-credential'){
-                
+            setError('Invaild login credentials')
+            if (error.code === 'auth/invalid-credential') {
+                setLoginAttemptCount(prevCount => prevCount + 1);
+                if (loginAttemptCount >= 3) {
+                    try{
+                        updateAcctState(email,'Suspended');
+                        setError('Authentication failed too many times. Account will be suspended. Contanct system adminstrator.')
+                        return;
+                    }catch(error){
+                        console.error('Error when trying to disable account: ', error);
+                    }
+                    
+
+                }
             }
-        }
+        };
     };
     return (
         <div>
@@ -44,11 +140,14 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type ="submit">Log In</button>
+                <button type="submit">Log In</button>
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div>
-            <Link to="/signup"> Sign Up </Link>
+                <Link to="/signup"> Don't have an account? Sign Up. </Link>
+            </div>
+            <div>
+                <p>Forgot password</p>
             </div>
         </div>
     )
