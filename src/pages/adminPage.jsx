@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
+import { sendApprovalNotification } from '../emailUtils'; 
+import { auth } from '../firebase'; // Import Firebase configuration
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
     const [users, setUsers] = useState([]);
     const [pendingUsers, setPendingUsers] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchUsers();
@@ -55,7 +60,28 @@ const AdminPage = () => {
                 await updateDoc(userRef, {
                     accountState: 'Active'
                 });
+                await sendApprovalNotification(userRef.userName, userRef.email);
                 console.log(`Successfully updated account state to "Active" for user with ID: ${userId}`);
+            }));
+
+            await fetchPendingUsers();
+            window.location.reload();
+
+            setSelectedItems([]);
+        } catch (error) {
+            console.error('Error updating account states:', error);
+        }
+    };
+
+    const setSelectedUsersToRejectedHandler = async () => {
+        try {
+            await Promise.all(selectedItems.map(async (userId) => {
+                const userRef = doc(db, 'users', userId);
+                await updateDoc(userRef, {
+                    accountState: 'Rejected'
+                });
+                await sendApprovalNotification(userRef.userName, userRef.email);
+                console.log(`Successfully updated account state to "Rejected" for user with ID: ${userId}`);
             }));
 
             await fetchPendingUsers();
@@ -73,11 +99,14 @@ const AdminPage = () => {
             <h2>Users List</h2>
                 <ul>
                     {users.map((user, index) => (
+                        <React.Fragment key={index}>
                         <li key={index}>
                             <strong>Name:</strong> {user.firstName} {user.lastName} <strong>Email:</strong> {user.email} <br />
                             <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob} <strong>Address:</strong> {user.address} <br />
                             <strong>User Type:</strong> {user.userType} <strong>Account State:</strong> {user.accountState}
+                            {index !== user.length - 1 && <hr />}
                         </li>
+                        </React.Fragment>
                     ))}
                 </ul>
 
@@ -85,6 +114,7 @@ const AdminPage = () => {
                 <h2>Users List with Pending Admin Approval</h2>
                 <ul>
                     {pendingUsers.map((user) => (
+                        <React.Fragment key={user.id}>
                         <li key={user.id}>
                             <input
                                 type="checkbox"
@@ -96,9 +126,16 @@ const AdminPage = () => {
                                 {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}
                             </label>
                         </li>
+                        {user.id !== user.length - 1 && <hr />}
+                        </React.Fragment>
                     ))}
                 </ul>
                 <button onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+                {'      '}
+                <button onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Rejected</button>
+            </div>
+            <div>
+                <Link to ="/manage-users">Manage Users</Link>
             </div>
         </div>
     );
