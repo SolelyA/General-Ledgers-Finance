@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
+import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 
 const AdminPage = () => {
