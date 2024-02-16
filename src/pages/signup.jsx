@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase'; // Import Firebase configuration
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { sendSignupNotification } from '../emailUtils';
 import './signup.css'
+
 
 
 const Signup = () => {
   const userCol = collection(db, "users")
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,6 +21,8 @@ const Signup = () => {
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
   const [userName, setUserName] = useState('');
+  const [userType, setUserType] = useState('');
+  const [accountState, setAccountState] = useState('');
 
   const chars = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h',
     'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p',
@@ -34,6 +39,7 @@ const Signup = () => {
     try {
 
       const generatedUserName = createUserName();
+      setUserName(generatedUserName);
 
       addDoc(userCol, {
         email,
@@ -41,7 +47,9 @@ const Signup = () => {
         lastName,
         dob,
         address,
-        userName: generatedUserName
+        userName: generatedUserName,
+        accountState: 'Pending Admin Approval',
+        userType: 'User'
       });
       console.log('User added successfully')
 
@@ -50,6 +58,9 @@ const Signup = () => {
       setLastName('');
       setDob('');
       setAddress('');
+      setPassword('');
+      setUserName('');
+      setUserType('');
 
     } catch (error) {
       console.error('Error occured when trying to add user to database', error)
@@ -105,6 +116,8 @@ const Signup = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       addUserToDB();
+      await sendSignupNotification(userName, email);
+      navigate('/waiting-for-access')
     } catch (error) {
       console.log(error.message)
       if (error.code === 'auth/email-already-in-use') {
