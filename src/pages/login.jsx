@@ -3,9 +3,11 @@ import { auth } from '../firebase'; // Import Firebase configuration
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import signup from './signup';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import logoImage from '../images/logo.png'; // Import the logo image
+
 
 const Login = () => {
     const userCol = collection(db, "users");
@@ -85,6 +87,12 @@ const Login = () => {
                     // Redirect regular user to appropriate page
                 }
             }
+            else{
+                await signInWithEmailAndPassword(auth,email,password);
+                setLoginAttemptCount(0);
+                navigate('/landing-page')
+            }
+
         } catch (error) {
             console.log(error.message);
             setError('Invalid login credentials');
@@ -106,7 +114,6 @@ const Login = () => {
     return (
         <div>
             <h2>Log In</h2>
-
             <img // Manipulates the logo
                 src={logoImage}
                 alt="Logo"
@@ -128,13 +135,18 @@ const Login = () => {
                     <option value="Regular">Regular User</option>
                 </select>
 
+
+            <form className={"inputs2"} onSubmit={handleLogin}>
+
                 <input
+                    className={"email2"}
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
+                    className={"password2"}
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -148,6 +160,9 @@ const Login = () => {
             </div>
             <div>
                  <p>Forgot password</p>
+
+                <Link to ="/forgot-password">Forgot password</Link>
+
             </div>
         </div>
     );
