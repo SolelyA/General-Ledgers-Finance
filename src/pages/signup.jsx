@@ -6,6 +6,7 @@ import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import './signup.css'
+import Logo from '../logo';
 
 
 
@@ -138,7 +139,7 @@ const Signup = () => {
       <h1>
         Sign Up
       </h1>
-
+      <Logo />
 
       <select value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)} required>
         <option value="">Select User Type</option>

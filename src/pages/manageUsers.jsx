@@ -5,6 +5,7 @@ import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils';
 import { createUserWithEmailAndPassword, updatePassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from '../firebase'; // Import Firebase configuration
+import Logo from '../logo';
 
 const ManageUsers = () => {
     const userCol = collection(db, "users");
@@ -198,6 +199,7 @@ const ManageUsers = () => {
     return (
         <div>
             <h2>Users List</h2>
+            <Logo />
             <ul>
                 {allUsers.map((user) => (
                     <React.Fragment key={user.id}>

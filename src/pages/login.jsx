@@ -6,7 +6,7 @@ import signup from './signup';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
-import logoImage from '../Images/logo.png'; // Import the logo image
+import Logo from '../logo';
 
 
 const Login = () => {
@@ -96,18 +96,7 @@ const Login = () => {
     return (
         <div>
             <h2>Log In</h2>
-            <img // Manipulates the logo
-                src={logoImage}
-                alt="Logo"
-                style={{
-                    width: '200px',    // Set the width of the image
-                    height: 'auto',    // Maintain the aspect ratio
-                    position: 'relative',    // Set the positioning to relative
-                    top: '0px',    // Move the image 20 pixels down from its normal position
-                    left: '0px',  // Move the image 50 pixels to the right from its normal position
-                }}
-            /> {/* Render the logo image */}
-
+            <Logo />
             <form onSubmit={handleLogin}>
                 <input
                     className={"email2"}
