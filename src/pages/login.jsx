@@ -7,7 +7,6 @@ import signup from './signup';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 
-import './login.css'
 
 
 
@@ -154,9 +153,6 @@ const Login = () => {
             </div>
             <div>
                 <Link to ="/forgot-password">Forgot password</Link>
-
-                <button className={"submit2"} type ="submit">Log In</button>
-            </form>
             </div>
         </div>
     )
