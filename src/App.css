@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.page-container {
+  position: relative;
+}
+
+.greeting {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+}
+
+
 
 
 @keyframes App-logo-spin {

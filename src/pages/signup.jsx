@@ -5,6 +5,8 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
+import './signup.css'
+
 
 
 const Signup = () => {
@@ -131,54 +133,59 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className={""}>
       <h1>
         Sign Up
       </h1>
-      <form onSubmit={handleSignup}>
-        <input
+      <form className={"inputs"} onSubmit={handleSignup}>
+        <input className={"email"}
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+            className={"password"}
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
+            className={"firstname"}
           type="text"
           placeholder="First Name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <input
+            className={"lastname"}
           type="text"
           placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
         <input
+            className={"dob"}
           type="date"
           placeholder="Date Of Birth"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
         <input
+            className={"address"}
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
 
-        <button type="submit">Sign Up</button>
+        <button className={"signup"} type="submit">Sign Up</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {/* Link to another page */}
-      <div>
+      <div className={"login"}>
       <Link to="/login"> Log In </Link>
       </div>
     </div>
