@@ -8,7 +8,6 @@ const LandingPage = () =>{
         <div>
             <h1>
                 Welcome To The Application Domain
-                console.log(a)
             </h1>
         </div>
     )

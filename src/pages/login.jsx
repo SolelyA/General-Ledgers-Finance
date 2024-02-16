@@ -6,7 +6,7 @@ import signup from './signup';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
-import logoImage from '../images/logo.png'; // Import the logo image
+import logoImage from '../Images/logo.png'; // Import the logo image
 
 
 const Login = () => {
@@ -87,8 +87,8 @@ const Login = () => {
                     // Redirect regular user to appropriate page
                 }
             }
-            else{
-                await signInWithEmailAndPassword(auth,email,password);
+            else {
+                await signInWithEmailAndPassword(auth, email, password);
                 setLoginAttemptCount(0);
                 navigate('/landing-page')
             }
@@ -122,7 +122,7 @@ const Login = () => {
                     height: 'auto',    // Maintain the aspect ratio
                     position: 'relative',    // Set the positioning to relative
                     top: '0px',    // Move the image 20 pixels down from its normal position
-                    left: '0px' ,  // Move the image 50 pixels to the right from its normal position
+                    left: '0px',  // Move the image 50 pixels to the right from its normal position
                 }}
             /> {/* Render the logo image */}
 
@@ -134,9 +134,6 @@ const Login = () => {
                     <option value="Manager">Manager</option>
                     <option value="Regular">Regular User</option>
                 </select>
-
-
-            <form className={"inputs2"} onSubmit={handleLogin}>
 
                 <input
                     className={"email2"}
@@ -159,9 +156,7 @@ const Login = () => {
                 <Link to="/signup">Don't have an account? Sign Up.</Link>
             </div>
             <div>
-                 <p>Forgot password</p>
-
-                <Link to ="/forgot-password">Forgot password</Link>
+                <Link to="/forgot-password">Forgot password</Link>
 
             </div>
         </div>
