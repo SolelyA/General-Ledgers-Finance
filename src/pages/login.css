@@ -27,4 +27,42 @@ div.signup2{
     margin-left: 48%;
 }
 
+select.usertype{
+    margin-top: 20px;
+    position: absolute;
+    margin-left: -4%;
 
+}
+
+input.email2{
+    margin-top: 55px;
+    position: absolute;
+    margin-left: -4.8%;
+
+}
+input.password2{
+    position: absolute;
+    margin-top: 90px;
+    margin-left: -4.8%;
+
+}
+
+button.login2{
+    position: absolute;
+    margin-top: 130px;
+    margin-left: -1.4%;
+
+}
+
+div.no-account{
+    position: absolute;
+    margin-top: 160px;
+    margin-left: 42%;
+
+}
+
+div.forgot-password{
+    position: absolute;
+    margin-top: 180px;
+    margin-left: 46%;
+}
