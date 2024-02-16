@@ -60,7 +60,7 @@ const AdminPage = () => {
                 await updateDoc(userRef, {
                     accountState: 'Active'
                 });
-                await sendApprovalNotification(userRef.userName, userRef.email);
+                //await sendApprovalNotification(userRef.userName, userRef.email);
                 console.log(`Successfully updated account state to "Active" for user with ID: ${userId}`);
             }));
 
@@ -80,7 +80,7 @@ const AdminPage = () => {
                 await updateDoc(userRef, {
                     accountState: 'Rejected'
                 });
-                await sendApprovalNotification(userRef.userName, userRef.email);
+                //await sendApprovalNotification(userRef.userName, userRef.email);
                 console.log(`Successfully updated account state to "Rejected" for user with ID: ${userId}`);
             }));
 

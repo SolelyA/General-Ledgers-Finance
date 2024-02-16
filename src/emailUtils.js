@@ -29,7 +29,8 @@ export const sendApprovalNotification = async (name, email) => {
   try {
     var templateParams = {
         user_name: name,
-        email_to: email,
+        to_email: email,
+
       };
     // Send email using EmailJS service ID, template ID, and user ID
     const result = await emailjs.send(

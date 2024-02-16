@@ -103,6 +103,7 @@ const Login = () => {
             else{
                 await signInWithEmailAndPassword(auth,email,password);
                 setLoginAttemptCount(0);
+                navigate('/landing-page')
             }
 
         } catch (error) {
