@@ -1,0 +1,47 @@
+form.inputs{
+}
+
+input.email{
+    margin-top: 30px;
+    position: absolute;
+}
+input.password{
+    position: absolute;
+    margin-top: 65px;
+}
+input.firstname{
+    position: absolute;
+    margin-top: 100px;
+}
+
+input.lastname{
+    position: absolute;
+    margin-top: 135px;
+}
+
+input.dob{
+    position: absolute;
+    margin-top: 170px;
+    /*margin-left: 1%;*/
+    padding-left: 27px;
+
+}
+
+input.address{
+    margin-top: 205px;
+}
+
+button.signup{
+    position: absolute;
+    margin-top: 250px;
+    margin-left: -7.25%;
+
+}
+
+div.login{
+    position: absolute;
+    margin-top: 55px;
+    margin-left: 48.5%;
+}
+
+
