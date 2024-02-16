@@ -156,7 +156,6 @@ const Login = () => {
                 <Link to ="/forgot-password">Forgot password</Link>
 
                 <button className={"submit2"} type ="submit">Log In</button>
-            </form>
             </div>
         </div>
     )
