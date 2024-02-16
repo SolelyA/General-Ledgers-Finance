@@ -7,6 +7,7 @@ import signup from './signup';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
+import './login.css'
 
 
 const Login = () => {
@@ -112,14 +113,14 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Log In</button>
+                <button className={"login2"} type="submit">Log In</button>
             </form>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <div>
+            <div className={"no-account"}>
                 <Link to="/signup">Don't have an account? Sign Up.</Link>
             </div>
-            <div>
+            <div className={"forgot-password"}>
                 <Link to="/forgot-password">Forgot password</Link>
 
             </div>
