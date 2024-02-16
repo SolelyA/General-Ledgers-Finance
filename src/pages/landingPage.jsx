@@ -1,4 +1,5 @@
 import Page from "../pageGreating";
+import Logo from '../logo';
 
 const LandingPage = () =>{
     Page('Aaron');
@@ -9,6 +10,7 @@ const LandingPage = () =>{
             <h1>
                 Welcome To The Application Domain
             </h1>
+            <Logo />
         </div>
     )
 };

@@ -5,6 +5,7 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
+import Logo from '../logo';
 
 
 const ForgotPassword = () => {
@@ -52,6 +53,8 @@ const ForgotPassword = () => {
         <div>
             <h1>Forgot Password</h1>
             <p> Enter your email. A link will be sent to your email to reset.</p>
+
+            <Logo />
 
             <form onSubmit={handleForgotPass}>
                 <input

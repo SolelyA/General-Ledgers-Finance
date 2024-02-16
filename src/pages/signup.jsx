@@ -6,6 +6,7 @@ import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import './signup.css'
+import Logo from '../logo';
 
 
 
@@ -23,6 +24,7 @@ const Signup = () => {
   const [userName, setUserName] = useState('');
   const [userType, setUserType] = useState('');
   const [accountState, setAccountState] = useState('');
+  const [selectedUserType, setSelectedUserType] = useState(''); // State to store selected user type
 
   const chars = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h',
     'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p',
@@ -49,7 +51,7 @@ const Signup = () => {
         address,
         userName: generatedUserName,
         accountState: 'Pending Admin Approval',
-        userType: 'User'
+        selectedUserType
       });
       console.log('User added successfully')
 
@@ -60,7 +62,7 @@ const Signup = () => {
       setAddress('');
       setPassword('');
       setUserName('');
-      setUserType('');
+      setSelectedUserType('');
 
     } catch (error) {
       console.error('Error occured when trying to add user to database', error)
@@ -137,48 +139,59 @@ const Signup = () => {
       <h1>
         Sign Up
       </h1>
+      <Logo />
+
+      <select value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)} required>
+        <option value="">Select User Type</option>
+        <option value="Admin">Administrator</option>
+        <option value="Manager">Manager</option>
+        <option value="User"> User</option>
+      </select>
+
       <form className={"inputs"} onSubmit={handleSignup}>
-        <input className={"email"}
+
+        <input className={"email"} required
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
-            className={"password"}
+        <input className={"password"} required
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
-            className={"firstname"}
+          className={"firstname"} required
           type="text"
           placeholder="First Name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <input
-            className={"lastname"}
+          className={"lastname"} required
           type="text"
           placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
         <input
-            className={"dob"}
+          className={"dob"} required
           type="date"
           placeholder="Date Of Birth"
           value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
         <input
-            className={"address"}
+          className={"address"} required
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
+
+
 
         <button className={"signup"} type="submit">Sign Up</button>
       </form>
@@ -186,11 +199,11 @@ const Signup = () => {
 
       {/* Link to another page */}
       <div className={"login"}>
-      <Link to="/login"> Log In </Link>
+        <Link to="/login"> Log In </Link>
       </div>
     </div>
   );
-  
+
 };
 
 export default Signup;

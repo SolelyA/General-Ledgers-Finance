@@ -6,7 +6,7 @@ import signup from './signup';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
-import logoImage from '../Images/logo.png'; // Import the logo image
+import Logo from '../logo';
 
 
 const Login = () => {
@@ -64,29 +64,11 @@ const Login = () => {
                 console.log('User account suspended');
                 setError('Account has been suspended. Please contact system administrator.');
                 return;
-            } else if (accountState === 'Pending Admin Approval') {
+            } else if (accountState === 'Pending Admin Approval' || accountState == 'Rejected') {
                 console.log('User has not been granted access by administrator');
                 navigate('/waiting-for-Access');
                 return;
-            } else if (accountState === 'Active') {
-                if (!selectedUserType) {
-                    setError('Please select user type.');
-                    return;
-                }
-
-                // Depending on the selected user type, handle login accordingly
-                if (selectedUserType === 'Admin') {
-                    await signInWithEmailAndPassword(auth, email, password);
-                    setLoginAttemptCount(0);
-                    navigate('/admin-page');
-                } else if (selectedUserType === 'Manager') {
-                    // Handle manager login
-                } else if (selectedUserType === 'Regular') {
-                    await signInWithEmailAndPassword(auth, email, password);
-                    setLoginAttemptCount(0);
-                    // Redirect regular user to appropriate page
-                }
-            }
+            } 
             else {
                 await signInWithEmailAndPassword(auth, email, password);
                 setLoginAttemptCount(0);
@@ -114,30 +96,11 @@ const Login = () => {
     return (
         <div>
             <h2>Log In</h2>
-            <img // Manipulates the logo
-                src={logoImage}
-                alt="Logo"
-                style={{
-                    width: '200px',    // Set the width of the image
-                    height: 'auto',    // Maintain the aspect ratio
-                    position: 'relative',    // Set the positioning to relative
-                    top: '0px',    // Move the image 20 pixels down from its normal position
-                    left: '0px',  // Move the image 50 pixels to the right from its normal position
-                }}
-            /> {/* Render the logo image */}
-
+            <Logo />
             <form onSubmit={handleLogin}>
-
-                <select value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)}>
-                    <option value="">Select User Type</option>
-                    <option value="Admin">Administrator</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Regular">Regular User</option>
-                </select>
-
                 <input
                     className={"email2"}
-                    type="email"
+                   type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}

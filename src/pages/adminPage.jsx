@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils'; 
 import { auth } from '../firebase'; // Import Firebase configuration
+import Logo from '../logo';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
@@ -97,6 +98,7 @@ const AdminPage = () => {
         <div>
             <h1>Admin Home Page</h1>
             <h2>Users List</h2>
+            <Logo />
                 <ul>
                     {users.map((user, index) => (
                         <React.Fragment key={index}>
