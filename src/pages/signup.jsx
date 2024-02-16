@@ -132,6 +132,52 @@ const Signup = () => {
 
   };
 
+  const handleLogin = async (e) => {
+      e.preventDefault();
+      setError('');
+
+      try {
+          setAccountState(await fetchAcctState(email));
+          const userType = await fetchAcctType(email);
+
+          if (accountState === 'Suspended' || accountState === 'suspended') {
+              setError('Account has been suspended. Please contact the system administrator.');
+              return;
+          } else if (accountState === 'Pending Admin Approval') {
+              navigate('/waiting-for-Access');
+              return;
+          } else if (accountState === 'Active') {
+              if (userType === 'Admin') {
+                  await signInWithEmailAndPassword(auth, email, password);
+                  setLoginAttemptCount(0);
+                  navigate('/admin-page');
+              } else if (userType === 'Manager') {
+                  // Handle manager login
+              } else {
+                  // Regular user login
+                  await signInWithEmailAndPassword(auth, email, password);
+                  setLoginAttemptCount(0);
+              }
+          }
+      } catch (error) {
+          console.log(error.message);
+          setError('Invalid login credentials');
+          if (error.code === 'auth/invalid-credential') {
+              setLoginAttemptCount(prevCount => prevCount + 1);
+              if (loginAttemptCount >= 3) {
+                  try {
+                      updateAcctState(email, 'Suspended');
+                      setError('Authentication failed too many times. Account will be suspended. Contact system administrator.');
+                      return;
+                  } catch (error) {
+                      console.error('Error when trying to disable account: ', error);
+                  }
+              }
+          }
+      }
+  };
+
+
   return (
     <div className={""}>
       <h1>
