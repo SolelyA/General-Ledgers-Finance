@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import './signup.css'
 import Logo from '../logo';
+import photo from "./image.png";
 
 
 
@@ -135,73 +136,73 @@ const Signup = () => {
   };
 
   return (
-    <div className={""}>
-      <h1>
-        Sign Up
-      </h1>
-      <Logo />
+      <div className={""}>
+        <h1>
+          Sign Up
+        </h1>
+        {/*<Logo />*/}
+        <img className={"signup-logo"} src={photo}/>
 
-      <select value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)} required>
-        <option value="">Select User Type</option>
-        <option value="Admin">Administrator</option>
-        <option value="Manager">Manager</option>
-        <option value="User"> User</option>
-      </select>
+        <select className={"select-user"} value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)} required>
+          <option value="">Select User Type</option>
+          <option value="Admin">Administrator</option>
+          <option value="Manager">Manager</option>
+          <option value="User"> User</option>
+        </select>
 
-      <form className={"inputs"} onSubmit={handleSignup}>
+        <form className={"inputs"} onSubmit={handleSignup}>
 
-        <input className={"email"} required
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input className={"password"} required
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className={"firstname"} required
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          className={"lastname"} required
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <input
-          className={"dob"} required
-          type="date"
-          placeholder="Date Of Birth"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
-        <input
-          className={"address"} required
-          type="text"
-          placeholder="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
+          <input className={"email"} required
+                 type="email"
+                 placeholder="Email"
+                 value={email}
+                 onChange={(e) => setEmail(e.target.value)}
+          />
+          <input className={"password"} required
+                 type="password"
+                 placeholder="Password"
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+              className={"firstname"} required
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+              className={"lastname"} required
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+              className={"dob"} required
+              type="date"
+              placeholder="Date Of Birth"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+          />
+          <input
+              className={"address"} required
+              type="text"
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+          />
 
 
+          <button className={"signup"} type="submit">Sign Up</button>
+        </form>
+        {error && <p style={{color: 'red'}}>{error}</p>}
 
-        <button className={"signup"} type="submit">Sign Up</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {/* Link to another page */}
-      <div className={"login"}>
-        <Link to="/login"> Log In </Link>
+        {/* Link to another page */}
+        <div className={"login"}>
+          <Link to="/login"> Log In </Link>
+        </div>
       </div>
-    </div>
   );
 
 };

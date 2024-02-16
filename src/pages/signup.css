@@ -1,39 +1,53 @@
 form.inputs{
 }
 
+img.signup-logo{
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: 70px;
+    margin-left: -5.1%;
+}
+
+select.select-user{
+    margin-top: 155px;
+    position: absolute;
+    margin-left: -4.3%;
+}
+
 input.email{
-    margin-top: 30px;
+    margin-top: 190px;
     position: absolute;
 }
 input.password{
     position: absolute;
-    margin-top: 65px;
+    margin-top: 225px;
 }
 input.firstname{
     position: absolute;
-    margin-top: 100px;
+    margin-top: 260px;
 }
 
 input.lastname{
     position: absolute;
-    margin-top: 135px;
+    margin-top: 295px;
 }
 
 input.dob{
     position: absolute;
-    margin-top: 170px;
+    margin-top: 330px;
     /*margin-left: 1%;*/
     padding-left: 27px;
 
 }
 
 input.address{
-    margin-top: 205px;
+    margin-top: 360px;
 }
 
 button.signup{
     position: absolute;
-    margin-top: 250px;
+    margin-top: 400px;
     margin-left: -7.25%;
 
 }

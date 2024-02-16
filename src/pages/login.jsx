@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
 import './login.css'
+import photo from './image.png'
 
 
 const Login = () => {
@@ -97,7 +98,8 @@ const Login = () => {
     return (
         <div>
             <h2>Log In</h2>
-            <Logo />
+
+            <img className={"login-logo"} src={photo}/>
             <form onSubmit={handleLogin}>
                 <input
                     className={"email2"}
