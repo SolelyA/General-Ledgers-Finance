@@ -136,73 +136,101 @@ const Signup = () => {
   };
 
   return (
-      <div className={""}>
-        <h1>
-          Sign Up
-        </h1>
-        {/*<Logo />*/}
+      <body>
+
         <img className={"signup-logo"} src={photo}/>
 
-        <select className={"select-user"} value={selectedUserType} onChange={(e) => setSelectedUserType(e.target.value)} required>
-          <option value="">Select User Type</option>
-          <option value="Admin">Administrator</option>
-          <option value="Manager">Manager</option>
-          <option value="User"> User</option>
-        </select>
+        <div className={"signup-box"}>
 
-        <form className={"inputs"} onSubmit={handleSignup}>
+          <div className={"login-header"}>
+            <div className={"login-title"}>Sign Up</div>
+            <div className={"signup-underline"}></div>
+          </div>
 
-          <input className={"email"} required
-                 type="email"
-                 placeholder="Email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)}
-          />
-          <input className={"password"} required
-                 type="password"
-                 placeholder="Password"
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-              className={"firstname"} required
-              type="text"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-              className={"lastname"} required
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-          />
-          <input
-              className={"dob"} required
-              type="date"
-              placeholder="Date Of Birth"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-          />
-          <input
-              className={"address"} required
-              type="text"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-          />
+          <div className={"signup-select"}>
+            <select  value={selectedUserType}
+                    onChange={(e) => setSelectedUserType(e.target.value)}
+                    required>
+              <option value="">Select User Type</option>
+              <option value="Admin">Administrator</option>
+              <option value="Manager">Manager</option>
+              <option value="User"> User</option>
+            </select>
+          </div>
 
+          <form className={"inputs"} onSubmit={handleSignup}>
 
-          <button className={"signup"} type="submit">Sign Up</button>
-        </form>
-        {error && <p style={{color: 'red'}}>{error}</p>}
+            <div className={"signup-email"}>
+              <input required
+                     type="email"
+                     placeholder="Email"
+                     value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-        {/* Link to another page */}
-        <div className={"login"}>
-          <Link to="/login"> Log In </Link>
+            <div className={"signup-password"}>
+              <input required
+                     type="password"
+                     placeholder="Password"
+                     value={password}
+                     onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-firstname"}>
+              <input
+                  required
+                  type="text"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-lastname"}>
+              <input
+                  required
+                  type="text"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-dob"}>
+              <div>Enter Your Date of Birth:</div>
+              <input
+                  required
+                  type="date"
+                  placeholder="Date Of Birth"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-address"}>
+              <input
+                  required
+                  type="text"
+                  placeholder="Address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+
+            <button className={"login-submit"} type="submit">Sign Up</button>
+
+          </form>
+
+          {error && <p style={{color: 'red'}}>{error}</p>}
+
+          {/* Link to another page */}
+          <Link to="/login" className={"login-link"}>Already have an account? Log In. </Link>
+
         </div>
-      </div>
+
+      </body>
   );
 
 };
