@@ -7,6 +7,10 @@ import signup from './signup';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
+import './login.css'
+import photo from './image.png'
+import emailIcon from './email.png'
+import passwordIcon from './password.png'
 
 
 const Login = () => {
@@ -94,36 +98,51 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Log In</h2>
-            <Logo />
-            <form onSubmit={handleLogin}>
-                <input
-                    className={"email2"}
-                   type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    className={"password2"}
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Log In</button>
-            </form>
+        <body className={"login-body"}>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <div>
-                <Link to="/signup">Don't have an account? Sign Up.</Link>
-            </div>
-            <div>
-                <Link to="/forgot-password">Forgot password</Link>
+            <img className={"login-logo"} src={photo}/>
 
+            <div className={"login-box"}>
+
+                <div className={"login-header"}>
+                    <div className={"login-title"}>Log In</div>
+                    <div className={"login-underline"}></div>
+                </div>
+
+
+                <form onSubmit={handleLogin}>
+
+                    <div className={"login-email"}>
+                        <img src={emailIcon}/>
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={"login-password"}>
+                        <img src={passwordIcon}/>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <button className={"login-submit"} type="submit">Log In</button>
+                </form>
+
+                {error && <p style={{color: 'red'}}>{error}</p>}
+
+                <div className={"login-links"}>
+                    <Link to="/signup" className={"no-account"}>Don't have an account? Sign Up.</Link>
+                    <Link to="/forgot-password" className={"forgot-password"}>Forgot password</Link>
+                </div>
             </div>
-        </div>
+        </body>
     );
 };
 

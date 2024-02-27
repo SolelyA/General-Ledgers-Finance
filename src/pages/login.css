@@ -1,0 +1,115 @@
+body{
+    background: linear-gradient(to bottom right, rgb(237, 248, 239), forestgreen);
+    /*background: #d9f3da;*/
+    min-height: 100vh;
+}
+
+.login-logo{
+    width: 150px;
+    /*display: block;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.login-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+}
+
+.login-title{
+    color: #172f17;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.login-underline{
+    width: 60px;
+    height: 6px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+input{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.login-email, .login-password{
+    display: flex;
+    align-items: center;
+    width: 350px;
+    height: 60px;
+    background: whitesmoke;
+    border-radius: 6px;
+    margin: 20px auto auto;
+}
+
+.login-email img, .login-password img{
+    margin: 0 30px;
+}
+
+.login-email input, .login-password input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: darkgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+}
+
+.login-links{
+    margin-top: 10px;
+}
+
+.forgot-password:hover, .no-account:hover{
+    color: #51a051;
+}
+
+.forgot-password, .no-account {
+    margin-top: 5px;
+    color: darkgray;
+    font-size: 18px;
+    display: block;
+}
+
+.login-submit{
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    color: whitesmoke;
+    background: #172f17;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-submit:hover{
+    background-color: #2e5b2e;
+}
+
+.login-box{
+    padding-top: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    width: 450px;
+    margin: 20px auto auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    /*margin-bottom: 50px;*/
+}
+
+
+

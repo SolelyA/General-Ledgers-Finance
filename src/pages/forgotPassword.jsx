@@ -6,6 +6,8 @@ import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import Logo from '../logo';
+import photo from "./image.png";
+import './forgotPassword.css'
 
 
 const ForgotPassword = () => {
@@ -50,22 +52,34 @@ const ForgotPassword = () => {
     }
 
     return (
-        <div>
-            <h1>Forgot Password</h1>
-            <p> Enter your email. A link will be sent to your email to reset.</p>
+        <body>
 
-            <Logo />
+            <img className={"login-logo"} src={photo}/>
 
-            <form onSubmit={handleForgotPass}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit">Reset</button>
-            </form>
-        </div>
+            <div className={"password-box"}>
+
+                <div className={"login-header"}>
+                    <div className={"login-title"}>Forgot Password</div>
+                    <div className={"password-underline"}></div>
+                </div>
+
+                <p> Enter your email. A link will be sent to your email to reset.</p>
+
+                <form onSubmit={handleForgotPass}>
+                    <div className={"signup-email"}>
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <button className={"login-submit"} type="submit">Reset</button>
+
+                </form>
+            </div>
+        </body>
     )
 };
 export default ForgotPassword;
