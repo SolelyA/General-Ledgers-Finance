@@ -44,7 +44,14 @@
 }
 
 .admin-table td{
-    padding: 10px;
+    padding-left: 27px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.name{
+    margin-left: 20px;
 }
 
 tr:hover{
@@ -89,12 +96,15 @@ tr:hover{
 
 .pending-userID{
     font-size: 18px;
+    margin-left: 80px;
+    align-content: flex-start;
+    margin-right: -90px;
 }
 
 .pending-input {
     float: left;
     margin: 0 auto;
-    width: 100%;
+    width: 80%;
 }
 
 .admin-buttons{

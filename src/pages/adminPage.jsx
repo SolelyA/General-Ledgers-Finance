@@ -163,7 +163,7 @@ const AdminPage = () => {
                     {users.map((user, key) => {
                         return (
                             <tr key={user}>
-                                <td>{user.firstName} {user.lastName}</td>
+                                <td className={"name"}>{user.firstName} {user.lastName}</td>
                                 <td>{user.email}</td>
                                 <td>{user.userName} </td>
                                 <td>{user.dob}</td>
@@ -224,7 +224,7 @@ const AdminPage = () => {
                                     />
                                 </td>
 
-                                <td>
+                                <td >
                                     <label className={"pending-userID"} htmlFor={user.id}>
                                         {`${user.firstName} ${user.lastName}`}
                                     </label>
