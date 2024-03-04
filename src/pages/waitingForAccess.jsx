@@ -5,7 +5,7 @@ import React from "react";
 const WaitingForAccess = () => {
     return (
 
-        <body className={"waiting-page"}>
+        <body >
 
             <img className={"waiting-logo"} src={photo}/>
             <div className={"waiting-text"}>

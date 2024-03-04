@@ -5,6 +5,8 @@ import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils'; 
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
+import photo from "./image.png";
+import './adminPage.css'
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
@@ -94,51 +96,180 @@ const AdminPage = () => {
         }
     };
 
+    const makeStyle=(accountState)=>{
+        if(accountState === 'Active')
+        {
+            return {
+                background: 'rgb(145 254 159 / 47%)',
+                color: '#086210',
+                paddingRight:'72px',
+                paddingLeft:'72px'
+            }
+        }
+        else if(accountState === 'Rejected')
+        {
+            return{
+                background: '#ffadad8f',
+                color: '#880808',
+                paddingRight:'63px',
+                paddingLeft:'63px'
+            }
+        }
+        else if(accountState === 'Deactived')
+        {
+            return{
+                background: '#A8A8A8',
+                color: 'black',
+                paddingRight:'58px',
+                paddingLeft:'58px'
+            }
+        }
+        else{
+            return{
+                background: 'rgba(97, 179, 213, 0.8)',
+                color: '#073c89',
+            }
+        }
+    }
+
     return (
         <div>
-            <h1>Admin Home Page</h1>
-            <h2>Users List</h2>
-            <Logo />
-                <ul>
-                    {users.map((user, index) => (
-                        <React.Fragment key={index}>
-                        <li key={index}>
-                            <strong>Name:</strong> {user.firstName} {user.lastName} <strong>Email:</strong> {user.email} <br />
-                            <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob} <strong>Address:</strong> {user.address} <br />
-                            <strong>User Type:</strong> {user.userType} <strong>Account State:</strong> {user.accountState}
-                            {index !== user.length - 1 && <hr />}
-                        </li>
-                        </React.Fragment>
-                    ))}
-                </ul>
 
-            <div>
-                <h2>Users List with Pending Admin Approval</h2>
-                <ul>
-                    {pendingUsers.map((user) => (
-                        <React.Fragment key={user.id}>
-                        <li key={user.id}>
-                            <input
-                                type="checkbox"
-                                id={user.id}
-                                checked={selectedItems.includes(user.id)}
-                                onChange={(event) => handleCheckboxChange(event, user.id)}
-                            />
-                            <label htmlFor={user.id}>
-                                {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}
-                            </label>
-                        </li>
-                        {user.id !== user.length - 1 && <hr />}
-                        </React.Fragment>
-                    ))}
-                </ul>
-                <button onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
-                {'      '}
-                <button onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Rejected</button>
+            <img className={"signup-logo"} src={photo}/>
+
+            <div className={"login-header"}>
+                <div className={"login-title"}>Admin Home Page</div>
+                <div className={"admin-underline"}></div>
             </div>
-            <div>
-                <Link to ="/manage-users">Manage Users</Link>
+
+            <div className={"adminApproval"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Users List</div>
+                    <div className={"admin-subUnderline"}></div>
+                </div>
+
+                <table className={"admin-table"}>
+                    <tr className={"headers"}>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>DOB</th>
+                        <th>Address</th>
+                        <th>User Type</th>
+                        <th>Account State</th>
+                    </tr>
+
+                    {users.map((user, key) => {
+                        return (
+                            <tr key={user}>
+                                <td className={"name"}>{user.firstName} {user.lastName}</td>
+                                <td>{user.email}</td>
+                                <td>{user.userName} </td>
+                                <td>{user.dob}</td>
+                                <td>{user.address} <br/></td>
+                                <td>{user.userType}</td>
+                                {/*<td>{user.accountState}</td>*/}
+                                <td className={"acc-stat"}>
+                                    <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                </table>
+
+                {/*<tr>*/}
+                {/*    {users.map((user, index) => (*/}
+                {/*        <React.Fragment key={index}>*/}
+                {/*        <td key={index} className={"admin-list"}>*/}
+                {/*                <strong>Name:</strong> {user.firstName} {user.lastName}*/}
+                {/*                <strong>Email:</strong> {user.email}*/}
+                {/*                <br/>*/}
+                {/*                <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob}*/}
+                {/*                <strong>Address:</strong> {user.address} <br/>*/}
+                {/*                <strong>User Type:</strong> {user.userType} <strong>Account*/}
+                {/*                State:</strong> {user.accountState}*/}
+                {/*                {index !== user.length - 1 && <hr/>}*/}
+                {/*        </td>*/}
+                {/*        </React.Fragment>*/}
+                {/*    ))}*/}
+                {/*</tr>*/}
             </div>
+
+            <div className={"adminPending"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Users List with Pending Admin Approval</div>
+                    <div className={"admin-subUnderline2"}></div>
+                </div>
+
+                <table className={"admin-table"}>
+
+                    <tr className={"headers"}>
+                        <th>Select</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                    </tr>
+
+                    {pendingUsers.map((user, key) => {
+                        return (
+                            <tr key={user.id}>
+                                <td>
+                                    <input
+                                        className={"pending-input"}
+                                        type="checkbox"
+                                        id={user.id}
+                                        checked={selectedItems.includes(user.id)}
+                                        onChange={(event) => handleCheckboxChange(event, user.id)}
+                                    />
+                                </td>
+
+                                <td >
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.firstName} ${user.lastName}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.userName}`}
+                                    </label>
+                                </td>
+
+                            </tr>
+                        )
+                    })}
+                </table>
+
+                {/*<ul>*/}
+                {/*    {pendingUsers.map((user) => (*/}
+                {/*        <React.Fragment key={user.id}>*/}
+                {/*            <li key={user.id}>*/}
+                {/*                <input*/}
+                {/*                    type="checkbox"*/}
+                {/*                    id={user.id}*/}
+                {/*                    checked={selectedItems.includes(user.id)}*/}
+                {/*                    onChange={(event) => handleCheckboxChange(event, user.id)}*/}
+                {/*                />*/}
+                {/*                <label htmlFor={user.id}>*/}
+                {/*                    {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}*/}
+                {/*                </label>*/}
+                {/*            </li>*/}
+                {/*            {user.id !== user.length - 1 && <hr/>}*/}
+                {/*        </React.Fragment>*/}
+                {/*    ))}*/}
+                {/*</ul>*/}
+
+                <div className={"admin-buttons"}>
+                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+                    {'      '}
+                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Reject</button>
+                </div>
+
+                <Link className={"admin-link"} to="/manage-users">Manage Users</Link>
+
+            </div>
+
         </div>
     );
 };
