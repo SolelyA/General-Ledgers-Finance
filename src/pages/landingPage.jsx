@@ -1,6 +1,6 @@
 import Page from "../pageGreating";
 import Logo from '../logo';
-import photo from "./image.png";
+import photo from "../components/image.png";
 import React from "react";
 
 

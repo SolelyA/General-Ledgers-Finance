@@ -1,6 +1,6 @@
 import Logo from '../logo';
-import './waitingForAccess.css'
-import photo from "./image.png";
+import '../components/waitingForAccess.css'
+import photo from "../components/image.png";
 import React from "react";
 const WaitingForAccess = () => {
     return (

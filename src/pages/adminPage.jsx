@@ -2,20 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { sendApprovalNotification } from '../emailUtils'; 
+import { sendApprovalNotification } from '../emailUtils';
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
-import photo from "./image.png";
-import './adminPage.css'
+import photo from "../components/image.png";
+import '../components/adminPage.css'
+import emailjs from 'emailjs-com';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
     const [users, setUsers] = useState([]);
     const [pendingUsers, setPendingUsers] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [toEmail, setToEmail] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    emailjs.init('Vi1TKgZ8-4VjyfZEd');
 
 
     const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!toEmail || !subject || !message) {
+            setError('All fields are required');
+            return;
+        }
+
+        emailjs.sendForm('service_4exj81f', 'template_7mkgqeq', e.target)
+            .then((result) => {
+                console.log(result.text);
+                setSuccess('Email sent successfully!');
+                setToEmail('');
+                setSubject('');
+                setMessage('');
+                setError('');
+            }, (error) => {
+                console.error(error.text);
+                setError('An error occurred while sending the email.');
+            });
+    };
 
     useEffect(() => {
         fetchUsers();
@@ -96,36 +126,33 @@ const AdminPage = () => {
         }
     };
 
-    const makeStyle=(accountState)=>{
-        if(accountState === 'Active')
-        {
+    const makeStyle = (accountState) => {
+        if (accountState === 'Active') {
             return {
                 background: 'rgb(145 254 159 / 47%)',
                 color: '#086210',
-                paddingRight:'72px',
-                paddingLeft:'72px'
+                paddingRight: '72px',
+                paddingLeft: '72px'
             }
         }
-        else if(accountState === 'Rejected')
-        {
-            return{
+        else if (accountState === 'Rejected') {
+            return {
                 background: '#ffadad8f',
                 color: '#880808',
-                paddingRight:'63px',
-                paddingLeft:'63px'
+                paddingRight: '63px',
+                paddingLeft: '63px'
             }
         }
-        else if(accountState === 'Deactived')
-        {
-            return{
+        else if (accountState === 'Deactived') {
+            return {
                 background: '#A8A8A8',
                 color: 'black',
-                paddingRight:'58px',
-                paddingLeft:'58px'
+                paddingRight: '58px',
+                paddingLeft: '58px'
             }
         }
-        else{
-            return{
+        else {
+            return {
                 background: 'rgba(97, 179, 213, 0.8)',
                 color: '#073c89',
             }
@@ -135,7 +162,7 @@ const AdminPage = () => {
     return (
         <div>
 
-            <img className={"signup-logo"} src={photo}/>
+            <img className={"signup-logo"} src={photo} />
 
             <div className={"login-header"}>
                 <div className={"login-title"}>Admin Home Page</div>
@@ -167,7 +194,7 @@ const AdminPage = () => {
                                 <td>{user.email}</td>
                                 <td>{user.userName} </td>
                                 <td>{user.dob}</td>
-                                <td>{user.address} <br/></td>
+                                <td>{user.address} <br /></td>
                                 <td>{user.userType}</td>
                                 {/*<td>{user.accountState}</td>*/}
                                 <td className={"acc-stat"}>
@@ -259,6 +286,41 @@ const AdminPage = () => {
                 {/*        </React.Fragment>*/}
                 {/*    ))}*/}
                 {/*</ul>*/}
+
+                <div>
+                    <h2>Contact Form</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="toEmail">To Email:</label>
+                            <input
+                                type="email"
+                                id="toEmail"
+                                value={toEmail}
+                                onChange={(e) => setToEmail(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="subject">Subject:</label>
+                            <input
+                                type="text"
+                                id="subject"
+                                value={subject}
+                                onChange={(e) => setSubject(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="message">Message:</label>
+                            <textarea
+                                id="message"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            ></textarea>
+                        </div>
+                        <button type="submit">Send Email</button>
+                    </form>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {success && <p style={{ color: 'green' }}>{success}</p>}
+                </div>
 
                 <div className={"admin-buttons"}>
                     <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
