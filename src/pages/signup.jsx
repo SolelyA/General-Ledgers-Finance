@@ -5,9 +5,9 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
-import './signup.css'
+import '../components/signup.css'
 import Logo from '../logo';
-import photo from "./image.png";
+import photo from "../components/image.png";
 
 
 

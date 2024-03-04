@@ -2,20 +2,48 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { sendApprovalNotification } from '../emailUtils'; 
+import { sendApprovalNotification } from '../emailUtils';
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
-import photo from "./image.png";
-import './adminPage.css'
+import emailjs from 'emailjs-com';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
     const [users, setUsers] = useState([]);
     const [pendingUsers, setPendingUsers] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [toEmail, setToEmail] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    emailjs.init('Vi1TKgZ8-4VjyfZEd');
 
 
     const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!toEmail || !subject || !message) {
+            setError('All fields are required');
+            return;
+        }
+
+        emailjs.sendForm('service_4exj81f', 'template_7mkgqeq', e.target)
+            .then((result) => {
+                console.log(result.text);
+                setSuccess('Email sent successfully!');
+                setToEmail('');
+                setSubject('');
+                setMessage('');
+                setError('');
+            }, (error) => {
+                console.error(error.text);
+                setError('An error occurred while sending the email.');
+            });
+    };
 
     useEffect(() => {
         fetchUsers();
@@ -134,141 +162,85 @@ const AdminPage = () => {
 
     return (
         <div>
+            <h1>Admin Home Page</h1>
+            <h2>Users List</h2>
+            <Logo />
+            <ul>
+                {users.map((user, index) => (
+                    <React.Fragment key={index}>
+                        <li key={index}>
+                            <strong>Name:</strong> {user.firstName} {user.lastName} <strong>Email:</strong> {user.email} <br />
+                            <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob} <strong>Address:</strong> {user.address} <br />
+                            <strong>User Type:</strong> {user.userType} <strong>Account State:</strong> {user.accountState}
+                            {index !== user.length - 1 && <hr />}
+                        </li>
+                    </React.Fragment>
+                ))}
+            </ul>
 
-            <img className={"signup-logo"} src={photo}/>
-
-            <div className={"login-header"}>
-                <div className={"login-title"}>Admin Home Page</div>
-                <div className={"admin-underline"}></div>
+            <div>
+                <h2>Users List with Pending Admin Approval</h2>
+                <ul>
+                    {pendingUsers.map((user) => (
+                        <React.Fragment key={user.id}>
+                            <li key={user.id}>
+                                <input
+                                    type="checkbox"
+                                    id={user.id}
+                                    checked={selectedItems.includes(user.id)}
+                                    onChange={(event) => handleCheckboxChange(event, user.id)}
+                                />
+                                <label htmlFor={user.id}>
+                                    {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}
+                                </label>
+                            </li>
+                            {user.id !== user.length - 1 && <hr />}
+                        </React.Fragment>
+                    ))}
+                </ul>
+                <button onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+                {'      '}
+                <button onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Rejected</button>
+            </div>
+            <div>
+                <Link to="/manage-users">Manage Users</Link>
             </div>
 
-            <div className={"adminApproval"}>
-
-                <div className={"admin-subheader"}>
-                    <div className={"admin-subtitle"}>Users List</div>
-                    <div className={"admin-subUnderline"}></div>
-                </div>
-
-                <table className={"admin-table"}>
-                    <tr className={"headers"}>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>DOB</th>
-                        <th>Address</th>
-                        <th>User Type</th>
-                        <th>Account State</th>
-                    </tr>
-
-                    {users.map((user, key) => {
-                        return (
-                            <tr key={user}>
-                                <td className={"name"}>{user.firstName} {user.lastName}</td>
-                                <td>{user.email}</td>
-                                <td>{user.userName} </td>
-                                <td>{user.dob}</td>
-                                <td>{user.address} <br/></td>
-                                <td>{user.userType}</td>
-                                {/*<td>{user.accountState}</td>*/}
-                                <td className={"acc-stat"}>
-                                    <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </table>
-
-                {/*<tr>*/}
-                {/*    {users.map((user, index) => (*/}
-                {/*        <React.Fragment key={index}>*/}
-                {/*        <td key={index} className={"admin-list"}>*/}
-                {/*                <strong>Name:</strong> {user.firstName} {user.lastName}*/}
-                {/*                <strong>Email:</strong> {user.email}*/}
-                {/*                <br/>*/}
-                {/*                <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob}*/}
-                {/*                <strong>Address:</strong> {user.address} <br/>*/}
-                {/*                <strong>User Type:</strong> {user.userType} <strong>Account*/}
-                {/*                State:</strong> {user.accountState}*/}
-                {/*                {index !== user.length - 1 && <hr/>}*/}
-                {/*        </td>*/}
-                {/*        </React.Fragment>*/}
-                {/*    ))}*/}
-                {/*</tr>*/}
+            <div>
+                <h2>Contact Form</h2>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="toEmail">To Email:</label>
+                        <input
+                            type="email"
+                            id="toEmail"
+                            value={toEmail}
+                            onChange={(e) => setToEmail(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="subject">Subject:</label>
+                        <input
+                            type="text"
+                            id="subject"
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="message">Message:</label>
+                        <textarea
+                            id="message"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <button type="submit">Send Email</button>
+                </form>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {success && <p style={{ color: 'green' }}>{success}</p>}
             </div>
 
-            <div className={"adminPending"}>
-
-                <div className={"admin-subheader"}>
-                    <div className={"admin-subtitle"}>Users List with Pending Admin Approval</div>
-                    <div className={"admin-subUnderline2"}></div>
-                </div>
-
-                <table className={"admin-table"}>
-
-                    <tr className={"headers"}>
-                        <th>Select</th>
-                        <th>Name</th>
-                        <th>Username</th>
-                    </tr>
-
-                    {pendingUsers.map((user, key) => {
-                        return (
-                            <tr key={user.id}>
-                                <td>
-                                    <input
-                                        className={"pending-input"}
-                                        type="checkbox"
-                                        id={user.id}
-                                        checked={selectedItems.includes(user.id)}
-                                        onChange={(event) => handleCheckboxChange(event, user.id)}
-                                    />
-                                </td>
-
-                                <td >
-                                    <label className={"pending-userID"} htmlFor={user.id}>
-                                        {`${user.firstName} ${user.lastName}`}
-                                    </label>
-                                </td>
-
-                                <td>
-                                    <label className={"pending-userID"} htmlFor={user.id}>
-                                        {`${user.userName}`}
-                                    </label>
-                                </td>
-
-                            </tr>
-                        )
-                    })}
-                </table>
-
-                {/*<ul>*/}
-                {/*    {pendingUsers.map((user) => (*/}
-                {/*        <React.Fragment key={user.id}>*/}
-                {/*            <li key={user.id}>*/}
-                {/*                <input*/}
-                {/*                    type="checkbox"*/}
-                {/*                    id={user.id}*/}
-                {/*                    checked={selectedItems.includes(user.id)}*/}
-                {/*                    onChange={(event) => handleCheckboxChange(event, user.id)}*/}
-                {/*                />*/}
-                {/*                <label htmlFor={user.id}>*/}
-                {/*                    {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}*/}
-                {/*                </label>*/}
-                {/*            </li>*/}
-                {/*            {user.id !== user.length - 1 && <hr/>}*/}
-                {/*        </React.Fragment>*/}
-                {/*    ))}*/}
-                {/*</ul>*/}
-
-                <div className={"admin-buttons"}>
-                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
-                    {'      '}
-                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Reject</button>
-                </div>
-
-                <Link className={"admin-link"} to="/manage-users">Manage Users</Link>
-
-            </div>
 
         </div>
     );

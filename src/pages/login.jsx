@@ -7,10 +7,10 @@ import signup from './signup';
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
-import './login.css'
-import photo from './image.png'
-import emailIcon from './email.png'
-import passwordIcon from './password.png'
+import '../components/login.css'
+import photo from '../components/image.png'
+import emailIcon from '../components/email.png'
+import passwordIcon from '../components/password.png'
 
 
 const Login = () => {

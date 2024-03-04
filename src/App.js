@@ -4,7 +4,7 @@ import Login from './pages/login';
 import WaitingForAccess from './pages/waitingForAccess';
 import Adminpage from './pages/adminPage';
 import ForgotPassword from './pages/forgotPassword';
-import './App.css';
+import './components/App.css';
 import ManageUsers from './pages/manageUsers';
 import LandingPage from './pages/landingPage';
 
