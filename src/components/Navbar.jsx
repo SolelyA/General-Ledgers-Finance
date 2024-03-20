@@ -5,7 +5,7 @@ import { auth } from '../firebase';
 import { getUserData } from './firestoreUtils'
 import { useState, useEffect } from "react";
 import './App.css'
-import 'react-calendar/dist/Calendar.css';
+//import 'react-calendar/dist/Calendar.css';
 
 
 function Navbar() {
@@ -27,6 +27,7 @@ function Navbar() {
     }, []); // Empty dependency array to run effect only once
 
 
+
     return (
         <div>
             <div className='navbar'>
@@ -36,13 +37,15 @@ function Navbar() {
                         <div className='floatLeft libutton' onClick={() => navigate("/view-accounts")}> View Accounts</div>
                     ):(
                         <div className='floatLeft libutton' onClick={() => navigate("/login")}> View Accounts</div>
+
                     )}
                 </div>
                 <div>
                     {userData ?(
                         <div className='floatLeft libutton' onClick={() => navigate("/admin-page")}> Admin Page</div>
                     ):(
-                        <div className='floatLeft libutton' onClick={() => navigate("/login")}> Admin Page</div>
+                        <div className='floatLeft libutton' onClick={() =>  navigate("/login")}> Admin Page</div>
+                        
                     )}
                 </div>
                 <div>

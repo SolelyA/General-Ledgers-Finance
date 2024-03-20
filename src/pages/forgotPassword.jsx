@@ -9,6 +9,7 @@ import Logo from '../logo';
 import photo from "../components/image.png";
 import '../components/forgotPassword.css'
 import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 
 const ForgotPassword = () => {
@@ -55,6 +56,10 @@ const ForgotPassword = () => {
     return (
         <div>
             <Navbar />
+            <HelpButton
+                title="Edit Accounts Page"
+                text="Welcome to the Forgot Password page. Enter your email for a forgot password link."
+            />
             <body>
 
                 <img className={"login-logo"} src={photo} />

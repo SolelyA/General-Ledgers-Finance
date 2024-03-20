@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 
 const ViewAccounts = () => {
@@ -82,6 +83,10 @@ const ViewAccounts = () => {
     return (
         <div>
             <Navbar />
+            <HelpButton
+                title="View Accounts Page"
+                text="Welcome to the View Accounts page. Here you able to view all active accounts."
+            />
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
                 <div className={"admin-underline"}></div>

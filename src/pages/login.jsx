@@ -11,6 +11,7 @@ import photo from '../components/image.png'
 import emailIcon from '../components/email.png'
 import passwordIcon from '../components/password.png'
 import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 const Login = () => {
     const userCol = collection(db, "users");
@@ -121,6 +122,15 @@ const Login = () => {
     return (
         <div>
             <Navbar />
+            <HelpButton
+                title="Login Page Help"
+                text="Username and Password: Enter your registered username and password in the designated fields. 
+                Make sure to enter them correctly to avoid login errors. After three incorrect attempts you'll be locked
+                out of the system.
+                Forgot Password: If you've forgotten your password, don't worry! 
+                Click on the 'Forgot Password' link below the login form. 
+                You'll be guided through the steps to reset your password securely."
+            />
             <body className={"login-body"}>
 
                 <img className={"login-logo"} src={photo} />

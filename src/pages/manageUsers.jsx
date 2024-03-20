@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, updatePassword, sendPasswordResetEmail 
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
 import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 const ManageUsers = () => {
     const userCol = collection(db, "users");
@@ -200,6 +201,10 @@ const ManageUsers = () => {
     return (
         <div>
             <Navbar />
+            <HelpButton
+                title="Edit Accounts Page"
+                text="Welcome to the Manage Uers page. Here you able to add, modify, and deactivate users."
+            />
             <h2>Users List</h2>
             <Logo />
             <ul>

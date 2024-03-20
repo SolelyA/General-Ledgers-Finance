@@ -9,6 +9,7 @@ import '../components/signup.css'
 import Logo from '../logo';
 import photo from "../components/image.png";
 import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 
 const Signup = () => {
@@ -138,6 +139,10 @@ const Signup = () => {
   return (
     <div>
       <Navbar />
+      <HelpButton
+                title="Edit Accounts Page"
+                text="Welcome to the Sign Up page. Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
+            />
       <body>
 
         <img className={"signup-logo"} src={photo} />
