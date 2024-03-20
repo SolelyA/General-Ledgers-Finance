@@ -50,7 +50,7 @@ const ManageUsers = () => {
                 console.log('No users found');
             }
         } catch (error) {
-            console.error("Error fetching account state", error)
+            console.error("Error fetching users", error)
         }
     }
 

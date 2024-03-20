@@ -7,6 +7,8 @@ import ForgotPassword from './pages/forgotPassword';
 import './components/App.css';
 import ManageUsers from './pages/manageUsers';
 import LandingPage from './pages/landingPage';
+import ViewAccounts from './pages/ViewAccounts';
+import EditAccounts from './pages/EditAccounts';
 
 function App() {
   return (
@@ -16,11 +18,13 @@ function App() {
           <Route exact path="/" element={<Navigate to="/login" />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/waiting-for-access" element={<WaitingForAccess />}/>
+          <Route exact path="/waiting-for-access" element={<WaitingForAccess />} />
           <Route exact path="/admin-page" element={<Adminpage />}/>
-          <Route exact path="/forgot-password" element={<ForgotPassword />}/>
+          <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/manage-users" element={<ManageUsers />} />
           <Route exact path="/landing-page" element={<LandingPage />} />
+          <Route exact path="/view-accounts" element={<ViewAccounts />} />
+          <Route exact path="/edit-accounts" element={<EditAccounts />} />
         </Routes>
       </div>
     </Router>
