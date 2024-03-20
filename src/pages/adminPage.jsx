@@ -8,6 +8,9 @@ import Logo from '../logo';
 import photo from "../components/image.png";
 import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
+import Navbar from '../components/Navbar';
+import { getUserRole } from '../components/firestoreUtils';
+import HelpButton from '../components/HelpButton';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
@@ -161,6 +164,14 @@ const AdminPage = () => {
 
     return (
         <div>
+            <Navbar />
+            <HelpButton
+                title="Admin Page Help"
+                text="Welcome to the admin page. Here you are able to see the User's List displaying their name, email, username,
+                DOB, address, user type, and their acconut state, and all Users awaiting approval.
+                An email contact form to reach out to the users on the site. Along with buttons to view and modify the account of charts.
+                Lastly, at the bottom of the page there is a link to manage all the users signed up on the web app. "
+            />
 
             <img className={"signup-logo"} src={photo} />
 
@@ -168,6 +179,16 @@ const AdminPage = () => {
                 <div className={"login-title"}>Admin Home Page</div>
                 <div className={"admin-underline"}></div>
             </div>
+
+            <div>
+                <div className={"admin-subtitle"}>Accounts</div>
+                <button class="button" onClick={() => navigate("/view-accounts")}>View</button>
+                <button class="button">Edit</button>
+
+            </div>
+
+
+
 
             <div className={"adminApproval"}>
 
@@ -204,23 +225,6 @@ const AdminPage = () => {
                         )
                     })}
                 </table>
-
-                {/*<tr>*/}
-                {/*    {users.map((user, index) => (*/}
-                {/*        <React.Fragment key={index}>*/}
-                {/*        <td key={index} className={"admin-list"}>*/}
-                {/*                <strong>Name:</strong> {user.firstName} {user.lastName}*/}
-                {/*                <strong>Email:</strong> {user.email}*/}
-                {/*                <br/>*/}
-                {/*                <strong>Username:</strong> {user.userName} <strong>DOB:</strong> {user.dob}*/}
-                {/*                <strong>Address:</strong> {user.address} <br/>*/}
-                {/*                <strong>User Type:</strong> {user.userType} <strong>Account*/}
-                {/*                State:</strong> {user.accountState}*/}
-                {/*                {index !== user.length - 1 && <hr/>}*/}
-                {/*        </td>*/}
-                {/*        </React.Fragment>*/}
-                {/*    ))}*/}
-                {/*</tr>*/}
             </div>
 
             <div className={"adminPending"}>
@@ -268,24 +272,11 @@ const AdminPage = () => {
                     })}
                 </table>
 
-                {/*<ul>*/}
-                {/*    {pendingUsers.map((user) => (*/}
-                {/*        <React.Fragment key={user.id}>*/}
-                {/*            <li key={user.id}>*/}
-                {/*                <input*/}
-                {/*                    type="checkbox"*/}
-                {/*                    id={user.id}*/}
-                {/*                    checked={selectedItems.includes(user.id)}*/}
-                {/*                    onChange={(event) => handleCheckboxChange(event, user.id)}*/}
-                {/*                />*/}
-                {/*                <label htmlFor={user.id}>*/}
-                {/*                    {`${user.firstName} ${user.lastName} (Username: ${user.userName})`}*/}
-                {/*                </label>*/}
-                {/*            </li>*/}
-                {/*            {user.id !== user.length - 1 && <hr/>}*/}
-                {/*        </React.Fragment>*/}
-                {/*    ))}*/}
-                {/*</ul>*/}
+                <div className={"admin-buttons"}>
+                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+                    {'      '}
+                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Reject</button>
+                </div>
 
                 <div>
                     <h2>Contact Form</h2>
@@ -322,11 +313,7 @@ const AdminPage = () => {
                     {success && <p style={{ color: 'green' }}>{success}</p>}
                 </div>
 
-                <div className={"admin-buttons"}>
-                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
-                    {'      '}
-                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Reject</button>
-                </div>
+
 
                 <Link className={"admin-link"} to="/manage-users">Manage Users</Link>
 

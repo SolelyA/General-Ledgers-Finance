@@ -8,7 +8,8 @@ import { sendSignupNotification } from '../emailUtils';
 import '../components/signup.css'
 import Logo from '../logo';
 import photo from "../components/image.png";
-
+import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 
 const Signup = () => {
@@ -136,9 +137,15 @@ const Signup = () => {
   };
 
   return (
+    <div>
+      <Navbar />
+      <HelpButton
+                title="Edit Accounts Page"
+                text="Welcome to the Sign Up page. Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
+            />
       <body>
 
-        <img className={"signup-logo"} src={photo}/>
+        <img className={"signup-logo"} src={photo} />
 
         <div className={"signup-box"}>
 
@@ -148,9 +155,9 @@ const Signup = () => {
           </div>
 
           <div className={"signup-select"}>
-            <select  value={selectedUserType}
-                    onChange={(e) => setSelectedUserType(e.target.value)}
-                    required>
+            <select value={selectedUserType}
+              onChange={(e) => setSelectedUserType(e.target.value)}
+              required>
               <option value="">Select User Type</option>
               <option value="Admin">Administrator</option>
               <option value="Manager">Manager</option>
@@ -162,60 +169,60 @@ const Signup = () => {
 
             <div className={"signup-email"}>
               <input required
-                     type="email"
-                     placeholder="Email"
-                     value={email}
-                     onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div className={"signup-password"}>
               <input required
-                     type="password"
-                     placeholder="Password"
-                     value={password}
-                     onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className={"signup-firstname"}>
               <input
-                  required
-                  type="text"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                required
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
 
             <div className={"signup-lastname"}>
               <input
-                  required
-                  type="text"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                required
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
 
             <div className={"signup-dob"}>
               <div>Enter Your Date of Birth:</div>
               <input
-                  required
-                  type="date"
-                  placeholder="Date Of Birth"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
+                required
+                type="date"
+                placeholder="Date Of Birth"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
               />
             </div>
 
             <div className={"signup-address"}>
               <input
-                  required
-                  type="text"
-                  placeholder="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                required
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
 
@@ -223,7 +230,7 @@ const Signup = () => {
 
           </form>
 
-          {error && <p style={{color: 'red'}}>{error}</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
 
           {/* Link to another page */}
           <Link to="/login" className={"login-link"}>Already have an account? Log In. </Link>
@@ -231,6 +238,7 @@ const Signup = () => {
         </div>
 
       </body>
+    </div>
   );
 
 };

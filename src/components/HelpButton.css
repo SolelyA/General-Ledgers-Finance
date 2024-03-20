@@ -1,0 +1,20 @@
+.custom-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  
+  .custom-button img {
+    width: 24px; /* Adjust the size of the image as needed */
+    height: 24px;
+    margin-right: 8px; /* Adjust spacing between image and text */
+  }

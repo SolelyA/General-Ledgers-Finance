@@ -8,6 +8,8 @@ import { sendSignupNotification } from '../emailUtils';
 import Logo from '../logo';
 import photo from "../components/image.png";
 import '../components/forgotPassword.css'
+import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton';
 
 
 const ForgotPassword = () => {
@@ -37,49 +39,56 @@ const ForgotPassword = () => {
         }
     }
 
-    const handleForgotPass = async(e) => {
+    const handleForgotPass = async (e) => {
         e.preventDefault()
         setError('')
-        try{
+        try {
             sendPasswordResetEmail(auth, email);
             console.log('Email sent');
             navigate('/login');
 
-        }catch(error){
+        } catch (error) {
             console.log('Unable to send reset email')
             setError('There was an error trying to send the reset email. Contact system admin.')
         }
     }
 
     return (
-        <body>
+        <div>
+            <Navbar />
+            <HelpButton
+                title="Edit Accounts Page"
+                text="Welcome to the Forgot Password page. Enter your email for a forgot password link."
+            />
+            <body>
 
-            <img className={"login-logo"} src={photo}/>
+                <img className={"login-logo"} src={photo} />
 
-            <div className={"password-box"}>
+                <div className={"password-box"}>
 
-                <div className={"login-header"}>
-                    <div className={"login-title"}>Forgot Password</div>
-                    <div className={"password-underline"}></div>
-                </div>
-
-                <p> Enter your email. A link will be sent to your email to reset.</p>
-
-                <form onSubmit={handleForgotPass}>
-                    <div className={"signup-email"}>
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                    <div className={"login-header"}>
+                        <div className={"login-title"}>Forgot Password</div>
+                        <div className={"password-underline"}></div>
                     </div>
 
-                    <button className={"login-submit"} type="submit">Reset</button>
+                    <p> Enter your email. A link will be sent to your email to reset.</p>
 
-                </form>
-            </div>
-        </body>
+                    <form onSubmit={handleForgotPass}>
+                        <div className={"signup-email"}>
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+
+                        <button className={"login-submit"} type="submit">Reset</button>
+
+                    </form>
+                </div>
+            </body>
+        </div>
     )
 };
 export default ForgotPassword;
