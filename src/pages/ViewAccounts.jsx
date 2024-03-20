@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
+import Navbar from '../components/Navbar';
 
 
 const ViewAccounts = () => {
@@ -65,9 +66,6 @@ const ViewAccounts = () => {
                     console.log('debit');
                 }
     
-                console.log(parsedInitBalance + parsedDebit + parsedCredit);
-                console.log(newBal);
-    
                 await updateDoc(acctDoc.ref, { balance: newBal.toFixed(2) });
                 newBal = 0;
             } else {
@@ -83,6 +81,7 @@ const ViewAccounts = () => {
 
     return (
         <div>
+            <Navbar />
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
                 <div className={"admin-underline"}></div>

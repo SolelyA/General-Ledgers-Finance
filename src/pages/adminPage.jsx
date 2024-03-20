@@ -8,6 +8,8 @@ import Logo from '../logo';
 import photo from "../components/image.png";
 import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
+import Navbar from '../components/Navbar';
+import { getUserRole } from '../components/firestoreUtils';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
@@ -161,6 +163,7 @@ const AdminPage = () => {
 
     return (
         <div>
+            <Navbar />
 
             <img className={"signup-logo"} src={photo} />
 

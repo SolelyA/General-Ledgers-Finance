@@ -8,6 +8,7 @@ import photo from "../components/image.png";
 import AddAccountsForm from '../components/AddAccountsForm';
 import ModifyAccountsForm from '../components/ModifyAccountsForm';
 import DeactivateAccountsForm from '../components/DeactivateAccountsForm';
+import Navbar from '../components/Navbar';
 
 function EditAccounts() {
     const [activeForm, setActiveForm] = useState('form1');
@@ -18,13 +19,16 @@ function EditAccounts() {
 
     return (
         <div>
-            <button onClick={() => handleFormChange('add')}>Add Accounts</button>
-            <button onClick={() => handleFormChange('modify')}>Modify Accounts</button>
-            <button onClick={() => handleFormChange('deactivate')}>Deactivate Accounts</button>
+            <Navbar />
+            <div>
+                <button onClick={() => handleFormChange('add')}>Add Accounts</button>
+                <button onClick={() => handleFormChange('modify')}>Modify Accounts</button>
+                <button onClick={() => handleFormChange('deactivate')}>Deactivate Accounts</button>
 
-            {activeForm === 'add' && <AddAccountsForm />}
-            {activeForm === 'modify' && <ModifyAccountsForm />}
-            {activeForm === 'deactivate' && <DeactivateAccountsForm />}
+                {activeForm === 'add' && <AddAccountsForm />}
+                {activeForm === 'modify' && <ModifyAccountsForm />}
+                {activeForm === 'deactivate' && <DeactivateAccountsForm />}
+            </div>
         </div>
     );
 }
