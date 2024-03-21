@@ -23,7 +23,8 @@ function EditAccounts() {
             <Navbar />
             <HelpButton
                 title="Edit Accounts Page"
-                text="Welcome to the Edit Accounts page. Here you able to add, modify, and deactivate accounts."
+                welcome="Welcome to the Edit Accounts page!"
+                text="Here you able to add, modify, and deactivate accounts."
             />
             <div>
                 <button onClick={() => handleFormChange('add')} title='Add additonal accounts to database'>Add Accounts</button>
