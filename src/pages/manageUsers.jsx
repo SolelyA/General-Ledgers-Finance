@@ -87,7 +87,6 @@ const ManageUsers = () => {
 
             await fetchAllUsers();
             window.location.reload();
-
             setSelectedItems([]);
         } catch (error) {
             console.error('Error updating account states:', error);
@@ -134,8 +133,6 @@ const ManageUsers = () => {
             console.log(error.message)
             if (error.code === 'auth/email-already-in-use') {
                 setError('Email is already in use')
-                // handle error, if you have multiple possible ones you could probably 
-                // try using switch statement 
             } else {
                 console.error('Signup Error:', error)
                 setError('An error occured during signup. Please try again later')
@@ -225,9 +222,9 @@ const ManageUsers = () => {
                     </React.Fragment>
                 ))}
             </ul>
-            <button onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+            <button onClick={setSelectedUsersToActiveHandler} title='Set selected users to active account state'>Set Selected Users to Active</button>
             {'      '}
-            <button onClick={setSelectedUsersToDeactivedHandler}>Set Selected Users to Deactivated</button>
+            <button onClick={setSelectedUsersToDeactivedHandler} title='Set selected users to deactivated account state'>Set Selected Users to Deactivated</button>
 
             <div>
                 <h1>Create a new user</h1>
@@ -281,7 +278,7 @@ const ManageUsers = () => {
                         onChange={(e) => setUserType(e.target.value)}
                     />
 
-                    <button type="submit">Create New User</button>
+                    <button type="submit" title='Create a new user'>Create New User</button>
                 </form>
             </div>
 

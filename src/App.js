@@ -8,7 +8,7 @@ import ForgotPassword from './pages/forgotPassword';
 import './components/App.css';
 import ManageUsers from './pages/manageUsers';
 import LandingPage from './pages/landingPage';
-import ViewAccounts from './pages/ViewAccounts';
+import ChartOfAccounts from './pages/ChartOfAccounts';
 import EditAccounts from './pages/EditAccounts';
 import { getUserRole, getUserData } from './components/firestoreUtils'; // Assuming you have these functions implemented
 import ProtectedRoute from './components/ProtectedRoute';
@@ -38,13 +38,13 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/waiting-for-access" element={<WaitingForAccess />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route exact path="/landing-page" element={<LandingPage />} />
-          <Route exact path ="/view-accounts" element={<ViewAccounts />} /> 
+          <Route exact path ="/chart-of-accounts" element={<ChartOfAccounts />} /> 
           <Route
             path="/admin-page"
             element={renderProtectedRoute(Adminpage, "/admin-page")}

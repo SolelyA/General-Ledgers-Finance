@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 
 
-const ViewAccounts = () => {
+const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
     const [allAccts, setAllAccts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,7 +54,6 @@ const ViewAccounts = () => {
     
                 let newBal = 0;
     
-                // Convert relevant fields to numbers
                 const parsedInitBalance = parseFloat(initBalance);
                 const parsedDebit = parseFloat(debit);
                 const parsedCredit = parseFloat(credit);
@@ -95,8 +94,8 @@ const ViewAccounts = () => {
             <div className="accounts-list">
                 <h2>Accounts List</h2>
                 <div>
-                    <button onClick={goToPreviousAccount}>Previous</button>
-                    <button onClick={goToNextAccount}>Next</button>
+                    <button onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
+                    <button onClick={goToNextAccount} title='Go to next entry'>Next</button>
                 </div>
                 <ul>
                     <li>
@@ -124,8 +123,8 @@ const ViewAccounts = () => {
                     </li>
                 </ul>
                 <div>
-                    <button onClick={goToPreviousAccount}>Previous</button>
-                    <button onClick={goToNextAccount}>Next</button>
+                <button onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
+                    <button onClick={goToNextAccount} title='Go to next entry'>Next</button>
                 </div>                                                            
             </div>
         </div>
@@ -134,4 +133,4 @@ const ViewAccounts = () => {
 }
 
 
-export default ViewAccounts;
+export default ChartOfAccounts;

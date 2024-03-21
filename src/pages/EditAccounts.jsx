@@ -26,9 +26,9 @@ function EditAccounts() {
                 text="Welcome to the Edit Accounts page. Here you able to add, modify, and deactivate accounts."
             />
             <div>
-                <button onClick={() => handleFormChange('add')}>Add Accounts</button>
-                <button onClick={() => handleFormChange('modify')}>Modify Accounts</button>
-                <button onClick={() => handleFormChange('deactivate')}>Deactivate Accounts</button>
+                <button onClick={() => handleFormChange('add')} title='Add additonal accounts to database'>Add Accounts</button>
+                <button onClick={() => handleFormChange('modify')} title='Modify accounts within the database'>Modify Accounts</button>
+                <button onClick={() => handleFormChange('deactivate')} title='Deactivate accounts'>Deactivate Accounts</button>
 
                 {activeForm === 'add' && <AddAccountsForm />}
                 {activeForm === 'modify' && <ModifyAccountsForm />}

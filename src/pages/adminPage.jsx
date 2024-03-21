@@ -181,9 +181,9 @@ const AdminPage = () => {
             </div>
 
             <div>
-                <div className={"admin-subtitle"}>Accounts</div>
-                <button class="button" onClick={() => navigate("/view-accounts")}>View</button>
-                <button class="button">Edit</button>
+                <div className={"admin-subtitle"}>Chart of Accounts</div>
+                <button class="button" onClick={() => navigate("/chart-of-accounts")} title='View All Accounts in Chart'>View</button>
+                <button class="button" onClick={() => navigate("/modify-accounts")} title='Modify Existing Accounts'>Edit</button>
 
             </div>
 
@@ -273,9 +273,9 @@ const AdminPage = () => {
                 </table>
 
                 <div className={"admin-buttons"}>
-                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler}>Set Selected Users to Active</button>
+                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler} title='Set all selected Users to Active Account State'>Set Selected Users to Active</button>
                     {'      '}
-                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler}>Set Selected Users to Reject</button>
+                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler} title='Set all selected Users to Rejected Account State'>Set Selected Users to Reject</button>
                 </div>
 
                 <div>
@@ -307,15 +307,14 @@ const AdminPage = () => {
                                 onChange={(e) => setMessage(e.target.value)}
                             ></textarea>
                         </div>
-                        <button type="submit">Send Email</button>
+                        <button type="submit" title='Send the email'>Send Email</button>
                     </form>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     {success && <p style={{ color: 'green' }}>{success}</p>}
                 </div>
 
 
-
-                <Link className={"admin-link"} to="/manage-users">Manage Users</Link>
+                <button class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>
 
             </div>
 

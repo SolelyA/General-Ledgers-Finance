@@ -83,7 +83,7 @@ const ForgotPassword = () => {
                             />
                         </div>
 
-                        <button className={"login-submit"} type="submit">Reset</button>
+                        <button className={"login-submit"} type="submit" title='Reset password'>Reset</button>
 
                     </form>
                 </div>

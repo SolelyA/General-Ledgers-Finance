@@ -171,8 +171,8 @@ const Login = () => {
                     {error && <p style={{ color: 'red' }}>{error}</p>}
 
                     <div className={"login-links"}>
-                        <Link to="/signup" className={"no-account"}>Don't have an account? Sign Up.</Link>
-                        <Link to="/forgot-password" className={"forgot-password"}>Forgot password</Link>
+                        <Link to="/signup" className={"no-account"} title='Register for an account'>Don't have an account? Sign Up.</Link>
+                        <Link to="/forgot-password" className={"forgot-password"} title='Reset password'>Forgot password</Link>
                     </div>
                 </div>
             </body>
