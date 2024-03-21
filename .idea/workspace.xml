@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/AddAccountsForm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/EditAccounts.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAccountsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/signup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +145,9 @@
       <workItem from="1709166801967" duration="7864000" />
       <workItem from="1710989302359" duration="1242000" />
       <workItem from="1710990695019" duration="10244000" />
-      <workItem from="1711023301057" duration="4901000" />
+      <workItem from="1711023301057" duration="7151000" />
+      <workItem from="1711033655400" duration="5727000" />
+      <workItem from="1711040284049" duration="3960000" />
     </task>
     <servers />
   </component>

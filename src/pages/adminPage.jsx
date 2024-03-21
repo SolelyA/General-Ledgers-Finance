@@ -189,8 +189,6 @@ const AdminPage = () => {
             </div>
 
 
-
-
             <div className={"adminApproval"}>
 
                 <button class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>

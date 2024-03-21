@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
 import '../components/adminPage.css';
+import './DeactivateAccountsForm.css'
 
 function DeactivateAccountsForm() {
     const [selectedItems, setSelectedItems] = useState([]);
@@ -77,28 +78,102 @@ function DeactivateAccountsForm() {
 
     return (
         <div>
-            <div className={"login-title"}>
-                <h2>Deactivate Accounts</h2>
+
+            <div className={"login-header"}>
+                <div className={"login-title"}>Deactivate Accounts</div>
+                <div className={"deactivate-underline"}></div>
             </div>
-            <ul>
-                {allAccts.map((account) => (
-                    <React.Fragment key={account.id}>
-                        <li key={account.id}>
-                            <input
-                                type="checkbox"
-                                id={account.id}
-                                checked={selectedItems.includes(account.id)}
-                                onChange={(event) => handleCheckboxChange(event, account.id)}
-                            />
-                            <label htmlFor={account.id}>
-                                {`${account.acctNumber} ${account.acctName} (Balance: $${account.balance}) (Account Category: ${account.acctCategory}) (Account Status: ${account.acctStatus})`}
-                            </label>
-                        </li>
-                        <hr />
-                    </React.Fragment>
-                ))}
-            </ul>
-            <button onClick={setSelectedAccountsToDeactivatedHandler}>Set Selected Accounts to Deactivated</button>
+
+            <div className={"adminApproval"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Choose Accounts</div>
+                    <div className={"deactivate-subUnderline"}></div>
+                </div>
+
+                <table className={"admin-table"}>
+
+                    <tr className={"headers"}>
+                        <th>Select</th>
+                        <th>Account Name</th>
+                        <th>Account Number</th>
+                        <th>Account Balance</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {allAccts.map((account, key) => {
+                        return (
+                            <tr key={account.id}>
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        id={account.id}
+                                        checked={selectedItems.includes(account.id)}
+                                        onChange={(event) => handleCheckboxChange(event, account.id)}
+                                    />
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctName}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctNumber}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`$${account.balance}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctCategory}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctStatus}`}
+                                    </label>
+                                </td>
+
+                            </tr>
+
+                        )
+                    })}
+
+                </table>
+
+                <button className={"deactivate"} onClick={setSelectedAccountsToDeactivatedHandler}>Set Selected Accounts to Deactivated</button>
+
+            </div>
+
+            {/*<ul>*/}
+            {/*    {allAccts.map((account) => (*/}
+            {/*        <React.Fragment key={account.id}>*/}
+            {/*            <li key={account.id}>*/}
+            {/*                <input*/}
+            {/*                    type="checkbox"*/}
+            {/*                    id={account.id}*/}
+            {/*                    checked={selectedItems.includes(account.id)}*/}
+            {/*                    onChange={(event) => handleCheckboxChange(event, account.id)}*/}
+            {/*                />*/}
+            {/*                <label htmlFor={account.id}>*/}
+            {/*                    {`${account.acctNumber} ${account.acctName} (Balance: $${account.balance}) (Account Category: ${account.acctCategory}) (Account Status: ${account.acctStatus})`}*/}
+            {/*                </label>*/}
+            {/*            </li>*/}
+            {/*            <hr/>*/}
+            {/*        </React.Fragment>*/}
+            {/*    ))}*/}
+            {/*</ul>*/}
+
         </div>
     );
 }

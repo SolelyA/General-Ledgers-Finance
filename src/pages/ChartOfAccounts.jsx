@@ -10,6 +10,9 @@ const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
     const [allAccts, setAllAccts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [searchAcctName, SetSearchAcctName] = useState("")
+    const [searchAcctNum, SetSearchAcctNum] = useState("")
+
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -25,6 +28,38 @@ const ChartOfAccounts = () => {
         fetchAllAccts();
     }, []);
 
+    const SearchAccountNumber = async (e) => { //Method for searching account by name
+        e.preventDefault();
+        const q = query(acctsCol);
+        const querySnapshot = await getDocs(q);
+        const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllAccts(allAcctsData.filter((allAcctsData) =>
+            allAcctsData.acctNumber.toLowerCase().includes(searchAcctNum.toLowerCase())
+        ))
+
+        try {
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    const SearchAccountName = async (e) => { //Method for searching account by name
+        e.preventDefault();
+        const q = query(acctsCol);
+        const querySnapshot = await getDocs(q);
+        const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllAccts(allAcctsData.filter((allAcctsData) =>
+            allAcctsData.acctName.toLowerCase().includes(searchAcctName.toLowerCase())
+        ))
+
+        try {
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
     const fetchAllAccts = async () => {
         try {
             const q = query(acctsCol);
@@ -32,7 +67,7 @@ const ChartOfAccounts = () => {
             if (!querySnapshot.empty) {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setAllAccts(allAcctsData);
-  
+
                 allAcctsData.forEach(account => {
                     calculateBalance(account.acctNumber);
                 });
@@ -48,17 +83,17 @@ const ChartOfAccounts = () => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
             const querySnapshot = await getDocs(q);
-    
+
             if (!querySnapshot.empty) {
                 const acctDoc = querySnapshot.docs[0];
                 const { balance, debit, credit, initBalance, normalSide } = acctDoc.data();
-    
+
                 let newBal = 0;
-    
+
                 const parsedInitBalance = parseFloat(initBalance);
                 const parsedDebit = parseFloat(debit);
                 const parsedCredit = parseFloat(credit);
-    
+
                 if (normalSide === 'credit' || normalSide === 'Credit') {
                     newBal = parsedInitBalance + parsedCredit - parsedDebit;
                     console.log('credit');
@@ -66,7 +101,7 @@ const ChartOfAccounts = () => {
                     newBal = parsedInitBalance + parsedDebit - parsedCredit;
                     console.log('debit');
                 }
-    
+
                 await updateDoc(acctDoc.ref, { balance: newBal.toFixed(2) });
                 newBal = 0;
             } else {
@@ -76,13 +111,13 @@ const ChartOfAccounts = () => {
             console.error("Error updating account balance", error);
         }
     };
-    
-    
+
+
 
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <HelpButton
                 title="View Accounts Page"
                 welcome="Welcome to the View Accounts page!"
@@ -95,6 +130,47 @@ const ChartOfAccounts = () => {
             </div>
 
             <div className={"adminApproval"}>
+                <div className={"admin-subheader"}>
+                        <div className={"admin-subtitle"}>Search By Name or Number</div>
+                        <div className={"coaSearch-subUnderline"}></div>
+                </div>
+
+                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
+                    <form onSubmit={(e) => { SearchAccountName(e) }}>
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                placeholder="Account Name"
+                                onChange={(e) => {
+                                    SetSearchAcctName(e.target.value)
+                                }}
+                                value={searchAcctName}
+                            />
+                        </div>
+
+                        <button type="submit">Search</button>
+                    </form>
+
+                    <form onSubmit={(e) => {
+                        SearchAccountNumber(e)
+                    }}>
+                        
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                className="w-full placeholder-gray-400 text-gray-900 p-4"
+                                placeholder="Account Number"
+                                onChange={(e) => {
+                                    SetSearchAcctNum(e.target.value)
+                                }}
+                                value={searchAcctNum}
+                            />
+                        </div>
+
+                        <button type="submit">Search</button>
+                    </form>
+
+                </div>
 
                 <div className="accounts-list">
 
@@ -194,33 +270,6 @@ const ChartOfAccounts = () => {
 
                         </label>
                     )}
-
-                    {/*<ul>*/}
-                    {/*    <li>*/}
-                    {/*        {currentAccount && (*/}
-                    {/*            <label htmlFor={currentAccount.id}>*/}
-                    {/*                {*/}
-                    {/*                    `Account Number: ${currentAccount.acctNumber} | */}
-                    {/*                    Account Name: ${currentAccount.acctName} |*/}
-                    {/*                    Account Category: ${currentAccount.acctCategory} | */}
-                    {/*                    Account Sub Category: ${currentAccount.acctSubCategory} |*/}
-                    {/*                    Account Description: ${currentAccount.acctDesc} |*/}
-                    {/*                    Account Type: ${currentAccount.normalSide} |*/}
-                    {/*                    Account Initial Balance: $${currentAccount.initBalance} | */}
-                    {/*                    Account Debits: $${currentAccount.debit} |*/}
-                    {/*                    Account Credits: $${currentAccount.credit} |*/}
-                    {/*                    Account Balance: $${currentAccount.balance} |*/}
-                    {/*                    Account Creation: ${currentAccount.dateTimeAdded} |*/}
-                    {/*                    User's ID: ${currentAccount.userID} |*/}
-                    {/*                    Account Order: ${currentAccount.order} |*/}
-                    {/*                    Account Statement: ${currentAccount.statement} |*/}
-                    {/*                    Account Comment: ${currentAccount.comment}`*/}
-                    {/*                }*/}
-                    {/*            </label>*/}
-                    {/*        )}*/}
-                    {/*    </li>*/}
-                    {/*</ul>*/}
-
                     <div className={"coa-btns"}>
                         <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous
                         </button>

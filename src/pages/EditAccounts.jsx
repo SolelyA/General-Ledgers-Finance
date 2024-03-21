@@ -10,6 +10,7 @@ import ModifyAccountsForm from '../components/ModifyAccountsForm';
 import DeactivateAccountsForm from '../components/DeactivateAccountsForm';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
+import './EditAccounts.css'
 
 function EditAccounts() {
     const [activeForm, setActiveForm] = useState('form1');
@@ -26,14 +27,23 @@ function EditAccounts() {
                 welcome="Welcome to the Edit Accounts page!"
                 text="Here you able to add, modify, and deactivate accounts."
             />
-            <div>
-                <button onClick={() => handleFormChange('add')} title='Add additonal accounts to database'>Add Accounts</button>
-                <button onClick={() => handleFormChange('modify')} title='Modify accounts within the database'>Modify Accounts</button>
-                <button onClick={() => handleFormChange('deactivate')} title='Deactivate accounts'>Deactivate Accounts</button>
+            <div >
+                <div className={"edit-btns"}>
+                    <button onClick={() => handleFormChange('add')}
+                            title='Add additonal accounts to database'>Add Accounts
+                    </button>
+                    <button onClick={() => handleFormChange('modify')}
+                            title='Modify accounts within the database'>Modify Accounts
+                    </button>
+                    <button className={"edit-deactivate"} onClick={() => handleFormChange('deactivate')} title='Deactivate accounts'>Deactivate
+                        Accounts
+                    </button>
+                </div>
 
-                {activeForm === 'add' && <AddAccountsForm />}
-                {activeForm === 'modify' && <ModifyAccountsForm />}
-                {activeForm === 'deactivate' && <DeactivateAccountsForm />}
+
+                {activeForm === 'add' && <AddAccountsForm/>}
+                {activeForm === 'modify' && <ModifyAccountsForm/>}
+                {activeForm === 'deactivate' && <DeactivateAccountsForm/>}
             </div>
         </div>
     );
