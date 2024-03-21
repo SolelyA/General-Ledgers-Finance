@@ -192,6 +192,8 @@ const AdminPage = () => {
 
             <div className={"adminApproval"}>
 
+                <button class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>
+
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Users List</div>
                     <div className={"admin-subUnderline"}></div>
@@ -216,7 +218,7 @@ const AdminPage = () => {
                                 <td>{user.userName} </td>
                                 <td>{user.dob}</td>
                                 <td>{user.address} <br /></td>
-                                <td>{user.userType}</td>
+                                <td>{user.selectedUserType}</td>
                                 {/*<td>{user.accountState}</td>*/}
                                 <td className={"acc-stat"}>
                                     <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
@@ -314,7 +316,7 @@ const AdminPage = () => {
                 </div>
 
 
-                <button class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>
+
 
             </div>
 
