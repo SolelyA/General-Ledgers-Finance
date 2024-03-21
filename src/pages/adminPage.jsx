@@ -184,7 +184,7 @@ const AdminPage = () => {
             <div>
                 <div className={"admin-subtitle"}>Chart of Accounts</div>
                 <button class="button" onClick={() => navigate("/chart-of-accounts")} title='View All Accounts in Chart'>View</button>
-                <button class="button" onClick={() => navigate("/modify-accounts")} title='Modify Existing Accounts'>Edit</button>
+                <button class="button" onClick={() => navigate("/edit-accounts")} title='Modify Existing Accounts'>Edit</button>
 
             </div>
 
