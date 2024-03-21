@@ -34,7 +34,7 @@ function Navbar() {
             <div className='floatLeft libutton'> Journalizing</div>
                 <div>
                     {userData ?(
-                        <div className='floatLeft libutton' onClick={() => navigate("/view-accounts")}> View Accounts</div>
+                        <div className='floatLeft libutton' onClick={() => navigate("/chart-of-accounts")}> Chart Of Accounts</div>
                     ):(
                         <div className='floatLeft libutton' onClick={() => navigate("/login")}> View Accounts</div>
 

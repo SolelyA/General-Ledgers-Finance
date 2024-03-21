@@ -126,8 +126,6 @@ const Signup = () => {
       console.log(error.message)
       if (error.code === 'auth/email-already-in-use') {
         setError('Email is already in use')
-        // handle error, if you have multiple possible ones you could probably 
-        // try using switch statement 
       } else {
         console.error('Signup Error:', error)
         setError('An error occured during signup. Please try again later')
@@ -141,7 +139,8 @@ const Signup = () => {
       <Navbar />
       <HelpButton
                 title="Edit Accounts Page"
-                text="Welcome to the Sign Up page. Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
+                welcome="Welcome to the Sign Up page!"
+                text="Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
             />
       <body>
 
@@ -226,7 +225,7 @@ const Signup = () => {
               />
             </div>
 
-            <button className={"login-submit"} type="submit">Sign Up</button>
+            <button className={"login-submit"} type="submit" title='Complete sign up'>Sign Up</button>
 
           </form>
 

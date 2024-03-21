@@ -124,13 +124,17 @@ const Login = () => {
             <Navbar />
             <HelpButton
                 title="Login Page Help"
-                text="Username and Password: Enter your registered username and password in the designated fields. 
+                welcome= "Welcome to the Login page!"
+                UP="Username and Password: "
+                UPDirections="Enter your registered username and password in the designated fields.
                 Make sure to enter them correctly to avoid login errors. After three incorrect attempts you'll be locked
-                out of the system.
-                Forgot Password: If you've forgotten your password, don't worry! 
-                Click on the 'Forgot Password' link below the login form. 
+                out of the system."
+                FP="Forgot Password:"
+                FPDirections="If you've forgotten your password, don't worry!
+                Click on the 'Forgot Password' link below the login form.
                 You'll be guided through the steps to reset your password securely."
             />
+
             <body className={"login-body"}>
 
                 <img className={"login-logo"} src={photo} />
@@ -171,8 +175,8 @@ const Login = () => {
                     {error && <p style={{ color: 'red' }}>{error}</p>}
 
                     <div className={"login-links"}>
-                        <Link to="/signup" className={"no-account"}>Don't have an account? Sign Up.</Link>
-                        <Link to="/forgot-password" className={"forgot-password"}>Forgot password</Link>
+                        <Link to="/signup" className={"no-account"} title='Register for an account'>Don't have an account? Sign Up.</Link>
+                        <Link to="/forgot-password" className={"forgot-password"} title='Reset password'>Forgot password</Link>
                     </div>
                 </div>
             </body>

@@ -15,7 +15,8 @@ const LandingPage = () =>{
             <Navbar />
             <HelpButton
                 title="Landing Page"
-                text="Welcome to the Landing page. This is the home page."
+                welcome="Welcome to the Landing page!"
+                text="This is the home page."
             />
             <img className={"waiting-logo"} src={photo}/>
             <div className={"waiting-text"}>

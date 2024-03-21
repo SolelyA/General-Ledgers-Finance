@@ -5,9 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,26 +65,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Joscelyn2",
-    "kotlin-language-version-configured": "true",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Joscelyn2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages" />
@@ -132,6 +146,9 @@
       <workItem from="1709152363028" duration="6684000" />
       <workItem from="1709159121763" duration="36000" />
       <workItem from="1709166801967" duration="7864000" />
+      <workItem from="1710989302359" duration="1242000" />
+      <workItem from="1710990695019" duration="10244000" />
+      <workItem from="1711023301057" duration="4901000" />
     </task>
     <servers />
   </component>
