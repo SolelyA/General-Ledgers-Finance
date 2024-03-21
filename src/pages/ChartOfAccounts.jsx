@@ -130,30 +130,43 @@ const ChartOfAccounts = () => {
             </div>
 
             <div className={"adminApproval"}>
-            <div className={"admin-subheader"}>
+                <div className={"admin-subheader"}>
                         <div className={"admin-subtitle"}>Search By Name or Number</div>
-                        <div className={"coa-subUnderline"}></div>
-                    </div>
+                        <div className={"coaSearch-subUnderline"}></div>
+                </div>
+
                 <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
                     <form onSubmit={(e) => { SearchAccountName(e) }}>
-                        <input
-                            type="text"
-                            className="w-full placeholder-gray-400 text-gray-900 p-4"
-                            placeholder="Account Name"
-                            onChange={(e) => { SetSearchAcctName(e.target.value) }}
-                            value={searchAcctName}
-                        />
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                placeholder="Account Name"
+                                onChange={(e) => {
+                                    SetSearchAcctName(e.target.value)
+                                }}
+                                value={searchAcctName}
+                            />
+                        </div>
+
                         <button type="submit">Search</button>
                     </form>
 
-                    <form onSubmit={(e) => { SearchAccountNumber(e) }}>
-                        <input
-                            type="text"
-                            className="w-full placeholder-gray-400 text-gray-900 p-4"
-                            placeholder="Account Number"
-                            onChange={(e) => { SetSearchAcctNum(e.target.value) }}
-                            value={searchAcctNum}
-                        />
+                    <form onSubmit={(e) => {
+                        SearchAccountNumber(e)
+                    }}>
+                        
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                className="w-full placeholder-gray-400 text-gray-900 p-4"
+                                placeholder="Account Number"
+                                onChange={(e) => {
+                                    SetSearchAcctNum(e.target.value)
+                                }}
+                                value={searchAcctNum}
+                            />
+                        </div>
+
                         <button type="submit">Search</button>
                     </form>
 

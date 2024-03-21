@@ -16,6 +16,13 @@
     border-radius: 9px;
 }
 
+.coaSearch-subUnderline{
+    width: 420px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+}
+
 .coa-btns{
     /*margin-top: 10px;*/
     /*display: flex;*/
@@ -57,4 +64,26 @@
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
+}
+
+.coa-inputs{
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    background: whitesmoke;
+    border-radius: 6px;
+    margin: 20px auto auto;
+}
+
+.coa-inputs input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: dimgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+    margin-left: 10px;
 }

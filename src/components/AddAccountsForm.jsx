@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc, addDoc, getDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import '../components/adminPage.css';
+import './AddAccountsForm.css'
 
 function AddAccountsForm() {
     const [acctName, setAccountName] = useState('');
@@ -108,90 +109,134 @@ function AddAccountsForm() {
 
     return (
         <div>
-            <div className="login-title">
-                <h2>Add Accounts</h2>
+
+            <div className={"login-header"}>
+                <div className={"login-title"}>Add Accounts</div>
+                <div className={"addAccounts-underline"}></div>
             </div>
-            <div>
-                <h2>Account Form</h2>
+
+            <div className={"signup-box"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Account Form</div>
+                    <div className={"addAccounts-subUnderline"}></div>
+                </div>
+
                 {error && <div>{error}</div>}
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="Account Name"
-                        value={acctName}
-                        onChange={(e) => setAccountName(e.target.value)}
-                    />
-                    <select
-                        value={acctCategory}
-                        onChange={(e) => setAccountCategory(e.target.value)}
-                    >
-                        <option value="">Select Account Category</option>
-                        <option value="asset">Asset</option>
-                        <option value="liability">Liability</option>
-                        <option value="equity">Equity</option>
-                        <option value="revenue">Revenue</option>
-                        <option value="expense">Expense</option>
-                    </select>
-                    <input
-                        type="text"
-                        placeholder="Sub-Category"
-                        value={acctSubCategory}
-                        onChange={(e) => setAccountSubCate(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        value={acctDesc}
-                        onChange={(e) => setAccountDesc(e.target.value)}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Debits"
-                        value={debit}
-                        onChange={(e) => setDebit(parseFloat(e.target.value).toFixed(2))}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Credits"
-                        value={credit}
-                        onChange={(e) => setCredit(parseFloat(e.target.value).toFixed(2))}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Initial Balance"
-                        value={initBalance}
-                        onChange={(e) => setInitBalance(parseFloat(e.target.value).toFixed(2))}
-                    />
-                    <select
-                        value={normalSide}
-                        onChange={(e) => setNormalSide(e.target.value)}
-                    >
-                        <option value="">Select Normal Side</option>
-                        <option value="debit">Debit</option>
-                        <option value="credit">Credit</option>
-                    </select>
-                    <input
-                        type="number"
-                        placeholder="Order"
-                        value={order}
-                        onChange={(e) => setOrder(e.target.value)}
-                    />
-                    <select
-                        value={statement}
-                        onChange={(e) => setStatement(e.target.value)}
-                    >
-                        <option value="">Select Statement</option>
-                        <option value="IS">Income Statement</option>
-                        <option value="BS">Balance Sheet</option>
-                        <option value="RE">Retired Earnings Statement</option>
-                    </select>
-                    <input
-                        type="text"
-                        placeholder="Comment"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                    />
-                    <button type="submit">Create New Account</button>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Account Name"
+                            value={acctName}
+                            onChange={(e) => setAccountName(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={"signup-select"}>
+                        <select
+                            value={acctCategory}
+                            onChange={(e) => setAccountCategory(e.target.value)}
+                        >
+                            <option value="">Select Account Category</option>
+                            <option value="asset">Asset</option>
+                            <option value="liability">Liability</option>
+                            <option value="equity">Equity</option>
+                            <option value="revenue">Revenue</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Sub-Category"
+                            value={acctSubCategory}
+                            onChange={(e) => setAccountSubCate(e.target.value)}
+                        />
+
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Description"
+                            value={acctDesc}
+                            onChange={(e) => setAccountDesc(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="number"
+                            placeholder="Debits"
+                            value={debit}
+                            onChange={(e) => setDebit(parseFloat(e.target.value).toFixed(2))}
+                        />
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="number"
+                            placeholder="Credits"
+                            value={credit}
+                            onChange={(e) => setCredit(parseFloat(e.target.value).toFixed(2))}
+                        />
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="number"
+                            placeholder="Initial Balance"
+                            value={initBalance}
+                            onChange={(e) => setInitBalance(parseFloat(e.target.value).toFixed(2))}
+                        />
+                    </div>
+
+                    <div className={"signup-select"}>
+                        <select
+                            value={normalSide}
+                            onChange={(e) => setNormalSide(e.target.value)}
+                        >
+                            <option value="">Select Normal Side</option>
+                            <option value="debit">Debit</option>
+                            <option value="credit">Credit</option>
+                        </select>
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="number"
+                            placeholder="Order"
+                            value={order}
+                            onChange={(e) => setOrder(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={"signup-select"}>
+                        <select
+                            value={statement}
+                            onChange={(e) => setStatement(e.target.value)}
+                        >
+                            <option value="">Select Statement</option>
+                            <option value="IS">Income Statement</option>
+                            <option value="BS">Balance Sheet</option>
+                            <option value="RE">Retired Earnings Statement</option>
+                        </select>
+                    </div>
+
+                    <div className={"signup-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Comment"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                        />
+                    </div>
+
+                    <button className={"addAccount-submit"} type="submit">Create New Account</button>
+
                 </form>
             </div>
         </div>
