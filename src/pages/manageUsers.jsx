@@ -200,7 +200,8 @@ const ManageUsers = () => {
             <Navbar />
             <HelpButton
                 title="Edit Accounts Page"
-                text="Welcome to the Manage Uers page. Here you able to add, modify, and deactivate users."
+                welcome="Welcome to the Manage Uers page!"
+                text="Here you able to add, modify, and deactivate users."
             />
             <h2>Users List</h2>
             <Logo />

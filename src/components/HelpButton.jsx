@@ -5,16 +5,33 @@ import Popup from './Popup';
 import './Popup.css'
 import { useState } from 'react';
 
-const HelpButton = ({ onClick, title, text }) => {
+const HelpButton = ({ onClick, title, text, welcome, UP, UPDirections, FP, FPDirections }) => {
     const [buttonPopup, setButtonPopup] = useState(false)
     return (
         <>
             <button onClick={() => setButtonPopup(true)} className="custom-button">
                 <img src={HelpIcon} alt="Custom Button" />
             </button>
+
             <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3>{title}</h3>
+
+                <div className={"help-header"}>
+                    <div className={"help-title"}>{title}</div>
+                    <div className={"help-underline"}></div>
+                </div>
+
+                <p className={"welcome"}>{welcome}</p>
+
+                <p><b>{UP}</b></p>
+
+                <p>{UPDirections}</p>
+
+                <p><b>{FP}</b></p>
+
+                <p>{FPDirections}</p>
+
                 <p>{text}</p>
+
             </Popup>
         </>
     );

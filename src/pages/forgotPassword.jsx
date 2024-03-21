@@ -58,7 +58,8 @@ const ForgotPassword = () => {
             <Navbar />
             <HelpButton
                 title="Edit Accounts Page"
-                text="Welcome to the Forgot Password page. Enter your email for a forgot password link."
+                welcome="Welcome to the Forgot Password page!"
+                text="Enter your email for a forgot password link."
             />
             <body>
 
