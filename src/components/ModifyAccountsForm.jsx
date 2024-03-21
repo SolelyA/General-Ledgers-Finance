@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
 import '../components/adminPage.css';
+import './ModifyAccountsForm.css'
 
 function ModifyAccountsForm() {
     const acctsCol = collection(db, "accts");
@@ -110,138 +111,359 @@ function ModifyAccountsForm() {
 
     return (
         <div>
-            <div className="login-title">
-                <h2>Edit Accounts</h2>
+
+            <div className={"login-header"}>
+                <div className={"login-title"}>Modify Accounts</div>
+                <div className={"mod-underline"}></div>
             </div>
-            <div>
-                <ul>
-                    {allAccts.map((account) => (
-                        <li key={account.id}>
-                            <input
-                                type="checkbox"
-                                id={account.id}
-                                checked={selectedItems.includes(account.id)}
-                                onChange={(event) => handleCheckboxChange(event, account.id)}
-                            />
-                            <label htmlFor={account.id}>
-                                {`${account.acctNumber} ${account.acctName} (Balance: $${account.balance}) (Account Category: ${account.acctCategory}) (Account Status: ${account.acctStatus})`}
-                            </label>
-                            {selectedItems.includes(account.id) && (
-                                <div>
+
+            <div className={"adminApproval"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Edit Accounts</div>
+                    <div className={"mod-subUnderline"}></div>
+                </div>
+
+                <table className={"admin-table"}>
+
+                    <tr className={"headers"}>
+                        <th>Select</th>
+                        <th>Account Name</th>
+                        <th>Account Number</th>
+                        <th>Account Balance</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {allAccts.map((account, key) => {
+                        return (
+                            <tr key={account.id}>
+                                <td>
                                     <input
-                                        type="number"
-                                        name="acctNumber"
-                                        placeholder="New Account Number"
-                                        value={modifiedAccounts[account.id]?.acctNumber || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
+                                        type="checkbox"
+                                        id={account.id}
+                                        checked={selectedItems.includes(account.id)}
+                                        onChange={(event) => handleCheckboxChange(event, account.id)}
                                     />
-                                    <input
-                                        type="text"
-                                        name="acctName"
-                                        placeholder="New Account Name"
-                                        value={modifiedAccounts[account.id]?.acctName || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    />
-                                    <select
-                                        name="acctCategory"
-                                        value={modifiedAccounts[account.id]?.acctCategory || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    >
-                                        <option value="">Select Account Category</option>
-                                        <option value="asset">Asset</option>
-                                        <option value="liability">Liability</option>
-                                        <option value="equity">Equity</option>
-                                        <option value="revenue">Revenue</option>
-                                        <option value="expense">Expense</option>
-                                    </select>
-                                    <input
-                                        type="text"
-                                        name="acctSubCategory"
-                                        placeholder="New Account Sub-Category"
-                                        value={modifiedAccounts[account.id]?.acctSubCategory || ''}
-                                        onChange={(event) => {
-                                            const newValue = parseFloat(event.target.value).toFixed(2);
-                                            handleInputChange(event, account.id, newValue);
-                                        }}
-                                    />
-                                    <input
-                                        type="text"
-                                        name="acctDesc"
-                                        placeholder="New Account Description"
-                                        value={modifiedAccounts[account.id]?.acctDesc || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    />
-                                    <input
-                                        type="number"
-                                        name="credit"
-                                        placeholder="New Account Credits"
-                                        value={modifiedAccounts[account.id]?.credit || ''}
-                                        onChange={(event) => {
-                                            const newValue = parseFloat(event.target.value).toFixed(2);
-                                            handleInputChange(event, account.id, newValue);
-                                        }}
-                                    />
-                                    <input
-                                        type="number"
-                                        name="debit"
-                                        placeholder="New Account Debits"
-                                        value={modifiedAccounts[account.id]?.debit || ''}
-                                        onChange={(event) => {
-                                            const newValue = parseFloat(event.target.value).toFixed(2);
-                                            handleInputChange(event, account.id, newValue);
-                                        }}
-                                    />
-                                    <input
-                                        type="number"
-                                        name="initBalance"
-                                        placeholder="New Account Inital Balance"
-                                        value={modifiedAccounts[account.id]?.initBalance || ''}
-                                        onChange={(event) => {
-                                            const newValue = parseFloat(event.target.value).toFixed(2);
-                                            handleInputChange(event, account.id, newValue);
-                                        }}
-                                    />
-                                    <input
-                                        type="number"
-                                        name="order"
-                                        placeholder="New Account Order"
-                                        value={modifiedAccounts[account.id]?.order || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    />
-                                    <select
-                                        name="normalSide"
-                                        value={modifiedAccounts[account.id]?.normalSide || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    >
-                                        <option value="">Select Normal Side</option>
-                                        <option value="debit">Debit</option>
-                                        <option value="credit">Credit</option>
-                                    </select>
-                                    <input
-                                        type="text"
-                                        name="comment"
-                                        placeholder="New Account Comments"
-                                        value={modifiedAccounts[account.id]?.comment || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    />
-                                    <select
-                                        name="statement"
-                                        value={modifiedAccounts[account.id]?.statement || ''}
-                                        onChange={(event) => handleInputChange(event, account.id)}
-                                    >
-                                        <option value="">Select Statement</option>
-                                        <option value="IS">Income Statement</option>
-                                        <option value="BS">Balance Sheet</option>
-                                        <option value="RE">Retired Earnings Statement</option>
-                                    </select>
-                                </div>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-                <button onClick={handleSaveChanges}>Save Changes</button>
-                {error && <div>{error}</div>}
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctName}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctNumber}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`$${account.balance}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctCategory}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label htmlFor={account.id}>
+                                        {`${account.acctStatus}`}
+                                    </label>
+                                </td>
+
+                                {selectedItems.includes(account.id) && (
+                                    <div>
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="number"
+                                                name="acctNumber"
+                                                placeholder="New Account Number"
+                                                value={modifiedAccounts[account.id]?.acctNumber || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="text"
+                                                name="acctName"
+                                                placeholder="New Account Name"
+                                                value={modifiedAccounts[account.id]?.acctName || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-select"}>
+                                            <select
+                                                name="acctCategory"
+                                                value={modifiedAccounts[account.id]?.acctCategory || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            >
+                                                <option value="">Select Account Category</option>
+                                                <option value="asset">Asset</option>
+                                                <option value="liability">Liability</option>
+                                                <option value="equity">Equity</option>
+                                                <option value="revenue">Revenue</option>
+                                                <option value="expense">Expense</option>
+                                            </select>
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="text"
+                                                name="acctSubCategory"
+                                                placeholder="New Account Sub-Category"
+                                                value={modifiedAccounts[account.id]?.acctSubCategory || ''}
+                                                onChange={(event) => {
+                                                    const newValue = parseFloat(event.target.value).toFixed(2);
+                                                    handleInputChange(event, account.id, newValue);
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="text"
+                                                name="acctDesc"
+                                                placeholder="New Account Description"
+                                                value={modifiedAccounts[account.id]?.acctDesc || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="number"
+                                                name="credit"
+                                                placeholder="New Account Credits"
+                                                value={modifiedAccounts[account.id]?.credit || ''}
+                                                onChange={(event) => {
+                                                    const newValue = parseFloat(event.target.value).toFixed(2);
+                                                    handleInputChange(event, account.id, newValue);
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="number"
+                                                name="debit"
+                                                placeholder="New Account Debits"
+                                                value={modifiedAccounts[account.id]?.debit || ''}
+                                                onChange={(event) => {
+                                                    const newValue = parseFloat(event.target.value).toFixed(2);
+                                                    handleInputChange(event, account.id, newValue);
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="number"
+                                                name="initBalance"
+                                                placeholder="New Account Inital Balance"
+                                                value={modifiedAccounts[account.id]?.initBalance || ''}
+                                                onChange={(event) => {
+                                                    const newValue = parseFloat(event.target.value).toFixed(2);
+                                                    handleInputChange(event, account.id, newValue);
+                                                }}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="number"
+                                                name="order"
+                                                placeholder="New Account Order"
+                                                value={modifiedAccounts[account.id]?.order || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-select"}>
+                                            <select
+                                                name="normalSide"
+                                                value={modifiedAccounts[account.id]?.normalSide || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            >
+                                                <option value="">Select Normal Side</option>
+                                                <option value="debit">Debit</option>
+                                                <option value="credit">Credit</option>
+                                            </select>
+                                        </div>
+
+
+                                        <div className={"modAcc-inputs"}>
+                                            <input
+                                                type="text"
+                                                name="comment"
+                                                placeholder="New Account Comments"
+                                                value={modifiedAccounts[account.id]?.comment || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            />
+                                        </div>
+
+                                        <div className={"modAcc-select"}>
+                                            <select
+                                                name="statement"
+                                                value={modifiedAccounts[account.id]?.statement || ''}
+                                                onChange={(event) => handleInputChange(event, account.id)}
+                                            >
+                                                <option value="">Select Statement</option>
+                                                <option value="IS">Income Statement</option>
+                                                <option value="BS">Balance Sheet</option>
+                                                <option value="RE">Retired Earnings Statement</option>
+                                            </select>
+                                        </div>
+
+                                        <button className={"save"} onClick={handleSaveChanges}>Save Changes</button>
+                                        {error && <div>{error}</div>}
+
+                                    </div>
+                                )}
+
+                            </tr>
+
+                        )
+                    })}
+
+                </table>
             </div>
+
+            {/*<div>*/}
+            {/*    <ul>*/}
+            {/*        {allAccts.map((account) => (*/}
+            {/*            <li key={account.id}>*/}
+            {/*                <input*/}
+            {/*                    type="checkbox"*/}
+            {/*                    id={account.id}*/}
+            {/*                    checked={selectedItems.includes(account.id)}*/}
+            {/*                    onChange={(event) => handleCheckboxChange(event, account.id)}*/}
+            {/*                />*/}
+            {/*                <label htmlFor={account.id}>*/}
+            {/*                    {`${account.acctNumber} ${account.acctName} (Balance: $${account.balance}) (Account Category: ${account.acctCategory}) (Account Status: ${account.acctStatus})`}*/}
+            {/*                </label>*/}
+            {/*                {selectedItems.includes(account.id) && (*/}
+            {/*                    <div>*/}
+            {/*                        <input*/}
+            {/*                            type="number"*/}
+            {/*                            name="acctNumber"*/}
+            {/*                            placeholder="New Account Number"*/}
+            {/*                            value={modifiedAccounts[account.id]?.acctNumber || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="text"*/}
+            {/*                            name="acctName"*/}
+            {/*                            placeholder="New Account Name"*/}
+            {/*                            value={modifiedAccounts[account.id]?.acctName || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        />*/}
+            {/*                        <select*/}
+            {/*                            name="acctCategory"*/}
+            {/*                            value={modifiedAccounts[account.id]?.acctCategory || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        >*/}
+            {/*                            <option value="">Select Account Category</option>*/}
+            {/*                            <option value="asset">Asset</option>*/}
+            {/*                            <option value="liability">Liability</option>*/}
+            {/*                            <option value="equity">Equity</option>*/}
+            {/*                            <option value="revenue">Revenue</option>*/}
+            {/*                            <option value="expense">Expense</option>*/}
+            {/*                        </select>*/}
+            {/*                        <input*/}
+            {/*                            type="text"*/}
+            {/*                            name="acctSubCategory"*/}
+            {/*                            placeholder="New Account Sub-Category"*/}
+            {/*                            value={modifiedAccounts[account.id]?.acctSubCategory || ''}*/}
+            {/*                            onChange={(event) => {*/}
+            {/*                                const newValue = parseFloat(event.target.value).toFixed(2);*/}
+            {/*                                handleInputChange(event, account.id, newValue);*/}
+            {/*                            }}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="text"*/}
+            {/*                            name="acctDesc"*/}
+            {/*                            placeholder="New Account Description"*/}
+            {/*                            value={modifiedAccounts[account.id]?.acctDesc || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="number"*/}
+            {/*                            name="credit"*/}
+            {/*                            placeholder="New Account Credits"*/}
+            {/*                            value={modifiedAccounts[account.id]?.credit || ''}*/}
+            {/*                            onChange={(event) => {*/}
+            {/*                                const newValue = parseFloat(event.target.value).toFixed(2);*/}
+            {/*                                handleInputChange(event, account.id, newValue);*/}
+            {/*                            }}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="number"*/}
+            {/*                            name="debit"*/}
+            {/*                            placeholder="New Account Debits"*/}
+            {/*                            value={modifiedAccounts[account.id]?.debit || ''}*/}
+            {/*                            onChange={(event) => {*/}
+            {/*                                const newValue = parseFloat(event.target.value).toFixed(2);*/}
+            {/*                                handleInputChange(event, account.id, newValue);*/}
+            {/*                            }}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="number"*/}
+            {/*                            name="initBalance"*/}
+            {/*                            placeholder="New Account Inital Balance"*/}
+            {/*                            value={modifiedAccounts[account.id]?.initBalance || ''}*/}
+            {/*                            onChange={(event) => {*/}
+            {/*                                const newValue = parseFloat(event.target.value).toFixed(2);*/}
+            {/*                                handleInputChange(event, account.id, newValue);*/}
+            {/*                            }}*/}
+            {/*                        />*/}
+            {/*                        <input*/}
+            {/*                            type="number"*/}
+            {/*                            name="order"*/}
+            {/*                            placeholder="New Account Order"*/}
+            {/*                            value={modifiedAccounts[account.id]?.order || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        />*/}
+            {/*                        <select*/}
+            {/*                            name="normalSide"*/}
+            {/*                            value={modifiedAccounts[account.id]?.normalSide || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        >*/}
+            {/*                            <option value="">Select Normal Side</option>*/}
+            {/*                            <option value="debit">Debit</option>*/}
+            {/*                            <option value="credit">Credit</option>*/}
+            {/*                        </select>*/}
+            {/*                        <input*/}
+            {/*                            type="text"*/}
+            {/*                            name="comment"*/}
+            {/*                            placeholder="New Account Comments"*/}
+            {/*                            value={modifiedAccounts[account.id]?.comment || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        />*/}
+            {/*                        <select*/}
+            {/*                            name="statement"*/}
+            {/*                            value={modifiedAccounts[account.id]?.statement || ''}*/}
+            {/*                            onChange={(event) => handleInputChange(event, account.id)}*/}
+            {/*                        >*/}
+            {/*                            <option value="">Select Statement</option>*/}
+            {/*                            <option value="IS">Income Statement</option>*/}
+            {/*                            <option value="BS">Balance Sheet</option>*/}
+            {/*                            <option value="RE">Retired Earnings Statement</option>*/}
+            {/*                        </select>*/}
+            {/*                    </div>*/}
+            {/*                )}*/}
+            {/*            </li>*/}
+            {/*        ))}*/}
+            {/*    </ul>*/}
+
+            {/*</div>*/}
         </div>
     );
 }

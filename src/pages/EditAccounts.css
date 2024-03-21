@@ -1,0 +1,22 @@
+.edit-btns{
+    margin-bottom: 10px;
+}
+
+.edit-btns button{
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    color: whitesmoke;
+    background: #172f17;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.edit-btns button:hover{
+    background-color: #2e5b2e;
+}
+

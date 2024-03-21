@@ -1,0 +1,31 @@
+.deactivate-underline{
+    width: 400px;
+    height: 6px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+.deactivate-subUnderline{
+    width: 260px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+}
+
+.deactivate{
+    margin: auto auto 20px;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 38px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.deactivate:hover{
+    background-color: #2e5b2e;
+}
