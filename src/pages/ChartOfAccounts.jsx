@@ -3,12 +3,16 @@ import { collection, getDocs, query, where, updateDoc } from "firebase/firestore
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
+import '../components/ChartOfAccounts.css'
 
 
 const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
     const [allAccts, setAllAccts] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [searchAcctName, SetSearchAcctName] = useState("")
+    const [searchAcctNum, SetSearchAcctNum] = useState("")
+
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -24,6 +28,38 @@ const ChartOfAccounts = () => {
         fetchAllAccts();
     }, []);
 
+    const SearchAccountNumber = async (e) => { //Method for searching account by name
+        e.preventDefault();
+        const q = query(acctsCol);
+        const querySnapshot = await getDocs(q);
+        const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllAccts(allAcctsData.filter((allAcctsData) =>
+            allAcctsData.acctNumber.toLowerCase().includes(searchAcctNum.toLowerCase())
+        ))
+
+        try {
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    const SearchAccountName = async (e) => { //Method for searching account by name
+        e.preventDefault();
+        const q = query(acctsCol);
+        const querySnapshot = await getDocs(q);
+        const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAllAccts(allAcctsData.filter((allAcctsData) =>
+            allAcctsData.acctName.toLowerCase().includes(searchAcctName.toLowerCase())
+        ))
+
+        try {
+
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
     const fetchAllAccts = async () => {
         try {
             const q = query(acctsCol);
@@ -31,7 +67,7 @@ const ChartOfAccounts = () => {
             if (!querySnapshot.empty) {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setAllAccts(allAcctsData);
-  
+
                 allAcctsData.forEach(account => {
                     calculateBalance(account.acctNumber);
                 });
@@ -47,17 +83,17 @@ const ChartOfAccounts = () => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
             const querySnapshot = await getDocs(q);
-    
+
             if (!querySnapshot.empty) {
                 const acctDoc = querySnapshot.docs[0];
                 const { balance, debit, credit, initBalance, normalSide } = acctDoc.data();
-    
+
                 let newBal = 0;
-    
+
                 const parsedInitBalance = parseFloat(initBalance);
                 const parsedDebit = parseFloat(debit);
                 const parsedCredit = parseFloat(credit);
-    
+
                 if (normalSide === 'credit' || normalSide === 'Credit') {
                     newBal = parsedInitBalance + parsedCredit - parsedDebit;
                     console.log('credit');
@@ -65,7 +101,7 @@ const ChartOfAccounts = () => {
                     newBal = parsedInitBalance + parsedDebit - parsedCredit;
                     console.log('debit');
                 }
-    
+
                 await updateDoc(acctDoc.ref, { balance: newBal.toFixed(2) });
                 newBal = 0;
             } else {
@@ -75,8 +111,8 @@ const ChartOfAccounts = () => {
             console.error("Error updating account balance", error);
         }
     };
-    
-    
+
+
 
 
     return (
@@ -84,49 +120,165 @@ const ChartOfAccounts = () => {
             <Navbar />
             <HelpButton
                 title="View Accounts Page"
-                text="Welcome to the View Accounts page. Here you able to view all active accounts."
+                welcome="Welcome to the View Accounts page!"
+                text="Here you able to view all active accounts."
             />
+
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
-                <div className={"admin-underline"}></div>
+                <div className={"coa-underline"}></div>
             </div>
 
-            <div className="accounts-list">
-                <h2>Accounts List</h2>
-                <div>
-                    <button onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
-                    <button onClick={goToNextAccount} title='Go to next entry'>Next</button>
+            <div className={"adminApproval"}>
+                <div className={"admin-subheader"}>
+                        <div className={"admin-subtitle"}>Search By Name or Number</div>
+                        <div className={"coaSearch-subUnderline"}></div>
                 </div>
-                <ul>
-                    <li>
-                        {currentAccount && (
-                            <label htmlFor={currentAccount.id}>
-                                {
-                                    `Account Number: ${currentAccount.acctNumber} | 
-                                    Account Name: ${currentAccount.acctName} |
-                                    Account Category: ${currentAccount.acctCategory} | 
-                                    Account Sub Category: ${currentAccount.acctSubCategory} |
-                                    Account Description: ${currentAccount.acctDesc} |
-                                    Account Type: ${currentAccount.normalSide} |
-                                    Account Initial Balance: $${currentAccount.initBalance} | 
-                                    Account Debits: $${currentAccount.debit} |
-                                    Account Credits: $${currentAccount.credit} |
-                                    Account Balance: $${currentAccount.balance} |
-                                    Account Creation: ${currentAccount.dateTimeAdded} |
-                                    User's ID: ${currentAccount.userID} |
-                                    Account Order: ${currentAccount.order} |
-                                    Account Statement: ${currentAccount.statement} |
-                                    Account Comment: ${currentAccount.comment}`
-                                }
-                            </label>
-                        )}
-                    </li>
-                </ul>
-                <div>
-                <button onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
-                    <button onClick={goToNextAccount} title='Go to next entry'>Next</button>
-                </div>                                                            
+
+                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
+                    <form onSubmit={(e) => { SearchAccountName(e) }}>
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                placeholder="Account Name"
+                                onChange={(e) => {
+                                    SetSearchAcctName(e.target.value)
+                                }}
+                                value={searchAcctName}
+                            />
+                        </div>
+
+                        <button type="submit">Search</button>
+                    </form>
+
+                    <form onSubmit={(e) => {
+                        SearchAccountNumber(e)
+                    }}>
+                        
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                className="w-full placeholder-gray-400 text-gray-900 p-4"
+                                placeholder="Account Number"
+                                onChange={(e) => {
+                                    SetSearchAcctNum(e.target.value)
+                                }}
+                                value={searchAcctNum}
+                            />
+                        </div>
+
+                        <button type="submit">Search</button>
+                    </form>
+
+                </div>
+
+                <div className="accounts-list">
+
+                    <div className={"admin-subheader"}>
+                        <div className={"admin-subtitle"}>Accounts List</div>
+                        <div className={"coa-subUnderline"}></div>
+                    </div>
+
+                    <div className={"coa-btns"}>
+                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous
+                        </button>
+                        <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
+                    </div>
+
+                    {currentAccount && (
+
+                        <label htmlFor={currentAccount.id}>
+                            <table className={"coa-table"}>
+
+                                <tr>
+                                    <td>Account Number:</td>
+                                    <td>{`  ${currentAccount.acctNumber}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Name:</td>
+                                    <td>{` ${currentAccount.acctName}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Category:</td>
+                                    <td>{` ${currentAccount.acctCategory}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Sub Category:</td>
+                                    <td>{` ${currentAccount.acctSubCategory}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Description:</td>
+                                    <td>{` ${currentAccount.acctDesc}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Type:</td>
+                                    <td>{` ${currentAccount.normalSide}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Initial Balance:</td>
+                                    <td>{` $${currentAccount.initBalance}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Debits:</td>
+                                    <td>{` $${currentAccount.debit}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Credits:</td>
+                                    <td>{` $${currentAccount.credit}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Balance:</td>
+                                    <td>{`  $${currentAccount.balance}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Creation:</td>
+                                    <td>{` ${currentAccount.dateTimeAdded}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>User's ID:</td>
+                                    <td>{` ${currentAccount.userID}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Order:</td>
+                                    <td>{` ${currentAccount.order}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Statement:</td>
+                                    <td>{` ${currentAccount.statement}`}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Account Comment:</td>
+                                    <td>{` ${currentAccount.comment}`}</td>
+                                </tr>
+
+                            </table>
+
+
+                        </label>
+                    )}
+                    <div className={"coa-btns"}>
+                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous
+                        </button>
+                        <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     )
 

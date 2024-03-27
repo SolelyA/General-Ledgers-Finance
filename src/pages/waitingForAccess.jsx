@@ -10,7 +10,8 @@ const WaitingForAccess = () => {
         <body >
             <HelpButton
                 title="Landing Page"
-                text="Welcome to the Waiting for Access page. You must wait for the admin to give you access. Check back later."
+                welcome="Welcome to the Waiting for Access page!"
+                text="You must wait for the admin to give you access. Check back later."
             />
 
             <img className={"waiting-logo"} src={photo}/>

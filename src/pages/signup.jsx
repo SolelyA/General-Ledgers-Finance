@@ -139,7 +139,8 @@ const Signup = () => {
       <Navbar />
       <HelpButton
                 title="Edit Accounts Page"
-                text="Welcome to the Sign Up page. Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
+                welcome="Welcome to the Sign Up page!"
+                text="Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
             />
       <body>
 

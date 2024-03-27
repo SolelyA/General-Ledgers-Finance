@@ -167,7 +167,8 @@ const AdminPage = () => {
             <Navbar />
             <HelpButton
                 title="Admin Page Help"
-                text="Welcome to the admin page. Here you are able to see the User's List displaying their name, email, username,
+                welcome="Welcome to the admin page!"
+                text="Here you are able to see the User's List displaying their name, email, username,
                 DOB, address, user type, and their acconut state, and all Users awaiting approval.
                 An email contact form to reach out to the users on the site. Along with buttons to view and modify the account of charts.
                 Lastly, at the bottom of the page there is a link to manage all the users signed up on the web app. "
@@ -183,11 +184,9 @@ const AdminPage = () => {
             <div>
                 <div className={"admin-subtitle"}>Chart of Accounts</div>
                 <button class="button" onClick={() => navigate("/chart-of-accounts")} title='View All Accounts in Chart'>View</button>
-                <button class="button" onClick={() => navigate("/modify-accounts")} title='Modify Existing Accounts'>Edit</button>
+                <button class="button" onClick={() => navigate("/edit-accounts")} title='Modify Existing Accounts'>Edit</button>
 
             </div>
-
-
 
 
             <div className={"adminApproval"}>
