@@ -7,9 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
 import '../components/login.css'
-import photo from '../components/image.png'
-import emailIcon from '../components/email.png'
-import passwordIcon from '../components/password.png'
+import photo from "../Images/image.png";
+import emailIcon from '../Images/email.png'
+import passwordIcon from '../Images/password.png'
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 

@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils';
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
-import photo from "../components/image.png";
+import photo from "../Images/image.png";
 import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
 import Navbar from '../components/Navbar';

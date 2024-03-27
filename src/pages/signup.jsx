@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import '../components/signup.css'
 import Logo from '../logo';
-import photo from "../components/image.png";
+import photo from "../Images/image.png";
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 

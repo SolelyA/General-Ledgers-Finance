@@ -1,6 +1,6 @@
 import Logo from '../logo';
 import '../components/waitingForAccess.css'
-import photo from "../components/image.png";
+import photo from "../Images/image.png";
 import React from "react";
 import HelpButton from '../components/HelpButton';
 
