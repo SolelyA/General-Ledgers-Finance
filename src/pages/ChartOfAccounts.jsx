@@ -68,7 +68,7 @@ const ChartOfAccounts = () => {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setAllAccts(allAcctsData);
 
-                allAcctsData.forEach(account => {
+                await allAcctsData.forEach(account => {
                     calculateBalance(account.acctNumber);
                 });
             } else {
@@ -131,8 +131,8 @@ const ChartOfAccounts = () => {
 
             <div className={"adminApproval"}>
                 <div className={"admin-subheader"}>
-                        <div className={"admin-subtitle"}>Search By Name or Number</div>
-                        <div className={"coaSearch-subUnderline"}></div>
+                    <div className={"admin-subtitle"}>Search By Name or Number</div>
+                    <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
                 <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
@@ -154,7 +154,7 @@ const ChartOfAccounts = () => {
                     <form onSubmit={(e) => {
                         SearchAccountNumber(e)
                     }}>
-                        
+
                         <div className={"coa-inputs"}>
                             <input
                                 type="text"
@@ -187,7 +187,7 @@ const ChartOfAccounts = () => {
 
                     {currentAccount && (
 
-                        <label htmlFor={currentAccount.id}>
+                        <a href={`/ledger/${currentAccount.id}`} className="coa-table-link">
                             <table className={"coa-table"}>
 
                                 <tr>
@@ -268,7 +268,7 @@ const ChartOfAccounts = () => {
                             </table>
 
 
-                        </label>
+                        </a>
                     )}
                     <div className={"coa-btns"}>
                         <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous

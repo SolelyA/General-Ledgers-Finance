@@ -65,7 +65,7 @@ function AddAccountsForm() {
             } else if (!numQuerySnapshot.empty) {
                 setError('Error: Account Number already exists. Try using a different order.');
             } else {
-                await addDoc(collection(db, "accts"), {
+               const accountRef = await addDoc(collection(db, "accts"), {
                     acctName,
                     acctCategory,
                     acctDesc,
@@ -74,7 +74,7 @@ function AddAccountsForm() {
                     balance: 0,
                     comment,
                     credit: parseFloat(credit).toFixed(2),
-                    dateTimeAdded: new Date().toISOString(),
+                    dateTimeAdded: new Date().toISOString().split('T')[0],
                     debit: parseFloat(debit).toFixed(2),
                     initBalance: parseFloat(initBalance).toFixed(2),
                     normalSide,
@@ -83,6 +83,21 @@ function AddAccountsForm() {
                     acctStatus: 'Active',
                     //userID: userEmail
                 });
+
+                await addDoc(collection(accountRef, 'transactions'), {
+                    type: 'credit',
+                    value: parseFloat(credit).toFixed(2),
+                    date: new Date().toISOString().split('T')[0],
+                    desc: 'Initial commit'
+                });
+
+                await addDoc(collection(accountRef, 'transactions'), {
+                    type: 'debit',
+                    value: parseFloat(debit).toFixed(2),
+                    date: new Date().toISOString().split('T')[0],
+                    desc: 'Initial commit'
+                });
+
                 console.log('Account added successfully');
                 setError('');
                 clearFormFields();
