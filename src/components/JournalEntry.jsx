@@ -21,8 +21,8 @@ export default function JournalEntry({ accountName }) {
         });
     };
 
-    const handleSubmit = () => {
-        // Add your submit logic here
+    const handleSubmit = async(e) => {
+        e.preventDefault();
     };
 
     const addRow = () => {
