@@ -279,45 +279,46 @@ const AdminPage = () => {
                     <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler} title='Set all selected Users to Rejected Account State'>Set Selected Users to Reject</button>
                 </div>
 
-                <div>
-                    <h2>Contact Form</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="toEmail">To Email:</label>
+            </div>
+
+            <div className="email-form-container">
+                    <h2 className="email-form-title">Contact Form</h2>
+                    <form className="email-form" onSubmit={handleSubmit}>
+                        <div className="email-form-group">
+                            <label className="email-form-label" htmlFor="toEmail">To Email:</label>
                             <input
+                                className="email-form-input"
                                 type="email"
                                 id="toEmail"
                                 value={toEmail}
                                 onChange={(e) => setToEmail(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="subject">Subject:</label>
+                        <div className="email-form-group">
+                            <label className="email-form-label" htmlFor="subject">Subject:</label>
                             <input
+                                className="email-form-input"
                                 type="text"
                                 id="subject"
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="message">Message:</label>
+                        <div className="email-form-group">
+                            <label className="email-form-label" htmlFor="message">Message:</label>
                             <textarea
+                                className="email-form-textarea"
                                 id="message"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                             ></textarea>
                         </div>
-                        <button type="submit" title='Send the email'>Send Email</button>
+                        <button className="email-form-button" type="submit" title="Send the email">Send Email</button>
                     </form>
-                    {error && <p style={{ color: 'red' }}>{error}</p>}
-                    {success && <p style={{ color: 'green' }}>{success}</p>}
+                    {error && <p className="email-form-error">{error}</p>}
+                    {success && <p className="email-form-success">{success}</p>}
                 </div>
 
-
-
-
-            </div>
 
         </div>
     );

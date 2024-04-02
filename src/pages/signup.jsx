@@ -160,7 +160,7 @@ const Signup = () => {
               <option value="">Select User Type</option>
               <option value="Admin">Administrator</option>
               <option value="Manager">Manager</option>
-              <option value="User"> User</option>
+              <option value="Accountant"> Accountant</option>
             </select>
           </div>
 

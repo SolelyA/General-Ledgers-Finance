@@ -166,3 +166,80 @@ tr:hover{
   .button:active {
     transform: translateY(1px);
   }
+
+  .email-form-container {
+    background-color: rgba(255, 255, 255, 0.45);
+    /* backdrop-filter: blur(5px); */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    padding: 20px;
+    width: 70%; /* Adjust width as needed */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    margin: 30px auto 30px;
+}
+
+.email-form-title {
+    color: #2e5b2e;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+}
+
+.email-form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    margin-bottom: 20px;
+}
+
+.email-form-label {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.email-form-input,
+.email-form-textarea,
+.email-form-button {
+    width: 100%; /* Take full width */
+    max-width: 300px; /* Max width for input fields */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.email-form-textarea {
+    height: 150px;
+}
+
+.email-form-button {
+    margin-top: 10px; /* Add some space between input fields and button */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.email-form-button:hover {
+    background-color: #0056b3;
+}
+
+.email-form-error {
+    color: red;
+    margin-top: 10px;
+}
+
+.email-form-success {
+    color: green;
+    margin-top: 10px;
+}
