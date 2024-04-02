@@ -29,28 +29,32 @@ const ChartOfAccounts = () => {
         fetchAllAccts();
     }, []);
 
-    const SearchAccountNumber = async (e) => { //Method for searching account by name
+    const SearchAccountNumber = async (e) => {
         e.preventDefault();
-        const q = query(acctsCol);
-        const querySnapshot = await getDocs(q);
-        const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setAllAccts(allAcctsData.filter((allAcctsData) =>
-            allAcctsData.acctNumber.toLowerCase().includes(searchAcctNum.toLowerCase())
-        ))
-
+        
         try {
-
+            const q = query(acctsCol);
+            const querySnapshot = await getDocs(q);
+            const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            
+            // Filter accounts by account number
+            const filteredAccts = allAcctsData.filter(acct =>
+                acct.acctNumber.toLowerCase().includes(searchAcctNum.toLowerCase())
+            );
+    
+            await setAllAccts(filteredAccts);
         } catch (error) {
             console.error("Error:", error);
         }
     }
+    
 
     const SearchAccountName = async (e) => { //Method for searching account by name
         e.preventDefault();
         const q = query(acctsCol);
         const querySnapshot = await getDocs(q);
         const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setAllAccts(allAcctsData.filter((allAcctsData) =>
+        await setAllAccts(allAcctsData.filter((allAcctsData) =>
             allAcctsData.acctName.toLowerCase().includes(searchAcctName.toLowerCase())
         ))
 
@@ -68,10 +72,10 @@ const ChartOfAccounts = () => {
             if (!querySnapshot.empty) {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setAllAccts(allAcctsData);
-
-                await allAcctsData.forEach(account => {
-                    calculateBalance(account.acctNumber);
-                });
+    
+                for (const account of allAcctsData) {
+                    await calculateBalance(account.acctNumber);
+                }
             } else {
                 console.log('No accounts found');
             }
@@ -79,7 +83,7 @@ const ChartOfAccounts = () => {
             console.error("Error fetching account state", error)
         }
     }
-
+    
     const calculateBalance = async (accountNum) => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
@@ -101,6 +105,7 @@ const ChartOfAccounts = () => {
                 } else {
                     newBal = parsedInitBalance + parsedDebit - parsedCredit;
                     console.log('debit');
+                    console.log(newBal)
                 }
 
                 await updateDoc(acctDoc.ref, { balance: newBal.toFixed(2) });
@@ -137,13 +142,13 @@ const ChartOfAccounts = () => {
                 </div>
 
                 <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
-                    <form onSubmit={(e) => { SearchAccountName(e) }}>
+                    <form onSubmit={async (e) => { await SearchAccountName(e) }}>
                         <div className={"coa-inputs"}>
                             <input
                                 type="text"
                                 placeholder="Account Name"
-                                onChange={(e) => {
-                                    SetSearchAcctName(e.target.value)
+                                onChange={async (e) => {
+                                    await SetSearchAcctName(e.target.value)
                                 }}
                                 value={searchAcctName}
                             />
@@ -152,8 +157,8 @@ const ChartOfAccounts = () => {
                         <button type="submit">Search</button>
                     </form>
 
-                    <form onSubmit={(e) => {
-                        SearchAccountNumber(e)
+                    <form onSubmit={async (e) => {
+                       await SearchAccountNumber(e)
                     }}>
 
                         <div className={"coa-inputs"}>
@@ -161,8 +166,8 @@ const ChartOfAccounts = () => {
                                 type="text"
                                 className="w-full placeholder-gray-400 text-gray-900 p-4"
                                 placeholder="Account Number"
-                                onChange={(e) => {
-                                    SetSearchAcctNum(e.target.value)
+                                onChange={async (e) => {
+                                    await SetSearchAcctNum(e.target.value)
                                 }}
                                 value={searchAcctNum}
                             />

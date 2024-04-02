@@ -57,9 +57,9 @@ function AddAccountsForm() {
             const generatedNum = generateAccountNum(acctCategory, order);
             const userEmail = await getUserEmail();
 
-            const nameQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctName", "==", acctName)));
-            const numQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctNumber", "==", generatedNum)));
-
+            const nameQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctName", "==", acctName.toLowerCase())));
+            const numQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctNumber", "==", generatedNum.toLowerCase())));
+            
             if (!nameQuerySnapshot.empty) {
                 setError('Error: Account Name already exists. Try using a different name.');
             } else if (!numQuerySnapshot.empty) {
