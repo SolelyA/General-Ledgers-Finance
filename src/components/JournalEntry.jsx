@@ -6,9 +6,9 @@ import './JournalEntry.css'
 export default function JournalEntry({ accountName }) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [data, setData] = useState([
-        { id: 1, value1: '', value2: '', value3: '' }
+        { id: 1, value1, value2, value3, value4, value5 }
     ]);
-    const [nextId, setNextId] = useState(2); // Tracks the ID for the next row
+    const [nextId, setNextId] = useState(2); 
 
     const handleInputChange = (id, fieldName, value) => {
         setData(prevData => {
@@ -29,7 +29,7 @@ export default function JournalEntry({ accountName }) {
         setData(prevData => {
             return [...prevData, { id: nextId, value1: '', value2: '', value3: '' }];
         });
-        setNextId(prevId => prevId + 1); // Increment the nextId for the next row
+        setNextId(prevId => prevId + 1);
     };
 
     return (
@@ -44,8 +44,9 @@ export default function JournalEntry({ accountName }) {
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Particulars</th>
+                                <th>Debit Particulars</th>
                                 <th>Debits</th>
+                                <th>Credit Particulars</th>
                                 <th>Credits</th>
                             </tr>
                         </thead>
@@ -53,9 +54,10 @@ export default function JournalEntry({ accountName }) {
                             {data.map(row => (
                                 <tr key={row.id}>
                                     <td><input type="date" value={row.value1} onChange={e => handleInputChange(row.id, 'value1', e.target.value)} /></td>
-                                    <td>{`${accountName}`}</td>
-                                    <td><input type="number" value={row.value2} onChange={e => handleInputChange(row.id, 'value2', parseFloat(e.target.value).toFixed(2))} /></td>
+                                    <td><input type="text" value={row.value2} onChange={e => handleInputChange(row.id, 'value2', e.target.value)} /></td>
                                     <td><input type="number" value={row.value3} onChange={e => handleInputChange(row.id, 'value3', parseFloat(e.target.value).toFixed(2))} /></td>
+                                    <td><input type="text" value={row.value4} onChange={e => handleInputChange(row.id, 'value4', e.target.value)} /></td>
+                                    <td><input type="number" value={row.value5} onChange={e => handleInputChange(row.id, 'value5', parseFloat(e.target.value).toFixed(2))} /></td>
                                 </tr>
                             ))}
                         </tbody>
