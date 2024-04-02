@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Popup from './Popup';
-import './Popup.css';
-import './JournalEntry.css'
+import './Popup.css'; // Import CSS for Popup component
+import './JournalEntry.css'; // Import CSS for JournalEntry component
 
 export default function JournalEntry({ accountName }) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [data, setData] = useState([
-        { id: 1, value1, value2, value3, value4, value5 }
+        { id: 1, value1: '', value2: '', value3: '', value4: '', value5: '' }
     ]);
     const [nextId, setNextId] = useState(2); 
 
@@ -22,12 +22,12 @@ export default function JournalEntry({ accountName }) {
     };
 
     const handleSubmit = () => {
-
-    }
+        // Add your submit logic here
+    };
 
     const addRow = () => {
         setData(prevData => {
-            return [...prevData, { id: nextId, value1: '', value2: '', value3: '' }];
+            return [...prevData, { id: nextId, value1: '', value2: '', value3: '', value4: '', value5: '' }];
         });
         setNextId(prevId => prevId + 1);
     };
