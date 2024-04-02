@@ -6,7 +6,7 @@ import { db } from '../firebase'; //Import database
 import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import Logo from '../logo';
-import photo from "../components/image.png";
+import photo from "../Images/image.png";
 import '../components/forgotPassword.css'
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';

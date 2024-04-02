@@ -87,3 +87,26 @@
     margin-bottom: 17px;
     margin-left: 10px;
 }
+
+/* CSS */
+a.coa-table-link {
+    color: inherit; /* Use the color inherited from the parent */
+    text-decoration: none; /* Remove underline */
+}
+
+a.coa-table-link:hover {
+    /* Style when hovered over */
+    color: inherit; /* Use the color inherited from the parent */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+a.coa-table-link:visited {
+    /* Style when visited */
+    color: inherit; /* Use the color inherited from the parent */
+}
+
+a.coa-table-link:focus {
+    /* Style when focused */
+    outline: none; /* Remove default focus outline */
+}
+

@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
 import '../components/signup.css'
 import Logo from '../logo';
-import photo from "../components/image.png";
+import photo from "../Images/image.png";
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 
@@ -160,7 +160,7 @@ const Signup = () => {
               <option value="">Select User Type</option>
               <option value="Admin">Administrator</option>
               <option value="Manager">Manager</option>
-              <option value="User"> User</option>
+              <option value="Accountant"> Accountant</option>
             </select>
           </div>
 
