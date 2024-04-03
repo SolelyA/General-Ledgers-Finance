@@ -7,11 +7,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
 import Logo from '../logo';
 import '../components/login.css'
-import photo from '../components/image.png'
-import emailIcon from '../components/email.png'
-import passwordIcon from '../components/password.png'
+import photo from "../Images/image.png";
+import emailIcon from '../Images/email.png'
+import passwordIcon from '../Images/password.png'
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const Login = () => {
     const userCol = collection(db, "users");
@@ -134,7 +136,7 @@ const Login = () => {
                 Click on the 'Forgot Password' link below the login form.
                 You'll be guided through the steps to reset your password securely."
             />
-
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <body className={"login-body"}>
 
                 <img className={"login-logo"} src={photo} />

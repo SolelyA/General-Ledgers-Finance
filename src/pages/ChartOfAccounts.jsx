@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
+import JournalEntry from '../components/JournalEntry';
 import '../components/ChartOfAccounts.css'
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 
 const ChartOfAccounts = () => {
@@ -68,7 +71,7 @@ const ChartOfAccounts = () => {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 setAllAccts(allAcctsData);
 
-                allAcctsData.forEach(account => {
+                await allAcctsData.forEach(account => {
                     calculateBalance(account.acctNumber);
                 });
             } else {
@@ -123,6 +126,7 @@ const ChartOfAccounts = () => {
                 welcome="Welcome to the View Accounts page!"
                 text="Here you able to view all active accounts."
             />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
 
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
@@ -131,8 +135,8 @@ const ChartOfAccounts = () => {
 
             <div className={"adminApproval"}>
                 <div className={"admin-subheader"}>
-                        <div className={"admin-subtitle"}>Search By Name or Number</div>
-                        <div className={"coaSearch-subUnderline"}></div>
+                    <div className={"admin-subtitle"}>Search By Name or Number</div>
+                    <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
                 <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
@@ -154,7 +158,7 @@ const ChartOfAccounts = () => {
                     <form onSubmit={(e) => {
                         SearchAccountNumber(e)
                     }}>
-                        
+
                         <div className={"coa-inputs"}>
                             <input
                                 type="text"
@@ -187,7 +191,7 @@ const ChartOfAccounts = () => {
 
                     {currentAccount && (
 
-                        <label htmlFor={currentAccount.id}>
+                        <a href={`/ledger/${currentAccount.id}`} className="coa-table-link">
                             <table className={"coa-table"}>
 
                                 <tr>
@@ -268,8 +272,16 @@ const ChartOfAccounts = () => {
                             </table>
 
 
-                        </label>
+                        </a>
                     )}
+                    
+                    {currentAccount &&(
+                        <div className={"coa-btns"}>
+                        <JournalEntry
+                        accountName = {currentAccount.acctName} />
+                    </div>
+                    )}
+
                     <div className={"coa-btns"}>
                         <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous
                         </button>
