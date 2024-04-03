@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 import JournalEntry from '../components/JournalEntry';
 import '../components/ChartOfAccounts.css'
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 
 const ChartOfAccounts = () => {
@@ -124,6 +126,7 @@ const ChartOfAccounts = () => {
                 welcome="Welcome to the View Accounts page!"
                 text="Here you able to view all active accounts."
             />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
 
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>

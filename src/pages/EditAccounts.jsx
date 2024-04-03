@@ -11,6 +11,8 @@ import DeactivateAccountsForm from '../components/DeactivateAccountsForm';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 import './EditAccounts.css'
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 function EditAccounts() {
     const [activeForm, setActiveForm] = useState('form1');
@@ -27,6 +29,7 @@ function EditAccounts() {
                 welcome="Welcome to the Edit Accounts page!"
                 text="Here you able to add, modify, and deactivate accounts."
             />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <div >
                 <div className={"edit-btns"}>
                     <button onClick={() => handleFormChange('add')}

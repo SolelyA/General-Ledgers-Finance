@@ -10,6 +10,8 @@ import photo from "../Images/image.png";
 import '../components/forgotPassword.css'
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 
 const ForgotPassword = () => {
@@ -61,6 +63,7 @@ const ForgotPassword = () => {
                 welcome="Welcome to the Forgot Password page!"
                 text="Enter your email for a forgot password link."
             />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <body>
 
                 <img className={"login-logo"} src={photo} />

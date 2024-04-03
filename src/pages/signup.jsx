@@ -10,7 +10,8 @@ import Logo from '../logo';
 import photo from "../Images/image.png";
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
-
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const Signup = () => {
   const userCol = collection(db, "users")
@@ -142,6 +143,7 @@ const Signup = () => {
                 welcome="Welcome to the Sign Up page!"
                 text="Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
             />
+      <PopupCalendar /> {/*Render the PopupCalendar component*/}
       <body>
 
         <img className={"signup-logo"} src={photo} />

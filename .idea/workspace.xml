@@ -5,18 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/AddAccountsForm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/EditAccounts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Images/CalendarIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupCalendar/PopupCalendar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/PopupCalendar/PopupCalendar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAccountsForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/logo2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/signup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,43 +89,10 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/PopupCalendar" />
       <recent name="$PROJECT_DIR$/src/pages" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="appdomainproj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="appdomainproj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -155,21 +125,6 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="master" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -187,6 +142,21 @@
                 </map>
               </option>
             </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
