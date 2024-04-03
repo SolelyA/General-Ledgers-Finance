@@ -280,7 +280,9 @@ const ChartOfAccounts = () => {
                     {currentAccount &&(
                         <div className={"coa-btns"}>
                         <JournalEntry
-                        accountName = {currentAccount.acctName} />
+                        accountName = {currentAccount.acctName}
+                        accountId={currentAccount.id}
+                         />
                     </div>
                     )}
 
