@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import JournalEntry from '../components/JournalEntry';
 import '../components/ChartOfAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';

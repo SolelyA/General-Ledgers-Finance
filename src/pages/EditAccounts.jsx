@@ -9,7 +9,7 @@ import AddAccountsForm from '../components/AddAccountsForm';
 import ModifyAccountsForm from '../components/ModifyAccountsForm';
 import DeactivateAccountsForm from '../components/DeactivateAccountsForm';
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import './EditAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';

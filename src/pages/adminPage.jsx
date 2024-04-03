@@ -10,7 +10,7 @@ import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
 import Navbar from '../components/Navbar';
 import { getUserRole } from '../components/firestoreUtils';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 

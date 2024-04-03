@@ -11,10 +11,9 @@ import photo from "../Images/image.png";
 import emailIcon from '../Images/email.png'
 import passwordIcon from '../Images/password.png'
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-//import calendarIcon from '../calendarIcon';
 
 const Login = () => {
     const userCol = collection(db, "users");

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Popup from './Popup';
-import './Popup.css'; // Import CSS for Popup component
+import Popup from './HelpButton/Popup';
+import './HelpButton/Popup.css'; // Import CSS for Popup component
 import './JournalEntry.css'; // Import CSS for JournalEntry component
 
 export default function JournalEntry({ accountName }) {

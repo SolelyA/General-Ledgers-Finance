@@ -9,7 +9,7 @@ import '../components/signup.css'
 import Logo from '../logo';
 import photo from "../Images/image.png";
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 

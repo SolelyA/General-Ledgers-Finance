@@ -2,7 +2,7 @@ import Logo from '../logo';
 import '../components/waitingForAccess.css'
 import photo from "../Images/image.png";
 import React from "react";
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 

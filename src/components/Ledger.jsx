@@ -3,7 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
 import '../components/ChartOfAccounts.css'
 
 
