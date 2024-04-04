@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
@@ -6,6 +5,7 @@ import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
 import './HelpButton/Popup.css'; // Import CSS for Popup component
 import './JournalEntry.css'; // Import CSS for JournalEntry component
+import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter';
 
 
 export default function JournalEntry({ accountName, accountId }) {
@@ -18,8 +18,7 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalDebits, setTotalDebits] = useState(0);
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
-
-   
+    const [filteredEntries, setFilteredEntries] = useState(data); // Define setFilteredEntries state updater
 
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
@@ -102,6 +101,7 @@ export default function JournalEntry({ accountName, accountId }) {
 
     return (
         <>
+            <JournalEntryFilter entries={data} onUpdateFilteredEntries={setFilteredEntries} /> {/* Render the JournalEntryFilter component */}
             <button onClick={() => setButtonPopup(true)} title='Create a new journal entry'>
                 {`Create New Journal Entry for ${accountName}`}
             </button>
