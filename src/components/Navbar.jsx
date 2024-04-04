@@ -12,7 +12,6 @@ function Navbar() {
     const navigate = useNavigate();
 
     const [userData, setUserData] = useState('')
-    // Parse the retrieved data if necessary
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -23,8 +22,8 @@ function Navbar() {
             }
         };
 
-        fetchData(); // Fetch user data when component mounts
-    }, []); // Empty dependency array to run effect only once
+        fetchData();
+    }, []); 
 
 
 
