@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Created a new JournalEntryFilter component that allows manager users to filter journal entries displayed for pending, approved, and rejected categories by date.">
-      <change afterPath="$PROJECT_DIR$/src/components/JournalEntryFilter/JournalEntryFilter.css" afterDir="false" />
+    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JournalEntryFilter/JournalEntryFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntryFilter/JournalEntryFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712253021761</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date">
+      <created>1712253953827</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712253953827</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +185,7 @@
     <MESSAGE value="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling." />
     <MESSAGE value="Reorganized the HelpButton.jsx and HelpButton.css files and placed them in there own component directory along with Popup.jsx and Popup.css. Refactored the code to help with project organization. Adjusted the corresponding import statements on other pages." />
     <MESSAGE value="Created a new JournalEntryFilter component that allows manager users to filter journal entries displayed for pending, approved, and rejected categories by date." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a new JournalEntryFilter component that allows manager users to filter journal entries displayed for pending, approved, and rejected categories by date." />
+    <MESSAGE value="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date" />
   </component>
 </project>

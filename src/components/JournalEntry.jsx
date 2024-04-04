@@ -5,8 +5,6 @@ import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
 import './HelpButton/Popup.css';
 import './JournalEntry.css';
-import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter';
-import '../components/JournalEntryFilter/JournalEntryFilter.css'
 
 export default function JournalEntry({ accountName, accountId }) {
     const [buttonPopup, setButtonPopup] = useState(false);
@@ -18,7 +16,7 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalDebits, setTotalDebits] = useState(0);
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
-    const [filteredEntries, setFilteredEntries] = useState(data);
+    //const [filteredEntries, setFilteredEntries] = useState(data);
 
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
@@ -101,7 +99,6 @@ export default function JournalEntry({ accountName, accountId }) {
 
     return (
         <>
-            <JournalEntryFilter entries={data} onUpdateFilteredEntries={setFilteredEntries} />
             <button onClick={() => setButtonPopup(true)} title='Create a new journal entry'>
                 {`Create New Journal Entry for ${accountName}`}
             </button>

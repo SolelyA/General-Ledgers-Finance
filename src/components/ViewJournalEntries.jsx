@@ -6,14 +6,18 @@ import AddLedgerEntry from './AddLedgerEntry';
 import Popup from '../components/HelpButton/Popup';
 import '../components/HelpButton/Popup.css';
 import './JournalEntry.css';
+//import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter';
+//import '../components/JournalEntryFilter/JournalEntryFilter.css'
 
 function ViewJournalEntries() {
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [error, setError] = useState('');
-    const [allJournalData, setAllJournalData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [userData, setUserData] = useState('');
-    const [jEntryId, setJEntryId] = useState('');
+        const [error, setError] = useState('');
+        const [allJournalData, setAllJournalData] = useState([]);
+        const [currentPage, setCurrentPage] = useState(0);
+        const [userData, setUserData] = useState('');
+        const [jEntryId, setJEntryId] = useState('');
+        const [filteredEntries, setFilteredEntries] = useState([]); // Initialize with an empty array
+
 
     useEffect(() => {
         const fetchData = async () => {
