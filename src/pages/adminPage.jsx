@@ -10,7 +10,9 @@ import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
 import Navbar from '../components/Navbar';
 import { getUserRole } from '../components/firestoreUtils';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const AdminPage = () => {
     const userCol = collection(db, "users");
@@ -173,7 +175,7 @@ const AdminPage = () => {
                 An email contact form to reach out to the users on the site. Along with buttons to view and modify the account of charts.
                 Lastly, at the bottom of the page there is a link to manage all the users signed up on the web app. "
             />
-
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <img className={"signup-logo"} src={photo} />
 
             <div className={"login-header"}>

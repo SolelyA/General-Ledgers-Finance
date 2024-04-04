@@ -1,0 +1,16 @@
+.popup-calendar {
+  position: fixed; /* Position the calendar button */
+  bottom: 20px; /* Adjust the distance from the bottom of the screen */
+  left: 20px; /* Adjust the distance from the left of the screen */
+  z-index: 999; /* Ensure the button appears above other content */
+}
+
+.popup-calendar img {
+  width: 32px; /* Adjust the width of the calendar icon */
+  height: 32px; /* Adjust the height of the calendar icon */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.popup-calendar img:hover {
+  transform: scale(1.1); /* Scale the button on hover for a modern effect */
+}

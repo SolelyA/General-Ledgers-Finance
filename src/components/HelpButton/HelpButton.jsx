@@ -1,7 +1,7 @@
 import React from 'react'
-import HelpIcon from '../Images/HelpButton.png'
+import HelpIcon from '../../Images/HelpButton.png'
 import './HelpButton.css'
-import Popup from './Popup';
+import Popup from './Popup.jsx';
 import './Popup.css'
 import { useState } from 'react';
 

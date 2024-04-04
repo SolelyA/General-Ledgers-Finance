@@ -7,7 +7,9 @@ import { createUserWithEmailAndPassword, updatePassword, sendPasswordResetEmail 
 import { auth } from '../firebase'; // Import Firebase configuration
 import Logo from '../logo';
 import Navbar from '../components/Navbar';
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const ManageUsers = () => {
     const userCol = collection(db, "users");
@@ -203,6 +205,7 @@ const ManageUsers = () => {
                 welcome="Welcome to the Manage Uers page!"
                 text="Here you able to add, modify, and deactivate users."
             />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <h2>Users List</h2>
             <Logo />
             <ul>

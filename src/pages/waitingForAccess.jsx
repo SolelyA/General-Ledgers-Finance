@@ -2,7 +2,9 @@ import Logo from '../logo';
 import '../components/waitingForAccess.css'
 import photo from "../Images/image.png";
 import React from "react";
-import HelpButton from '../components/HelpButton';
+import HelpButton from '../components/HelpButton/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const WaitingForAccess = () => {
     return (
@@ -13,7 +15,7 @@ const WaitingForAccess = () => {
                 welcome="Welcome to the Waiting for Access page!"
                 text="You must wait for the admin to give you access. Check back later."
             />
-
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <img className={"waiting-logo"} src={photo}/>
             <div className={"waiting-text"}>
                 <h1>Thank you for signing up, we are waiting for the administrator to approve your access.</h1>

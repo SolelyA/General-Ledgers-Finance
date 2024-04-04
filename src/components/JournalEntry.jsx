@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
-import Popup from './Popup';
+import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
-import './Popup.css'; 
-import './JournalEntry.css'; 
+import './HelpButton/Popup.css'; // Import CSS for Popup component
+import './JournalEntry.css'; // Import CSS for JournalEntry component
+
 
 export default function JournalEntry({ accountName, accountId }) {
     const [buttonPopup, setButtonPopup] = useState(false);
