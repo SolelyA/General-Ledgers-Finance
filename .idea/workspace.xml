@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Reorganized the HelpButton.jsx and HelpButton.css files and placed them in there own component directory along with Popup.jsx and Popup.css. Refactored the code to help with project organization. Adjusted the corresponding import statements on other pages.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Reorganized the HelpButton.jsx and HelpButton.css files and placed them in there own component directory along with Popup.jsx and Popup.css. Refactored the code to help with project organization. Adjusted the corresponding import statements on other pages." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
