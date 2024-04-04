@@ -3,8 +3,8 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getUserData } from './firestoreUtils'
 import AddLedgerEntry from './AddLedgerEntry';
-import Popup from './Popup';
-import './Popup.css';
+import Popup from './HelpButton/Popup';
+import './HelpButton/Popup.css'
 import './JournalEntry.css';
 
 function ViewJournalEntries() {

@@ -4,7 +4,6 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { getUserData } from './firestoreUtils'
 import { useState, useEffect } from "react";
-import './App.css'
 //import 'react-calendar/dist/Calendar.css';
 
 
@@ -23,7 +22,7 @@ function Navbar() {
         };
 
         fetchData();
-    }, []); 
+    }, []);
 
 
 
