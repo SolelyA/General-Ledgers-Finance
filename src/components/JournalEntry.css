@@ -4,7 +4,8 @@
     margin-top: 20px;
 }
 
-.journal-table th, .journal-table td {
+.journal-table th,
+.journal-table td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
@@ -35,6 +36,7 @@
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -58,5 +60,37 @@
 }
 
 .button-container button:active {
+    transform: translateY(1px);
+}
+
+/* Add this CSS to your existing styles */
+
+.date-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 20px;
+}
+
+.date-filter button {
+    padding: 10px 20px;
+    background-color: rgba(34, 71, 34, 0.85);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.date-filter button:not(:last-child) {
+    margin-right: 10px; /* Add margin between buttons */
+}
+
+.date-filter button:hover {
+    background-color: #0056b3;
+}
+
+.date-filter button:active {
     transform: translateY(1px);
 }
