@@ -9,7 +9,7 @@ import './JournalEntry.css';
 export default function JournalEntry({ accountName, accountId }) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [data, setData] = useState([
-        { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, jounralEntryStatus: 'pending'}
+        { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId,}
     ]);
     const [nextId, setNextId] = useState(2);
     const [error, setError] = useState('');
@@ -51,7 +51,7 @@ export default function JournalEntry({ accountName, accountId }) {
     const clearAllInput = () => {
         setData(prevData => {
             return prevData.map( item => {
-                return {...item, date:'', debitParticulars:'', debits: 0, creditParticulars: '', credits: 0}
+                return {...item, date:'', debitParticulars:'', debits: 0, creditParticulars: '', credits: 0, }
             });
         });
     };
@@ -70,7 +70,7 @@ export default function JournalEntry({ accountName, accountId }) {
             const jounralEntryCollectionsRef = collection(acctsDoc, 'journalEntries');
 
             console.log('data: ', data)
-            await addDoc(jounralEntryCollectionsRef,{entries: data})
+            await addDoc(jounralEntryCollectionsRef,{journalEntryStatus: 'Pending', account: accountId, entries: data})
             console.log('Journal entry added successfully')
             setMessage('Success! Jounral Entry added successfully')
 

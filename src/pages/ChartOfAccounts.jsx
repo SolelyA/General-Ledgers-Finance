@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton';
 import JournalEntry from '../components/JournalEntry';
+import ViewJournalEntries from '../components/ViewJournalEntries';
 import '../components/ChartOfAccounts.css'
 
 
@@ -287,9 +288,13 @@ const ChartOfAccounts = () => {
                     )}
 
                     <div className={"coa-btns"}>
-                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous
-                        </button>
+                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
                         <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
+                    </div>
+
+                    <div className={'coa-btns'}>
+                        <ViewJournalEntries
+                        />
                     </div>
 
                 </div>
