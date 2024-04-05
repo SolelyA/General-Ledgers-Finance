@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, where, updateDoc, doc, addDoc } from "firebase/firestore";
+import { collection, doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
@@ -19,14 +19,21 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
 
-   
-
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
         setTotalDebits(debits);
         setTotalCredits(credits);
     }, [data]); 
+
+    const updateAccountInData = (newAccountId) => {
+        setData(prevData => {
+            return prevData.map(item => {
+                return { ...item, account: newAccountId };
+            });
+        });
+    };
+    
 
     const handleInputChange = (id, fieldName, value) => {
         setData(prevData => {
@@ -68,6 +75,7 @@ export default function JournalEntry({ accountName, accountId }) {
         }
         try{
             console.log(`account id:  ${accountId}`)
+            updateAccountInData(accountId);
             const acctsDoc = doc(db, "accts", accountId);
             const jounralEntryCollectionsRef = collection(acctsDoc, 'journalEntries');
 

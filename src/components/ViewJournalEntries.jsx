@@ -84,25 +84,22 @@ function ViewJournalEntries() {
             const journalEntry = allJournalData[currentPage].entries[index];
             const docId = journalEntry.docId;
             
-            // Construct a collection reference instead of a document reference
+
             const journalEntriesCollectionRef = collection(db, 'accts', journalEntry.account, 'journalEntries');
-    
-            // Construct a document reference using the docId
+
+
             const journalEntryRef = doc(journalEntriesCollectionRef, docId);
-    
-            // Update the document in Firestore
+
             await updateDoc(journalEntryRef, {
                 journalEntryStatus: 'Approved'
             });
-    
-            // Update the status locally
+
             const updatedJournalData = [...allJournalData];
             updatedJournalData[currentPage].entries[index].journalEntryStatus = 'Approved';
             setAllJournalData(updatedJournalData);
-    
-            // Invoke AddLedgerEntry function
+
             await AddLedgerEntry(
-                journalEntry.account, 
+                journalEntry.account,
                 journalEntry.credits,
                 journalEntry.debits,
                 journalEntry.creditParticulars,
@@ -113,7 +110,7 @@ function ViewJournalEntries() {
             console.error('Error updating status:', error);
         }
     };
-    
+
 
     const updateStatusToRejected = async (index) => {
         try {
@@ -171,8 +168,8 @@ function ViewJournalEntries() {
                                                     <td>
                                                         {allJournalData[currentPage].status === 'Pending' && (
                                                             <>
-                                                            <button onClick={() => updateStatusToApproved(index)}>Approve</button>
-                                                            <button onClick={() => updateStatusToRejected(index)}>Reject</button>
+                                                                <button onClick={() => updateStatusToApproved(index)}>Approve</button>
+                                                                <button onClick={() => updateStatusToRejected(index)}>Reject</button>
                                                             </>
                                                         )}
                                                     </td>

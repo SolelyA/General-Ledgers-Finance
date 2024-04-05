@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase'; // Import Firebase configuration
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs, query, where, updateDoc } from "firebase/firestore";
-import signup from './signup';
+import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase'; //Import database
-import Logo from '../logo';
 import '../components/login.css'
 import photo from "../Images/image.png";
 import emailIcon from '../Images/email.png'

@@ -1,10 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, where, updateDoc, doc, getDoc, addDoc } from "firebase/firestore";
-import { Link, useNavigate } from 'react-router-dom';
-import { db, auth } from '../firebase';
-import { sendApprovalNotification } from '../emailUtils';
-import Logo from '../logo';
-import photo from "../Images/image.png";
+import React, { useState } from 'react';
 import AddAccountsForm from '../components/AddAccountsForm';
 import ModifyAccountsForm from '../components/ModifyAccountsForm';
 import DeactivateAccountsForm from '../components/DeactivateAccountsForm';

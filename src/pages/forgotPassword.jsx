@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase'; // Import Firebase configuration
-import { createUserWithEmailAndPassword, updatePassword, sendPasswordResetEmail } from "firebase/auth";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { sendSignupNotification } from '../emailUtils';
-import Logo from '../logo';
 import photo from "../Images/image.png";
 import '../components/forgotPassword.css'
 import Navbar from '../components/Navbar';

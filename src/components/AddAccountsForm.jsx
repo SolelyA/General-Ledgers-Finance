@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, where, updateDoc, doc, addDoc, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, addDoc, getDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import '../components/adminPage.css';
 import './AddAccountsForm.css'
