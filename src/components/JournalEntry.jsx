@@ -117,7 +117,7 @@ export default function JournalEntry({ accountName, accountId }) {
 
     return (
         <>
-            <button onClick={() => setButtonPopup(true)} title='Create a new journal entry'>
+            <button className={"create-journal-btn"} onClick={() => setButtonPopup(true)} title='Create a new journal entry'>
                 {`Create New Journal Entry for ${accountName}`}
             </button>
 
@@ -136,13 +136,24 @@ export default function JournalEntry({ accountName, accountId }) {
                         <tbody>
                             {data.map(row => (
                                 <tr key={row.id}>
-                                    <td><input type="date" value={row.date} onChange={e => handleInputChange(row.id, 'date', e.target.value)} required /></td>
-                                    <td><input type="text" value={row.debitParticulars} onChange={e => handleInputChange(row.id, 'debitParticulars', e.target.value)} /></td>
-                                    <td><input type="number" value={row.debits} onChange={e => handleInputChange(row.id, 'debits', parseFloat(e.target.value).toFixed(2))} required /></td>
-                                    <td><input type="text" value={row.creditParticulars} onChange={e => handleInputChange(row.id, 'creditParticulars', e.target.value)} /></td>
-                                    <td><input type="number" value={row.credits} onChange={e => handleInputChange(row.id, 'credits', parseFloat(e.target.value).toFixed(2))} required /></td>
-                                    <td><button onClick={() => handleClearInput(row.id)}>Reset</button></td>
-                                    <td><button onClick={() => delRow(row.id)}>Delete Row</button></td>
+                                    <td>
+                                        <input type="date" value={row.date} onChange={e => handleInputChange(row.id, 'date', e.target.value)} required />
+                                    </td>
+                                    <td>
+                                        <input type="text" value={row.debitParticulars} onChange={e => handleInputChange(row.id, 'debitParticulars', e.target.value)} />
+                                    </td>
+                                    <td>
+                                        <input type="number" value={row.debits} onChange={e => handleInputChange(row.id, 'debits', parseFloat(e.target.value).toFixed(2))} required />
+                                    </td>
+                                    <td>
+                                        <input type="text" value={row.creditParticulars} onChange={e => handleInputChange(row.id, 'creditParticulars', e.target.value)} />
+                                    </td>
+                                    <td>
+                                        <input type="number" value={row.credits} onChange={e => handleInputChange(row.id, 'credits', parseFloat(e.target.value).toFixed(2))} required />
+                                    </td>
+
+                                    <td><button className={"table-btn"} onClick={() => handleClearInput(row.id)}>Reset</button></td>
+                                    <td><button className={"table-btn"} onClick={() => delRow(row.id)}>Delete Row</button></td>
                                 </tr>
                             ))}
                         </tbody>

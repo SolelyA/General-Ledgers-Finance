@@ -84,7 +84,7 @@ function DeactivateAccountsForm() {
                 <div className={"deactivate-underline"}></div>
             </div>
 
-            <div className={"adminApproval"}>
+            <div className={"admin-container"}>
 
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Choose Accounts</div>

@@ -7,6 +7,7 @@ import HelpButton from '../components/HelpButton/HelpButton';
 import Popup from './HelpButton/Popup.jsx';
 import './HelpButton/Popup.css'
 import '../components/ChartOfAccounts.css'
+import './adminPage.css'
 
 
 const Ledger = () => {
@@ -78,18 +79,21 @@ const Ledger = () => {
                 welcome="Welcome to the Ledger page!"
                 text="Here you able to view the selected account's ledger."
             />
+
             <h1>Ledger Page</h1>
-            <table className={"coa-table"}>
-                <thead>
-                    <tr>
+
+            <div className={"admin-container"}>
+                <table className={"admin-table"}>
+                    <thead>
+                    <tr className={"headers"}>
                         <th>Date</th>
                         <th>Type</th>
                         <th>Value</th>
                         <th>Description</th>
                         <th>Journal Entry</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {ledgerData.map((entry, index) => (
 
                         <tr>
@@ -97,8 +101,9 @@ const Ledger = () => {
                             <td>{entry.type}</td>
                             <td>{entry.value}</td>
                             <td>{entry.desc}</td>
-                            <td>
-                                <button onClick={() => handleButtonClick(entry.journal, entry.accountID)} title='View All Journal Entries'>
+                            <td className={"coa-table-btn"}>
+                                <button className={"coa-viewJournal"} onClick={() => handleButtonClick(entry.journal, entry.accountID)}
+                                        title='View All Journal Entries'>
                                     View Journal Entry
                                 </button>
 
@@ -108,26 +113,26 @@ const Ledger = () => {
                                             <h2>Journal Entry</h2>
                                             <table>
                                                 <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Debit Particulars</th>
-                                                        <th>Debits</th>
-                                                        <th>Credit Particulars</th>
-                                                        <th>Credits</th>
-                                                        <th>Status</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Debit Particulars</th>
+                                                    <th>Debits</th>
+                                                    <th>Credit Particulars</th>
+                                                    <th>Credits</th>
+                                                    <th>Status</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {journalData[0].entries.map((entry, index) => (
-                                                        <tr>
-                                                            <td>{entry.date}</td>
-                                                            <td>{entry.debitParticulars}</td>
-                                                            <td>{entry.debits}</td>
-                                                            <td>{entry.creditParticulars}</td>
-                                                            <td>{entry.credits}</td>
-                                                            <td>{journalData[0].status}</td>
-                                                        </tr>
-                                                    ))}
+                                                {journalData[0].entries.map((entry, index) => (
+                                                    <tr>
+                                                        <td>{entry.date}</td>
+                                                        <td>{entry.debitParticulars}</td>
+                                                        <td>{entry.debits}</td>
+                                                        <td>{entry.creditParticulars}</td>
+                                                        <td>{entry.credits}</td>
+                                                        <td>{journalData[0].status}</td>
+                                                    </tr>
+                                                ))}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -138,9 +143,12 @@ const Ledger = () => {
                         </tr>
 
                     ))}
-                </tbody>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
+
+
         </div>
     );
 };

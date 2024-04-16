@@ -10,6 +10,9 @@ import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
+import photo from "../Images/image.png";
+import './ManageUsers.css'
+
 
 const ManageUsers = () => {
     const userCol = collection(db, "users");
@@ -199,95 +202,184 @@ const ManageUsers = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar/>
             <HelpButton
                 title="Edit Accounts Page"
                 welcome="Welcome to the Manage Uers page!"
                 text="Here you able to add, modify, and deactivate users."
             />
-            <PopupCalendar /> {/*Render the PopupCalendar component*/}
-            <h2>Users List</h2>
-            <Logo />
-            <ul>
-                {allUsers.map((user) => (
-                    <React.Fragment key={user.id}>
-                        <li key={user.id}>
-                            <input
-                                type="checkbox"
-                                id={user.id}
-                                checked={selectedItems.includes(user.id)}
-                                onChange={(event) => handleCheckboxChange(event, user.id)}
-                            />
-                            <label htmlFor={user.id}>
-                                {`${user.firstName} ${user.lastName} (Username: ${user.userName}) (Account State: ${user.accountState}) (Account Role: ${user.userType})`}
-                            </label>
-                        </li>
-                        {user.id !== user.length - 1 && <hr />}
-                    </React.Fragment>
-                ))}
-            </ul>
-            <button onClick={setSelectedUsersToActiveHandler} title='Set selected users to active account state'>Set Selected Users to Active</button>
-            {'      '}
-            <button onClick={setSelectedUsersToDeactivedHandler} title='Set selected users to deactivated account state'>Set Selected Users to Deactivated</button>
+            <PopupCalendar/> {/*Render the PopupCalendar component*/}
+            <img className={"signup-logo"} src={photo}/>
 
-            <div>
-                <h1>Create a new user</h1>
+            <div className={"admin-container"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Users List</div>
+                    <div className={"admin-subUnderline"}></div>
+                </div>
+
+                <table className={"admin-table"}>
+                    <tr className={"headers"}>
+                        <th>Select</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Account State</th>
+                        <th>Account Role</th>
+                    </tr>
+
+                    {allUsers.map((user, key) => {
+                        return (
+                            <tr key={user.id}>
+                                <td>
+                                    <input
+                                        className={"pending-input"}
+                                        type="checkbox"
+                                        id={user.id}
+                                        checked={selectedItems.includes(user.id)}
+                                        onChange={(event) => handleCheckboxChange(event, user.id)}
+                                    />
+                                </td>
+
+                                <td>
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.firstName} ${user.lastName}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.userName}`}
+                                    </label>
+                                </td>
+
+                                <td >
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.accountState}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.userType}`}
+                                    </label>
+                                </td>
+
+                            </tr>
+                        )
+                    })}
+                </table>
+
+                <div className={"admin-buttons"}>
+                    <button className={"manage-activate"} onClick={setSelectedUsersToActiveHandler}
+                            title='Set selected users to active account state'>Set
+                        Selected Users to Active
+                    </button>
+                    {'      '}
+                    <button className={"manage-deactivate"} onClick={setSelectedUsersToDeactivedHandler}
+                            title='Set selected users to deactivated account state'>Set Selected Users to Deactivated
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div className={"admin-container"}>
+
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Create a new user</div>
+                    <div className={"addAccounts-subUnderline"}></div>
+                </div>
+
                 <form onSubmit={handleSignup}>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <input
-                        type="date"
-                        placeholder="Date Of Birth"
-                        value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Account State"
-                        value={accountState}
-                        onChange={(e) => setAccountState(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="User Role"
-                        value={userType}
-                        onChange={(e) => setUserType(e.target.value)}
-                    />
 
-                    <button type="submit" title='Create a new user'>Create New User</button>
+                    <div className={"manage-input-group"}>
+                        <div className={"manage-input"}>
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+
+                        <div className={"manage-input"}>
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={"manage-input-group"}>
+                        <div className={"manage-input"}>
+                            <input
+                                type="text"
+                                placeholder="First Name"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                        </div>
+
+                        <div className={"manage-input"}>
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={"manage-input-group"}>
+                        <div className={"manage-sub"}>Enter Your Date of Birth:</div>
+                        <div className={"manage-dob"}>
+                            <input
+                                type="date"
+                                placeholder="Date Of Birth"
+                                value={dob}
+                                onChange={(e) => setDob(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={"manage-address"}>
+                        <input
+                            type="text"
+                            placeholder="Address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={"manage-input-group"}>
+                        <div className={"manage-input"}>
+                            <input
+                                type="text"
+                                placeholder="Account State"
+                                value={accountState}
+                                onChange={(e) => setAccountState(e.target.value)}
+                            />
+                        </div>
+
+                        <div className={"manage-input"}>
+                            <input
+                                type="text"
+                                placeholder="User Role"
+                                value={userType}
+                                onChange={(e) => setUserType(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <button className={"manage-newUser"} type="submit" title='Create a new user'>Create New User</button>
+
                 </form>
             </div>
 
-            <div>
-                <Link to ="/admin-page">Admin Home page</Link>
+            <div className={"manage-nav"}>
+            <Link className={"manage-link"} to="/admin-page">Admin Home page</Link>
             </div>
 
         </div>
