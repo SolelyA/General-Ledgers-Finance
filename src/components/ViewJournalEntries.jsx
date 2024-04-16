@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getUserData } from './firestoreUtils'
 import AddLedgerEntry from './AddLedgerEntry';
@@ -14,7 +14,8 @@ function ViewJournalEntries() {
     const [currentPage, setCurrentPage] = useState(0);
     const [userData, setUserData] = useState('');
     const [jEntryId, setJEntryId] = useState('');
-
+    const [editIndex, setEditIndex] = useState(-1);
+    
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -50,7 +51,7 @@ function ViewJournalEntries() {
                             if (Array.isArray(journalData[key])) {
                                 // Add docId to each entry within the array
                                 const modifiedArray = journalData[key].map(entry => ({ ...entry, docId }));
-                                allEntries.push({ entries: modifiedArray, status: status, accountId: acct }); // Push an object containing modified array and status
+                                allEntries.push({ entries: modifiedArray, status: status, accountId: acct });
                             }
                         }
                     });
@@ -68,7 +69,7 @@ function ViewJournalEntries() {
 
     const handleButtonClick = () => {
         setButtonPopup(true);
-        setCurrentPage(0); // Resetting current page when the button is clicked
+        setCurrentPage(0);
     };
 
     const handleNextPage = () => {
@@ -83,11 +84,8 @@ function ViewJournalEntries() {
         try {
             const journalEntry = allJournalData[currentPage].entries[index];
             const docId = journalEntry.docId;
-            
 
             const journalEntriesCollectionRef = collection(db, 'accts', journalEntry.account, 'journalEntries');
-
-
             const journalEntryRef = doc(journalEntriesCollectionRef, docId);
 
             await updateDoc(journalEntryRef, {
@@ -111,7 +109,6 @@ function ViewJournalEntries() {
         }
     };
 
-
     const updateStatusToRejected = async (index) => {
         try {
             const journalEntry = allJournalData[currentPage].entries[index];
@@ -130,6 +127,70 @@ function ViewJournalEntries() {
             console.error('Error updating status:', error);
         }
     };
+
+
+    const handleEditClick = (index) => {
+        setEditIndex(index);
+    };
+
+    const handleSaveClick = async (index) => {
+        setEditIndex(-1);
+        try {
+            const journalEntry = allJournalData[currentPage].entries[index];
+            const docId = journalEntry.docId;
+            const journalEntryRef = doc(db, 'accts', journalEntry.account, 'journalEntries', docId);
+            console.log(journalEntry.account)
+            
+            // Fetch existing document data
+            const docSnapshot = await getDoc(journalEntryRef);
+            console.log(docSnapshot)
+            if (docSnapshot.exists()) {
+                const existingData = docSnapshot.data();
+            
+                // Update the specific entry within the array
+                const updatedEntries = existingData.entries.map((entry, i) => {
+                    if (i === index) {
+                        // Update the variables within the map
+                        return {
+                            ...entry,
+                            date: journalEntry.date,
+                            credits: journalEntry.credits,
+                            debits: journalEntry.debits,
+                            creditParticulars: journalEntry.creditParticulars,
+                            debitParticulars: journalEntry.debitParticulars,
+                        };
+                    }
+                    return entry;
+                });
+            
+                // Merge the updated entries array with the existing data
+                const newData = {
+                    ...existingData,
+                    entries: updatedEntries,
+                };
+            
+                // Update the document with the merged data
+                await setDoc(journalEntryRef, newData);
+                console.log('Save successful');
+            } else {
+                console.log('Document does not exist');
+            }            
+        } catch (error) {
+            console.log(error);
+            setError('Unable to adjust the journal entry. Try again later.' + error)
+        }
+
+    };
+
+    const handleInputChange = (e, fieldName, index) => {
+        const newValue = e.target.value;
+        setAllJournalData(prevData => {
+            const newData = [...prevData];
+            newData[currentPage].entries[index][fieldName] = newValue;
+            return newData;
+        });
+    };
+
 
     return (
         <>
@@ -158,16 +219,21 @@ function ViewJournalEntries() {
                                     <tbody>
                                         {allJournalData[currentPage].entries.map((entry, index) => (
                                             <tr key={index}>
-                                                <td>{entry.date}</td>
-                                                <td>{entry.debitParticulars}</td>
-                                                <td>{entry.debits}</td>
-                                                <td>{entry.creditParticulars}</td>
-                                                <td>{entry.credits}</td>
+                                                <td>{editIndex === index ? <input type="date" value={entry.date} onChange={(e) => handleInputChange(e, 'date', index)} /> : entry.date}</td>
+                                                <td>{editIndex === index ? <input type="text" value={entry.debitParticulars} onChange={(e) => handleInputChange(e, 'debitParticulars', index)} /> : entry.debitParticulars}</td>
+                                                <td>{editIndex === index ? <input type="number" value={parseFloat(entry.debits).toFixed(2)} onChange={(e) => handleInputChange(e, 'debits', index)} /> : parseFloat(entry.debits).toFixed(2)}</td>
+                                                <td>{editIndex === index ? <input type="text" value={entry.creditParticulars} onChange={(e) => handleInputChange(e, 'creditParticulars', index)} /> : entry.creditParticulars}</td>
+                                                <td>{editIndex === index ? <input type="number" value={parseFloat(entry.credits).toFixed(2)} onChange={(e) => handleInputChange(e, 'credits', index)} /> : parseFloat(entry.credits).toFixed(2)}</td>
                                                 <td>{allJournalData[currentPage].status}</td>
                                                 {(userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') && (
                                                     <td>
                                                         {allJournalData[currentPage].status === 'Pending' && (
                                                             <>
+                                                                {editIndex === index ? (
+                                                                    <button onClick={() => handleSaveClick(index)}>Save</button>
+                                                                ) : (
+                                                                    <button onClick={() => handleEditClick(index)}>Edit</button>
+                                                                )}
                                                                 <button onClick={() => updateStatusToApproved(index)}>Approve</button>
                                                                 <button onClick={() => updateStatusToRejected(index)}>Reject</button>
                                                             </>

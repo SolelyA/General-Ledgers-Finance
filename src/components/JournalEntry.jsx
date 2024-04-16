@@ -26,6 +26,12 @@ export default function JournalEntry({ accountName, accountId }) {
         setTotalCredits(credits);
     }, [data]); 
 
+    useEffect(() => {
+        setData([
+            { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId }
+        ]);
+    }, [accountId]);
+
     const updateAccountInData = (newAccountId) => {
         setData(prevData => {
             return prevData.map(item => {
@@ -75,7 +81,10 @@ export default function JournalEntry({ accountName, accountId }) {
         }
         try{
             console.log(`account id:  ${accountId}`)
+            console.log(`account name:  ${accountName}`)
             updateAccountInData(accountId);
+            
+
             const acctsDoc = doc(db, "accts", accountId);
             const jounralEntryCollectionsRef = collection(acctsDoc, 'journalEntries');
 
