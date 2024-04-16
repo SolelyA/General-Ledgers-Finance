@@ -6,8 +6,6 @@ import AddLedgerEntry from './AddLedgerEntry';
 import Popup from './HelpButton/Popup';
 import './HelpButton/Popup.css'
 import './JournalEntry.css';
-//import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter';
-//import '../components/JournalEntryFilter/JournalEntryFilter.css'
 
 function ViewJournalEntries() {
     const [buttonPopup, setButtonPopup] = useState(false);
@@ -132,6 +130,7 @@ function ViewJournalEntries() {
                 journalEntry.debitParticulars,
                 journalEntry.docId
             );
+            window.location.reload();
         } catch (error) {
             console.error('Error updating status:', error);
         }
@@ -144,12 +143,14 @@ function ViewJournalEntries() {
             const journalEntryRef = doc(db, 'accts', journalEntry.account, 'journalEntries', docId);
 
             await updateDoc(journalEntryRef, {
-                journalEntryStatus: 'Rejected'
+                journalEntryStatus: 'Rejected',
+                comment: 'Rejected'
             });
 
             const updatedJournalData = [...allJournalData];
             updatedJournalData[currentPage].entries[index].journalEntryStatus = 'Rejected';
             setAllJournalData(updatedJournalData);
+            window.location.reload();
 
         } catch (error) {
             console.error('Error updating status:', error);
@@ -168,13 +169,13 @@ function ViewJournalEntries() {
             const docId = journalEntry.docId;
             const journalEntryRef = doc(db, 'accts', journalEntry.account, 'journalEntries', docId);
             console.log(journalEntry.account)
-            
+
             // Fetch existing document data
             const docSnapshot = await getDoc(journalEntryRef);
             console.log(docSnapshot)
             if (docSnapshot.exists()) {
                 const existingData = docSnapshot.data();
-            
+
                 // Update the specific entry within the array
                 const updatedEntries = existingData.entries.map((entry, i) => {
                     if (i === index) {
@@ -186,23 +187,24 @@ function ViewJournalEntries() {
                             debits: journalEntry.debits,
                             creditParticulars: journalEntry.creditParticulars,
                             debitParticulars: journalEntry.debitParticulars,
+                            adjusted: true
                         };
                     }
                     return entry;
                 });
-            
+
                 // Merge the updated entries array with the existing data
                 const newData = {
                     ...existingData,
                     entries: updatedEntries,
                 };
-            
+
                 // Update the document with the merged data
                 await setDoc(journalEntryRef, newData);
                 console.log('Save successful');
             } else {
                 console.log('Document does not exist');
-            }            
+            }
         } catch (error) {
             console.log(error);
             setError('Unable to adjust the journal entry. Try again later.' + error)
