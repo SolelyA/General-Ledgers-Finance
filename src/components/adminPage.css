@@ -3,9 +3,11 @@
     height: 6px;
     background-color: #172f17;
     border-radius: 9px;
+    margin-bottom: 25px;
 }
 
 .admin-subheader{
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,9 +27,26 @@
     border-radius: 9px;
 }
 
+.admin-coa-subUnderline{
+    width: 250px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+    margin: auto;
+}
+
 .admin-subUnderline2{
     margin-top: 3px;
     width: 570px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+    margin-bottom: 5px;
+}
+
+.admin-subUnderline3{
+    margin-top: 0;
+    width: 170px;
     height: 3px;
     background-color: #2e5b2e;
     border-radius: 9px;
@@ -63,7 +82,7 @@ tr:hover{
     background-color: transparent;
 }
 
-.adminApproval{
+.admin-container{
     padding-top: 5px;
     background-color: rgba(255, 255, 255, 0.45);
     /*backdrop-filter: blur(5px);*/
@@ -71,19 +90,6 @@ tr:hover{
     flex-direction: column;
     padding-bottom: 5px;
     width: 90%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 10px;
-    margin: 30px auto 30px;
-}
-
-.adminPending{
-    padding-top: 5px;
-    background-color: rgba(255, 255, 255, 0.45);
-    /*backdrop-filter: blur(5px);*/
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 5px;
-    width: 70%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     margin: 30px auto 30px;
@@ -126,7 +132,7 @@ tr:hover{
     cursor: pointer;
 }
 
-.select-activate:hover, .select-reject:hover{
+.select-activate:hover, .select-reject:hover, .admin-coa-btn:hover, .admin-manageUsers:hover, .button:hover{
     background-color: #2e5b2e;
 }
 
@@ -143,71 +149,83 @@ tr:hover{
     color: #2e5b2e;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff; /* Blue */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
+.admin-coa-btn{
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 38px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
     font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Hover effect */
-  .button:hover {
-    background-color: #0056b3; /* Darker blue */
-  }
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.admin-manageUsers{
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 38px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.button{
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 35px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+    margin-top: 20px;
+}
   
   /* Active state */
   .button:active {
     transform: translateY(1px);
   }
 
-  .email-form-container {
-    background-color: rgba(255, 255, 255, 0.45);
-    /* backdrop-filter: blur(5px); */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    padding: 20px;
-    width: 70%; /* Adjust width as needed */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 10px;
-    margin: 30px auto 30px;
-}
-
-.email-form-title {
-    color: #2e5b2e;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
 
 .email-form {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
+    gap: 40px;
+    margin: 40px auto;
 }
 
-.email-form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center horizontally */
-    margin-bottom: 20px;
+.admin-email{
+    margin-bottom: 15px;
+
+}
+
+.email-and-sub{
+   margin-top: 20px;
+    margin-left: auto;
+
+}
+
+.admin-message{
+    margin-right: auto;
 }
 
 .email-form-label {
     color: #666;
     margin-bottom: 5px;
+    font-size: 20px;
 }
 
-.email-form-input,
-.email-form-textarea,
-.email-form-button {
+.email-form-input, .email-form-textarea, .email-form-button {
     width: 100%; /* Take full width */
     max-width: 300px; /* Max width for input fields */
     padding: 10px;
@@ -228,6 +246,8 @@ tr:hover{
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+
+
 }
 
 .email-form-button:hover {

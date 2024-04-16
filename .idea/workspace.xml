@@ -5,19 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
+      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton/HelpButton.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HelpButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HelpButton/HelpButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Ledger.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Ledger.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/adminPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/EditAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/forgotPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/signup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/signup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/waitingForAccess.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +35,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Joscelyn's-branch" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Joscelync&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SolelyA/appdomainproj.git&quot;,
+    &quot;accountId&quot;: &quot;79c275ea-d1d4-4d0d-8d5d-88f4c69f14e1&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -80,7 +90,7 @@
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -92,6 +102,14 @@
       <recent name="$PROJECT_DIR$/src/pages" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -117,6 +135,8 @@
       <workItem from="1711023301057" duration="7151000" />
       <workItem from="1711033655400" duration="5727000" />
       <workItem from="1711040284049" duration="3960000" />
+      <workItem from="1712273331315" duration="10277000" />
+      <workItem from="1713152926739" duration="7246000" />
     </task>
     <task id="LOCAL-00001" summary="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
       <created>1712158981201</created>
@@ -132,27 +152,6 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -164,6 +163,27 @@
                 </option>
               </RecentGroup>
             </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

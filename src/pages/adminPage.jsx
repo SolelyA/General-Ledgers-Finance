@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils';
+import { auth } from '../firebase'; // Import Firebase configuration
+import Logo from '../logo';
 import photo from "../Images/image.png";
 import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
 import Navbar from '../components/Navbar';
-import { getUserData } from '../components/firestoreUtils';
+import { getUserRole } from '../components/firestoreUtils';
 import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
@@ -22,24 +24,11 @@ const AdminPage = () => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [userData, setUserData] = useState('');
 
     emailjs.init('Vi1TKgZ8-4VjyfZEd');
 
+
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const userDataString = localStorage.getItem("userData");
-            if (userDataString) {
-                const userEmail = JSON.parse(userDataString);
-                const userData = await getUserData(userEmail);
-                setUserData(userData);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -186,161 +175,166 @@ const AdminPage = () => {
                 An email contact form to reach out to the users on the site. Along with buttons to view and modify the account of charts.
                 Lastly, at the bottom of the page there is a link to manage all the users signed up on the web app. "
             />
-            <PopupCalendar />
+            <PopupCalendar /> {/*Render the PopupCalendar component*/}
             <img className={"signup-logo"} src={photo} />
 
-            {userData && (userData.selectedUserType === 'admin' || userData.selectedUserType === 'Admin') ? (
-                <div>
-                    <div className={"login-header"}>
-                        <div className={"login-title"}>Admin Home Page</div>
-                        <div className={"admin-underline"}></div>
-                    </div>
+            <div className={"login-header"}>
+                <div className={"login-title"}>Admin Home Page</div>
+                <div className={"admin-underline"}></div>
+            </div>
 
-                    <div>
-                        <div className={"admin-subtitle"}>Chart of Accounts</div>
-                        <button class="button" onClick={() => navigate("/chart-of-accounts")} title='View All Accounts in Chart'>View</button>
-                        <button class="button" onClick={() => navigate("/edit-accounts")} title='Modify Existing Accounts'>Edit</button>
+            <div>
+                <div className={"admin-subtitle"}>Chart of Accounts</div>
+                <div className={"admin-coa-subUnderline"}></div>
 
-                    </div>
+                <button class="button" onClick={() => navigate("/chart-of-accounts")} title='View All Accounts in Chart'>View</button>
+                <button class="button" onClick={() => navigate("/edit-accounts")} title='Modify Existing Accounts'>Edit</button>
+
+            </div>
 
 
-                    <div className={"adminApproval"}>
+            <div className={"admin-container"}>
 
-                        <button class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>
+                <button className={"admin-manageUsers"} class="button" onClick={() => navigate("/manage-users")} title='Manage Existing Users'>Manage Users</button>
 
-                        <div className={"admin-subheader"}>
-                            <div className={"admin-subtitle"}>Users List</div>
-                            <div className={"admin-subUnderline"}></div>
-                        </div>
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Users List</div>
+                    <div className={"admin-subUnderline"}></div>
+                </div>
 
-                        <table className={"admin-table"}>
-                            <tr className={"headers"}>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>DOB</th>
-                                <th>Address</th>
-                                <th>User Type</th>
-                                <th>Account State</th>
+                <table className={"admin-table"}>
+                    <tr className={"headers"}>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>DOB</th>
+                        <th>Address</th>
+                        <th>User Type</th>
+                        <th>Account State</th>
+                    </tr>
+
+                    {users.map((user, key) => {
+                        return (
+                            <tr key={user}>
+                                <td className={"name"}>{user.firstName} {user.lastName}</td>
+                                <td>{user.email}</td>
+                                <td>{user.userName} </td>
+                                <td>{user.dob}</td>
+                                <td>{user.address} <br /></td>
+                                <td>{user.selectedUserType}</td>
+                                {/*<td>{user.accountState}</td>*/}
+                                <td className={"acc-stat"}>
+                                    <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
+                                </td>
                             </tr>
+                        )
+                    })}
+                </table>
+            </div>
 
-                            {users.map((user, key) => {
-                                return (
-                                    <tr key={user}>
-                                        <td className={"name"}>{user.firstName} {user.lastName}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.userName} </td>
-                                        <td>{user.dob}</td>
-                                        <td>{user.address} <br /></td>
-                                        <td>{user.selectedUserType}</td>
-                                        {/*<td>{user.accountState}</td>*/}
-                                        <td className={"acc-stat"}>
-                                            <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </table>
-                    </div>
+            <div className={"admin-container"}>
 
-                    <div className={"adminPending"}>
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Users List with Pending Admin Approval</div>
+                    <div className={"admin-subUnderline2"}></div>
+                </div>
 
-                        <div className={"admin-subheader"}>
-                            <div className={"admin-subtitle"}>Users List with Pending Admin Approval</div>
-                            <div className={"admin-subUnderline2"}></div>
-                        </div>
+                <table className={"admin-table"}>
 
-                        <table className={"admin-table"}>
+                    <tr className={"headers"}>
+                        <th>Select</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                    </tr>
 
-                            <tr className={"headers"}>
-                                <th>Select</th>
-                                <th>Name</th>
-                                <th>Username</th>
+                    {pendingUsers.map((user, key) => {
+                        return (
+                            <tr key={user.id}>
+                                <td>
+                                    <input
+                                        className={"pending-input"}
+                                        type="checkbox"
+                                        id={user.id}
+                                        checked={selectedItems.includes(user.id)}
+                                        onChange={(event) => handleCheckboxChange(event, user.id)}
+                                    />
+                                </td>
+
+                                <td >
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.firstName} ${user.lastName}`}
+                                    </label>
+                                </td>
+
+                                <td>
+                                    <label className={"pending-userID"} htmlFor={user.id}>
+                                        {`${user.userName}`}
+                                    </label>
+                                </td>
+
                             </tr>
+                        )
+                    })}
+                </table>
 
-                            {pendingUsers.map((user, key) => {
-                                return (
-                                    <tr key={user.id}>
-                                        <td>
-                                            <input
-                                                className={"pending-input"}
-                                                type="checkbox"
-                                                id={user.id}
-                                                checked={selectedItems.includes(user.id)}
-                                                onChange={(event) => handleCheckboxChange(event, user.id)}
-                                            />
-                                        </td>
+                <div className={"admin-buttons"}>
+                    <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler} title='Set all selected Users to Active Account State'>Set Selected Users to Active</button>
+                    {'      '}
+                    <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler} title='Set all selected Users to Rejected Account State'>Set Selected Users to Reject</button>
+                </div>
 
-                                        <td >
-                                            <label className={"pending-userID"} htmlFor={user.id}>
-                                                {`${user.firstName} ${user.lastName}`}
-                                            </label>
-                                        </td>
+            </div>
 
-                                        <td>
-                                            <label className={"pending-userID"} htmlFor={user.id}>
-                                                {`${user.userName}`}
-                                            </label>
-                                        </td>
-
-                                    </tr>
-                                )
-                            })}
-                        </table>
-
-                        <div className={"admin-buttons"}>
-                            <button className={"select-activate"} onClick={setSelectedUsersToActiveHandler} title='Set all selected Users to Active Account State'>Set Selected Users to Active</button>
-                            {'      '}
-                            <button className={"select-reject"} onClick={setSelectedUsersToRejectedHandler} title='Set all selected Users to Rejected Account State'>Set Selected Users to Reject</button>
-                        </div>
-
-                    </div>
-
-                    <div className="email-form-container">
-                        <h2 className="email-form-title">Contact Form</h2>
-                        <form className="email-form" onSubmit={handleSubmit}>
-                            <div className="email-form-group">
-                                <label className="email-form-label" htmlFor="toEmail">To Email:</label>
+            <div className={"admin-container"}>
+                <div className={"admin-subheader"}>
+                    <div className={"admin-subtitle"}>Contact Form</div>
+                    <div className={"admin-subUnderline3"}></div>
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className={"email-form"}>
+                        <div className={"email-and-sub"}>
+                            <div className={"admin-email"}>
+                                <label className={"email-form-label"} htmlFor="toEmail">To Email:</label>
                                 <input
-                                    className="email-form-input"
+                                    className={"email-form-input"}
                                     type="email"
                                     id="toEmail"
                                     value={toEmail}
                                     onChange={(e) => setToEmail(e.target.value)}
                                 />
                             </div>
-                            <div className="email-form-group">
-                                <label className="email-form-label" htmlFor="subject">Subject:</label>
+                            <div className={"email-form-group"}>
+                                <label className={"email-form-label"} htmlFor="subject">Subject:</label>
                                 <input
-                                    className="email-form-input"
+                                    className={"email-form-input"}
                                     type="text"
                                     id="subject"
                                     value={subject}
                                     onChange={(e) => setSubject(e.target.value)}
                                 />
                             </div>
-                            <div className="email-form-group">
-                                <label className="email-form-label" htmlFor="message">Message:</label>
-                                <textarea
-                                    className="email-form-textarea"
-                                    id="message"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                ></textarea>
-                            </div>
-                            <button className="email-form-button" type="submit" title="Send the email">Send Email</button>
-                        </form>
-                        {error && <p className="email-form-error">{error}</p>}
-                        {success && <p className="email-form-success">{success}</p>}
+                        </div>
+
+                        <div className="admin-message">
+                            <label className="email-form-label" htmlFor="message">Message:</label>
+                            <textarea
+                                className="email-form-textarea"
+                                id="message"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            ></textarea>
+                        </div>
                     </div>
-                </div>
 
-            ) : (
-                <h1>How'd you end up here? You must be lost. Here's a way to get home.</h1>
+                    <div>
+                        <button className={"email-form-button"} type="submit" title="Send the email">Send Email
+                        </button>
+                    </div>
 
-            )}
-
-
+                </form>
+                {error && <p className="email-form-error">{error}</p>}
+                {success && <p className="email-form-success">{success}</p>}
+            </div>
 
 
         </div>

@@ -139,13 +139,13 @@ const ChartOfAccounts = () => {
                 <div className={"coa-underline"}></div>
             </div>
 
-            <div className={"adminApproval"}>
+            <div className={"admin-container"}>
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Search By Name or Number</div>
                     <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
-                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
+                <div className="coa-search">
                     <form onSubmit={async (e) => { await SearchAccountName(e) }}>
                         <div className={"coa-inputs"}>
                             <input
@@ -158,7 +158,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button type="submit">Search</button>
+                        <button className={"coa-search-btn"} type="submit">Search</button>
                     </form>
 
                     <form onSubmit={async (e) => {
@@ -177,7 +177,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button type="submit">Search</button>
+                        <button className={"coa-search-btn"} type="submit">Search</button>
                     </form>
 
                 </div>
@@ -280,24 +280,27 @@ const ChartOfAccounts = () => {
 
                         </a>
                     )}
-                    
-                    {currentAccount &&(
-                        <div className={"coa-btns"}>
-                        <JournalEntry
-                        accountName = {currentAccount.acctName}
-                        accountId={currentAccount.id}
-                         />
+
+                    <div className={"journal-nav"}>
+                        {currentAccount && (
+                            <div>
+                                <JournalEntry
+                                    accountName={currentAccount.acctName}
+                                    accountId={currentAccount.id}
+                                />
+                            </div>
+                        )}
+
+                        <div>
+                            <ViewJournalEntries/>
+                        </div>
                     </div>
-                    )}
 
                     <div className={"coa-btns"}>
-                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
+                        <button className={"prev"} onClick={goToPreviousAccount}
+                                title='Go to previous entry'>Previous
+                        </button>
                         <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
-                    </div>
-
-                    <div className={'coa-btns'}>
-                        <ViewJournalEntries
-                        />
                     </div>
 
                 </div>
