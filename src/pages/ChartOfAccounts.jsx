@@ -13,13 +13,17 @@ import EventLogComponent from '../components/EventLog/EventLogComponent.jsx';
 import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter.jsx';
 
 const ChartOfAccounts = () => {
+    // Firebase collection reference for 'accts'
     const acctsCol = collection(db, "accts");
-    const [allAccts, setAllAccts] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [searchAcctName, SetSearchAcctName] = useState("")
-    const [searchAcctNum, SetSearchAcctNum] = useState("")
-    const [showEventLogs, setShowEventLogs] = useState(false);
+    // State Variables
+    const [allAccts, setAllAccts] = useState([]); // Array that holds all of the accounts
+    const [currentIndex, setCurrentIndex] = useState(0); // Index of the current account displayed
+    const [searchAcctName, SetSearchAcctName] = useState("") // State for searching accounts by name
+    const [searchAcctNum, SetSearchAcctNum] = useState("") // State for searching accounts by number
+    const [showEventLogs, setShowEventLogs] = useState(false); // State to toggle the visibility of event logs
+    const [currentAccount, setCurrentAccount] = useState(null);
 
+    // Function to toggle the visibility of event logs
     const toggleEventLogs = () => {
         setShowEventLogs(!showEventLogs);
       };
@@ -32,10 +36,11 @@ const ChartOfAccounts = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? allAccts.length - 1 : prevIndex - 1));
     };
 
-    const currentAccount = allAccts[currentIndex];
+    //const currentAccount = allAccts[currentIndex];
 
     useEffect(() => {
         fetchAllAccts();
+        fetchCurrentAccount();
     }, []);
 
     const SearchAccountNumber = async (e) => {
@@ -56,7 +61,6 @@ const ChartOfAccounts = () => {
             console.error("Error:", error);
         }
     }
-    
 
     const SearchAccountName = async (e) => { //Method for searching account by name
         e.preventDefault();
@@ -92,7 +96,32 @@ const ChartOfAccounts = () => {
             console.error("Error fetching account state", error)
         }
     }
-    
+
+    const fetchCurrentAccount = async () => {
+        try {
+            // Determine the current account ID from the currentAccount state variable
+            const currentAccountId = currentAccount ? currentAccount.id : null;
+
+            // Fetch the document corresponding to the current account ID from Firestore
+            const accountDoc = await db.collection('accounts').doc(currentAccountId).get();
+
+            // Check if the document exists
+            if (accountDoc.exists) {
+                // Extract the data from the document
+                const currentAccountData = accountDoc.data();
+
+                // Set the current account state with the fetched data
+                setCurrentAccount(currentAccountData);
+            } else {
+                // Log a message if no document exists for the current account ID
+                console.log('No such document!');
+            }
+        } catch (error) {
+            // Log an error message if there's an error fetching the current account
+            console.error('Error fetching current account:', error);
+        }
+    }
+
     const calculateBalance = async (accountNum) => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
@@ -281,8 +310,6 @@ const ChartOfAccounts = () => {
                                 </tr>
 
                             </table>
-
-
                         </a>
                     )}
                     
@@ -305,18 +332,26 @@ const ChartOfAccounts = () => {
                         />
                     </div>
 
-                     <div>
-                         <EventLogButton onClick={toggleEventLogs} />
-                         {showEventLogs && <EventLogComponent />}
-                     </div>
+                     {/* Render the EventLogButton component and pass the toggleEventLogs function as a prop */}
+                     <EventLogButton onClick={toggleEventLogs} />
+
+                     {/* Conditionally render the EventLogComponent based on showEventLogs state */}
+                     {showEventLogs && <EventLogComponent />}
+
+                     {/* Render the EventLogComponent and pass the accountId as a prop*/}
+                     <EventLogComponent accountId={currentAccount ? currentAccount.id : null} />
+
+                     {currentAccount && (
+                       <div className={"coa-btns"}>
+                        {/* Pass accountId to EventLogButton */}
+                        <EventLogButton accountId={currentAccount.id} onClick={toggleEventLogs} />
+                      </div>
+                     )}
 
                 </div>
             </div>
-
         </div>
     )
-
 }
-
 
 export default ChartOfAccounts;

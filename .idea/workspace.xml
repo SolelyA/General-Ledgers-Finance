@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Removed the JournalEntryFilter.jsx component from JournalEntry.jsx and ViewJournalEntries.jsx.">
-      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogComponent.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,6 +152,21 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -173,21 +184,6 @@
                 </map>
               </option>
             </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="master" />
-                </option>
-              </RecentGroup>
-            </list>
           </value>
         </entry>
       </map>
