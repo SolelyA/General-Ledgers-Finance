@@ -1,0 +1,27 @@
+/* EventLogComponent.css */
+
+.event-log-container {
+  margin: 20px;
+}
+
+.account-image {
+  max-width: 200px;
+  max-height: 200px;
+  margin-bottom: 10px;
+}
+
+.event-log-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-log-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.event-log-item p {
+  margin: 5px 0;
+}

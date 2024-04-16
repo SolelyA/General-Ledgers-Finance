@@ -8,7 +8,9 @@ import ViewJournalEntries from '../components/ViewJournalEntries';
 import '../components/ChartOfAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-
+import EventLogButton from '../components/EventLog/EventLogButton.jsx'
+import EventLogComponent from '../components/EventLog/EventLogComponent.jsx';
+import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter.jsx';
 
 const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
@@ -16,7 +18,11 @@ const ChartOfAccounts = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [searchAcctName, SetSearchAcctName] = useState("")
     const [searchAcctNum, SetSearchAcctNum] = useState("")
+    const [showEventLogs, setShowEventLogs] = useState(false);
 
+    const toggleEventLogs = () => {
+        setShowEventLogs(!showEventLogs);
+      };
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -121,17 +127,16 @@ const ChartOfAccounts = () => {
         }
     };
 
-
-
-
     return (
         <div>
             <Navbar />
+
             <HelpButton
                 title="View Accounts Page"
                 welcome="Welcome to the View Accounts page!"
                 text="Here you able to view all active accounts."
             />
+
             <PopupCalendar /> {/*Render the PopupCalendar component*/}
 
             <div className={"login-header"}>
@@ -139,13 +144,13 @@ const ChartOfAccounts = () => {
                 <div className={"coa-underline"}></div>
             </div>
 
-            <div className={"admin-container"}>
+            <div className={"adminApproval"}>
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Search By Name or Number</div>
                     <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
-                <div className="coa-search">
+                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
                     <form onSubmit={async (e) => { await SearchAccountName(e) }}>
                         <div className={"coa-inputs"}>
                             <input
@@ -158,7 +163,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button className={"coa-search-btn"} type="submit">Search</button>
+                        <button type="submit">Search</button>
                     </form>
 
                     <form onSubmit={async (e) => {
@@ -177,7 +182,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button className={"coa-search-btn"} type="submit">Search</button>
+                        <button type="submit">Search</button>
                     </form>
 
                 </div>
@@ -280,28 +285,30 @@ const ChartOfAccounts = () => {
 
                         </a>
                     )}
-
-                    <div className={"journal-nav"}>
-                        {currentAccount && (
-                            <div>
-                                <JournalEntry
-                                    accountName={currentAccount.acctName}
-                                    accountId={currentAccount.id}
-                                />
-                            </div>
-                        )}
-
-                        <div>
-                            <ViewJournalEntries/>
-                        </div>
+                    
+                    {currentAccount &&(
+                        <div className={"coa-btns"}>
+                        <JournalEntry
+                        accountName = {currentAccount.acctName}
+                        accountId={currentAccount.id}
+                         />
                     </div>
+                    )}
 
                     <div className={"coa-btns"}>
-                        <button className={"prev"} onClick={goToPreviousAccount}
-                                title='Go to previous entry'>Previous
-                        </button>
+                        <button className={"prev"} onClick={goToPreviousAccount} title='Go to previous entry'>Previous</button>
                         <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
                     </div>
+
+                    <div className={'coa-btns'}>
+                        <ViewJournalEntries
+                        />
+                    </div>
+
+                     <div>
+                         <EventLogButton onClick={toggleEventLogs} />
+                         {showEventLogs && <EventLogComponent />}
+                     </div>
 
                 </div>
             </div>

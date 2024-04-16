@@ -1,30 +1,34 @@
-
 import React, { useState, useEffect } from 'react';
-import { collection, doc, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
 import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
-import './HelpButton/Popup.css'; // Import CSS for Popup component
-import './JournalEntry.css'; // Import CSS for JournalEntry component
-
+import './HelpButton/Popup.css';
+import './JournalEntry.css';
 
 export default function JournalEntry({ accountName, accountId }) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [data, setData] = useState([
-        { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId,}
+        { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId }
     ]);
     const [nextId, setNextId] = useState(2);
     const [error, setError] = useState('');
     const [totalDebits, setTotalDebits] = useState(0);
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
-
+    //const [filteredEntries, setFilteredEntries] = useState(data);
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
         setTotalDebits(debits);
         setTotalCredits(credits);
-    }, [data]); 
+    }, [data]);
+
+    useEffect(() => {
+        setData([
+            { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId }
+        ]);
+    }, [accountId]);
 
     const updateAccountInData = (newAccountId) => {
         setData(prevData => {
@@ -45,7 +49,7 @@ export default function JournalEntry({ accountName, accountId }) {
             });
         });
     };
-    
+
     const handleClearInput = (id) => {
         setData(prevData => {
             return prevData.map(item => {
@@ -60,7 +64,7 @@ export default function JournalEntry({ accountName, accountId }) {
     const clearAllInput = () => {
         setData(prevData => {
             return prevData.map( item => {
-                return {...item, date:'', debitParticulars:'', debits: 0, creditParticulars: '', credits: 0, }
+                return {...item, date:'', debitParticulars:'', debits: 0, creditParticulars: '', credits: 0 }
             });
         });
     };
@@ -75,7 +79,10 @@ export default function JournalEntry({ accountName, accountId }) {
         }
         try{
             console.log(`account id:  ${accountId}`)
+            console.log(`account name:  ${accountName}`)
             updateAccountInData(accountId);
+            
+
             const acctsDoc = doc(db, "accts", accountId);
             const jounralEntryCollectionsRef = collection(acctsDoc, 'journalEntries');
 
@@ -95,7 +102,7 @@ export default function JournalEntry({ accountName, accountId }) {
 
     const addRow = () => {
         setData(prevData => {
-            return [...prevData, { id: nextId, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0,  }];
+            return [...prevData, { id: nextId, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0  }];
         });
         setNextId(prevId => prevId + 1);
     };
@@ -106,7 +113,7 @@ export default function JournalEntry({ accountName, accountId }) {
             return updatedData;
         });
     };
-    
+
 
     return (
         <>
@@ -156,7 +163,7 @@ export default function JournalEntry({ accountName, accountId }) {
                         <button onClick={handleSubmit} title='Submit the information'>Submit</button>
                     </div>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
-                    {message && <p style ={{ color: 'green'}}>{message}</p>}
+                    {message && <p style={{ color: 'green' }}>{message}</p>}
                 </div>
             </Popup>
         </>

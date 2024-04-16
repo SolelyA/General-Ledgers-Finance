@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
-      <change afterPath="$PROJECT_DIR$/src/pages/ManageUsers.css" afterDir="false" />
+    <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Removed the JournalEntryFilter.jsx component from JournalEntry.jsx and ViewJournalEntries.jsx.">
+      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogButton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogComponent.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/EventLog/EventLogComponent.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Ledger.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Ledger.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/adminPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +33,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Joscelyn's-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Joscelync&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/SolelyA/appdomainproj.git&quot;,
-    &quot;accountId&quot;: &quot;79c275ea-d1d4-4d0d-8d5d-88f4c69f14e1&quot;
-  }
-}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -86,7 +76,7 @@
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -98,14 +88,6 @@
       <recent name="$PROJECT_DIR$/src/pages" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -131,9 +113,6 @@
       <workItem from="1711023301057" duration="7151000" />
       <workItem from="1711033655400" duration="5727000" />
       <workItem from="1711040284049" duration="3960000" />
-      <workItem from="1712273331315" duration="10277000" />
-      <workItem from="1713152926739" duration="7246000" />
-      <workItem from="1713247740211" duration="9013000" />
     </task>
     <task id="LOCAL-00001" summary="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
       <created>1712158981201</created>
@@ -142,13 +121,62 @@
       <option name="project" value="LOCAL" />
       <updated>1712158981201</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Reorganized the HelpButton.jsx and HelpButton.css files and placed them in there own component directory along with Popup.jsx and Popup.css. Refactored the code to help with project organization. Adjusted the corresponding import statements on other pages.">
+      <created>1712159809565</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712159809565</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Created a new JournalEntryFilter component that allows manager users to filter journal entries displayed for pending, approved, and rejected categories by date.">
+      <created>1712253021761</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712253021761</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date">
+      <created>1712253953827</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712253953827</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Removed the JournalEntryFilter.jsx component from JournalEntry.jsx and ViewJournalEntries.jsx.">
+      <created>1712255439566</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712255439566</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -164,43 +192,14 @@
         </entry>
       </map>
     </option>
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/Derec's-Branch" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/pages/manageUsers.jsx</url>
-          <line>274</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Reorganized the HelpButton.jsx and HelpButton.css files and placed them in there own component directory along with Popup.jsx and Popup.css. Refactored the code to help with project organization. Adjusted the corresponding import statements on other pages." />
+    <MESSAGE value="Created a new JournalEntryFilter component that allows manager users to filter journal entries displayed for pending, approved, and rejected categories by date." />
+    <MESSAGE value="Updated the new JournalEntryFilter component to give it the ability to search by account name, amount or date" />
+    <MESSAGE value="Removed the JournalEntryFilter.jsx component from JournalEntry.jsx and ViewJournalEntries.jsx." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the JournalEntryFilter.jsx component from JournalEntry.jsx and ViewJournalEntries.jsx." />
   </component>
 </project>
