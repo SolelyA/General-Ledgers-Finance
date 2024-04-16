@@ -46,7 +46,7 @@
     margin: 20px auto;
 }
 
-.prev, .next{
+.prev, .next, .coa-viewJournal{
     justify-content: center;
     align-items: center;
     width: 100px;
@@ -61,6 +61,11 @@
 
 .next{
     margin-left: 30px;
+}
+
+.coa-viewJournal{
+    width: 200px;
+    margin-left: 20%;
 }
 
 .prev:hover, .next:hover, .coa-search-btn:hover, .create-journal-btn, .view-journal-btn{

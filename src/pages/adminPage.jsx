@@ -222,7 +222,6 @@ const AdminPage = () => {
                                 <td>{user.dob}</td>
                                 <td>{user.address} <br /></td>
                                 <td>{user.selectedUserType}</td>
-                                {/*<td>{user.accountState}</td>*/}
                                 <td className={"acc-stat"}>
                                     <span className={"status"} style={makeStyle(user.accountState)}>{user.accountState}</span>
                                 </td>

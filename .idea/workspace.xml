@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23370570-dcdf-4561-947a-9bfe196e0ac9" name="Changes" comment="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/ManageUsers.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChartOfAccounts.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeactivateAccountsForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/JournalEntry.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/JournalEntry.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ModifyAccountsForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ViewJournalEntries.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Ledger.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Ledger.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/adminPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/adminPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ChartOfAccounts.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/adminPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/adminPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/manageUsers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manageUsers.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +133,7 @@
       <workItem from="1711040284049" duration="3960000" />
       <workItem from="1712273331315" duration="10277000" />
       <workItem from="1713152926739" duration="7246000" />
+      <workItem from="1713247740211" duration="9013000" />
     </task>
     <task id="LOCAL-00001" summary="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling.">
       <created>1712158981201</created>
@@ -177,7 +174,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/Derec's-Branch" />
                       </list>
                     </value>
                   </entry>
@@ -193,5 +190,17 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling." />
     <option name="LAST_COMMIT_MESSAGE" value="Added a functional calendar popup icon component at the bottom left of each page. The component features a .jsx file and corresponding .css styling." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/pages/manageUsers.jsx</url>
+          <line>274</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
