@@ -8,7 +8,9 @@ import ViewJournalEntries from '../components/ViewJournalEntries';
 import '../components/ChartOfAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-
+import EventLogButton from '../components/EventLog/EventLogButton.jsx'
+import EventLogComponent from '../components/EventLog/EventLogComponent.jsx';
+import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter.jsx';
 
 const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
@@ -16,7 +18,11 @@ const ChartOfAccounts = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [searchAcctName, SetSearchAcctName] = useState("")
     const [searchAcctNum, SetSearchAcctNum] = useState("")
+    const [showEventLogs, setShowEventLogs] = useState(false);
 
+    const toggleEventLogs = () => {
+        setShowEventLogs(!showEventLogs);
+      };
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -121,17 +127,16 @@ const ChartOfAccounts = () => {
         }
     };
 
-
-
-
     return (
         <div>
             <Navbar />
+
             <HelpButton
                 title="View Accounts Page"
                 welcome="Welcome to the View Accounts page!"
                 text="Here you able to view all active accounts."
             />
+
             <PopupCalendar /> {/*Render the PopupCalendar component*/}
 
             <div className={"login-header"}>
@@ -299,6 +304,11 @@ const ChartOfAccounts = () => {
                         <ViewJournalEntries
                         />
                     </div>
+
+                     <div>
+                         <EventLogButton onClick={toggleEventLogs} />
+                         {showEventLogs && <EventLogComponent />}
+                     </div>
 
                 </div>
             </div>
