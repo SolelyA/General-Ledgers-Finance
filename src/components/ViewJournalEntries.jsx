@@ -197,7 +197,7 @@ function ViewJournalEntries() {
 
     return (
         <>
-            <button onClick={handleButtonClick} title='View All Journal Entries'>
+            <button className={"view-journal-btn"} onClick={handleButtonClick} title='View All Journal Entries'>
                 View All Journal Entries
             </button>
             <div>
@@ -233,12 +233,12 @@ function ViewJournalEntries() {
                                                         {allJournalData[currentPage].status === 'Pending' && (
                                                             <>
                                                                 {editIndex === index ? (
-                                                                    <button onClick={() => handleSaveClick(index)}>Save</button>
+                                                                    <button className={"journal-btn"} onClick={() => handleSaveClick(index)}>Save</button>
                                                                 ) : (
-                                                                    <button onClick={() => handleEditClick(index)}>Edit</button>
+                                                                    <button className={"journal-btn"} onClick={() => handleEditClick(index)}>Edit</button>
                                                                 )}
-                                                                <button onClick={() => updateStatusToApproved(index)}>Approve</button>
-                                                                <button onClick={() => updateStatusToRejected(index)}>Reject</button>
+                                                                <button className={"journal-btn"} onClick={() => updateStatusToApproved(index)}>Approve</button>
+                                                                <button className={"journal-btn"} onClick={() => updateStatusToRejected(index)}>Reject</button>
                                                             </>
                                                         )}
                                                     </td>
@@ -247,7 +247,7 @@ function ViewJournalEntries() {
                                         ))}
                                     </tbody>
                                 </table>
-                                <div>
+                                <div className={"button-container"}>
                                     {currentPage > 0 && (
                                         <button onClick={handlePrevPage}>Previous</button>
                                     )}
