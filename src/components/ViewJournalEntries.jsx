@@ -18,6 +18,7 @@ function ViewJournalEntries() {
         const [jEntryId, setJEntryId] = useState('');
         const [filteredEntries, setFilteredEntries] = useState([]); // Initialize with an empty array
         const [editIndex, setEditIndex] = useState(-1);
+        const [searchQuery, setSearchQuery] = useState('');
     
     useEffect(() => {
         const fetchData = async () => {
@@ -69,6 +70,30 @@ function ViewJournalEntries() {
 
         fetchAllJournalEntries();
     }, []);
+
+    useEffect(() => {
+        const filterEntries = () => {
+            if (!searchQuery) {
+                setFilteredEntries([]);
+                return;
+            }
+        
+            const filtered = allJournalData
+                .flatMap(entry => entry.entries)
+                .filter(entry =>
+                    (entry.debits && entry.debits.toString().includes(searchQuery)) ||
+                    (entry.credits && entry.credits.toString().includes(searchQuery)) ||
+                    (entry.date && entry.date.includes(searchQuery))
+                );
+            setFilteredEntries(filtered);
+        };
+
+        filterEntries();
+    }, [searchQuery, allJournalData]);
+
+    
+
+    
 
     const handleButtonClick = () => {
         setButtonPopup(true);
@@ -194,6 +219,14 @@ function ViewJournalEntries() {
         });
     };
 
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
+    const handleClearSearch = () => {
+        setSearchQuery('');
+    };
+
 
     return (
         <>
@@ -203,60 +236,68 @@ function ViewJournalEntries() {
             <div>
                 {userData && (userData.selectedUserType === 'Accountant' || userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') ? (
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                        {allJournalData.length > 0 && (
-                            <>
-                                <table className='journal-table'>
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Debit Particulars</th>
-                                            <th>Debits</th>
-                                            <th>Credit Particulars</th>
-                                            <th>Credits</th>
-                                            <th>Status</th>
-                                            {(userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') && (
-                                                <th>Action</th>
-                                            )}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {allJournalData[currentPage].entries.map((entry, index) => (
-                                            <tr key={index}>
-                                                <td>{editIndex === index ? <input type="date" value={entry.date} onChange={(e) => handleInputChange(e, 'date', index)} /> : entry.date}</td>
-                                                <td>{editIndex === index ? <input type="text" value={entry.debitParticulars} onChange={(e) => handleInputChange(e, 'debitParticulars', index)} /> : entry.debitParticulars}</td>
-                                                <td>{editIndex === index ? <input type="number" value={parseFloat(entry.debits).toFixed(2)} onChange={(e) => handleInputChange(e, 'debits', index)} /> : parseFloat(entry.debits).toFixed(2)}</td>
-                                                <td>{editIndex === index ? <input type="text" value={entry.creditParticulars} onChange={(e) => handleInputChange(e, 'creditParticulars', index)} /> : entry.creditParticulars}</td>
-                                                <td>{editIndex === index ? <input type="number" value={parseFloat(entry.credits).toFixed(2)} onChange={(e) => handleInputChange(e, 'credits', index)} /> : parseFloat(entry.credits).toFixed(2)}</td>
-                                                <td>{allJournalData[currentPage].status}</td>
+                        <>
+                            <input
+                                type="text"
+                                placeholder="Search by account name, amount, or date"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                            />
+                            {allJournalData.length > 0 && (
+                                <>
+                                    <table className='journal-table'>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Debit Particulars</th>
+                                                <th>Debits</th>
+                                                <th>Credit Particulars</th>
+                                                <th>Credits</th>
+                                                <th>Status</th>
                                                 {(userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') && (
-                                                    <td>
-                                                        {allJournalData[currentPage].status === 'Pending' && (
-                                                            <>
-                                                                {editIndex === index ? (
-                                                                    <button className={"journal-btn"} onClick={() => handleSaveClick(index)}>Save</button>
-                                                                ) : (
-                                                                    <button className={"journal-btn"} onClick={() => handleEditClick(index)}>Edit</button>
-                                                                )}
-                                                                <button className={"journal-btn"} onClick={() => updateStatusToApproved(index)}>Approve</button>
-                                                                <button className={"journal-btn"} onClick={() => updateStatusToRejected(index)}>Reject</button>
-                                                            </>
-                                                        )}
-                                                    </td>
+                                                    <th>Action</th>
                                                 )}
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                <div className={"button-container"}>
-                                    {currentPage > 0 && (
-                                        <button onClick={handlePrevPage}>Previous</button>
-                                    )}
-                                    {currentPage < allJournalData.length - 1 && (
-                                        <button onClick={handleNextPage}>Next</button>
-                                    )}
-                                </div>
-                            </>
-                        )}
+                                        </thead>
+                                        <tbody>
+                                            {(searchQuery ? filteredEntries : allJournalData[currentPage].entries).map((entry, index) => (
+                                                <tr key={index}>
+                                                    <td>{editIndex === index ? <input type="date" value={entry.date} onChange={(e) => handleInputChange(e, 'date', index)} /> : entry.date}</td>
+                                                    <td>{editIndex === index ? <input type="text" value={entry.debitParticulars} onChange={(e) => handleInputChange(e, 'debitParticulars', index)} /> : entry.debitParticulars}</td>
+                                                    <td>{editIndex === index ? <input type="number" value={parseFloat(entry.debits).toFixed(2)} onChange={(e) => handleInputChange(e, 'debits', index)} /> : parseFloat(entry.debits).toFixed(2)}</td>
+                                                    <td>{editIndex === index ? <input type="text" value={entry.creditParticulars} onChange={(e) => handleInputChange(e, 'creditParticulars', index)} /> : entry.creditParticulars}</td>
+                                                    <td>{editIndex === index ? <input type="number" value={parseFloat(entry.credits).toFixed(2)} onChange={(e) => handleInputChange(e, 'credits', index)} /> : parseFloat(entry.credits).toFixed(2)}</td>
+                                                    <td>{allJournalData[currentPage].status}</td>
+                                                    {(userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') && (
+                                                        <td>
+                                                            {allJournalData[currentPage].status === 'Pending' && (
+                                                                <>
+                                                                    {editIndex === index ? (
+                                                                        <button className={"journal-btn"} onClick={() => handleSaveClick(index)}>Save</button>
+                                                                    ) : (
+                                                                        <button className={"journal-btn"} onClick={() => handleEditClick(index)}>Edit</button>
+                                                                    )}
+                                                                    <button className={"journal-btn"} onClick={() => updateStatusToApproved(index)}>Approve</button>
+                                                                    <button className={"journal-btn"} onClick={() => updateStatusToRejected(index)}>Reject</button>
+                                                                </>
+                                                            )}
+                                                        </td>
+                                                    )}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                    <div className={"button-container"}>
+                                        {currentPage > 0 && (
+                                            <button onClick={handlePrevPage}>Previous</button>
+                                        )}
+                                        {currentPage < allJournalData.length - 1 && (
+                                            <button onClick={handleNextPage}>Next</button>
+                                        )}
+                                    </div>
+                                </>
+                            )}
+                        </>
                     </Popup>
                 ) : (
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
@@ -265,6 +306,7 @@ function ViewJournalEntries() {
             </div>
         </>
     );
+    
 }
 
 export default ViewJournalEntries;
