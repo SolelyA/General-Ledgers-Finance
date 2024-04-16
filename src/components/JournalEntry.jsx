@@ -17,13 +17,27 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
     //const [filteredEntries, setFilteredEntries] = useState(data);
-
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
         setTotalDebits(debits);
         setTotalCredits(credits);
     }, [data]);
+
+    useEffect(() => {
+        setData([
+            { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId }
+        ]);
+    }, [accountId]);
+
+    const updateAccountInData = (newAccountId) => {
+        setData(prevData => {
+            return prevData.map(item => {
+                return { ...item, account: newAccountId };
+            });
+        });
+    };
+    
 
     const handleInputChange = (id, fieldName, value) => {
         setData(prevData => {
@@ -65,6 +79,10 @@ export default function JournalEntry({ accountName, accountId }) {
         }
         try{
             console.log(`account id:  ${accountId}`)
+            console.log(`account name:  ${accountName}`)
+            updateAccountInData(accountId);
+            
+
             const acctsDoc = doc(db, "accts", accountId);
             const jounralEntryCollectionsRef = collection(acctsDoc, 'journalEntries');
 

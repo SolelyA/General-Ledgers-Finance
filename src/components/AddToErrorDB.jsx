@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs, query, where, updateDoc, doc, addDoc } from "firebase/firestore";
+import React, { useState } from 'react';
+import { doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
 
 export default async function AddToErrorDB(err) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc, addDoc } from "firebase/firestore";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { sendApprovalNotification } from '../emailUtils';
 import { createUserWithEmailAndPassword, updatePassword, sendPasswordResetEmail } from "firebase/auth";

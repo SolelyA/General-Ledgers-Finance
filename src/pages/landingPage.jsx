@@ -1,5 +1,4 @@
 import Page from "../pageGreating";
-import Logo from '../logo';
 import photo from "../Images/image.png";
 import React from "react";
 import Navbar from "../components/Navbar";
