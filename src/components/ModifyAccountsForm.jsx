@@ -169,7 +169,7 @@ function ModifyAccountsForm() {
                 <div className={"mod-underline"}></div>
             </div>
 
-            <div className={"adminApproval"}>
+            <div className={"admin-container"}>
 
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Edit Accounts</div>

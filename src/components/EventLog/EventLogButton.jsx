@@ -5,7 +5,7 @@ import './EventLogButton.css';
 
 const EventLogButton = ({ onClick }) => {
   return (
-    <button className="event-log-button" onClick={onClick}>
+    <button className={"view-journal-btn"} onClick={onClick}>
       Event Logs
     </button>
   );

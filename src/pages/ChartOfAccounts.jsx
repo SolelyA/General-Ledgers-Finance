@@ -144,13 +144,13 @@ const ChartOfAccounts = () => {
                 <div className={"coa-underline"}></div>
             </div>
 
-            <div className={"adminApproval"}>
+            <div className={"admin-container"}>
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Search By Name or Number</div>
                     <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
-                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
+                <div className="coa-search">
                     <form onSubmit={async (e) => { await SearchAccountName(e) }}>
                         <div className={"coa-inputs"}>
                             <input
@@ -163,7 +163,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button type="submit">Search</button>
+                        <button className={"coa-search-btn"} type="submit">Search</button>
                     </form>
 
                     <form onSubmit={async (e) => {
@@ -182,7 +182,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button type="submit">Search</button>
+                        <button className={"coa-search-btn"} type="submit">Search</button>
                     </form>
 
                 </div>
@@ -300,15 +300,18 @@ const ChartOfAccounts = () => {
                         <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
                     </div>
 
-                    <div className={'coa-btns'}>
-                        <ViewJournalEntries
-                        />
+                    <div className={"journal-nav"}>
+                        <div >
+                            <ViewJournalEntries
+                            />
+                        </div>
+
+                        <div>
+                            <EventLogButton onClick={toggleEventLogs}/>
+                            {showEventLogs && <EventLogComponent/>}
+                        </div>
                     </div>
 
-                     <div>
-                         <EventLogButton onClick={toggleEventLogs} />
-                         {showEventLogs && <EventLogComponent />}
-                     </div>
 
                 </div>
             </div>

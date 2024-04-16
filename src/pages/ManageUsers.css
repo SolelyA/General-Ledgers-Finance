@@ -1,0 +1,87 @@
+.manage-activate, .manage-deactivate, .manage-newUser{
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.manage-newUser{
+    margin-top: 30px;
+}
+
+.manage-activate:hover, .manage-deactivate:hover, .manage-newUser:hover{
+    background-color: #2e5b2e;
+}
+
+.manage-input-group{
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+    margin-left: 15%;
+}
+
+.manage-input, .manage-dob, .manage-sub{
+    display: flex;
+    align-items: center;
+    width: 450px;
+    height: 60px;
+    background: rgba(245, 245, 245, 0.7);
+    border-radius: 6px;
+}
+
+.manage-input input, .manage-dob input, .manage-sub input, .manage-address input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: dimgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+    margin-left: 10px;
+}
+
+.manage-address{
+    display: flex;
+    align-items: center;
+    width: 932px;
+    height: 60px;
+    background: rgba(245, 245, 245, 0.7);
+    border-radius: 6px;
+    margin-left: 15%;
+    margin-top: 25px;
+}
+
+.manage-dob input{
+    align-items: center;
+    margin-bottom: auto;
+}
+
+.manage-sub{
+    color: #172f17;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.manage-nav {
+    font-size: 18px;
+    margin-bottom: 20px;
+
+}
+
+.manage-link{
+    color: #172f17;
+}
+
+.manage-link:hover{
+    color: #2e5b2e;
+}
+
+
+
