@@ -94,3 +94,10 @@
 .date-filter button:active {
     transform: translateY(1px);
 }
+
+.event-log-button-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
