@@ -22,6 +22,7 @@ export default function JournalEntry({ accountName, accountId }) {
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
         setTotalDebits(debits);
         setTotalCredits(credits);
+        clearMessages();
     }, [data]);
 
     useEffect(() => {
@@ -89,7 +90,7 @@ export default function JournalEntry({ accountName, accountId }) {
             console.log('data: ', data)
             await addDoc(jounralEntryCollectionsRef,{journalEntryStatus: 'Pending', account: accountId, entries: data})
             console.log('Journal entry added successfully')
-            setMessage('Success! Jounral Entry added successfully')
+            setMessage('Success! Journal Entry added successfully')
 
             clearAllInput();
 
@@ -112,6 +113,11 @@ export default function JournalEntry({ accountName, accountId }) {
             const updatedData = prevData.filter(row => row.id !== idToRemove);
             return updatedData;
         });
+    };
+
+    const clearMessages = () =>{
+        setError('');
+        setMessage('');
     };
 
 
