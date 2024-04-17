@@ -1,0 +1,46 @@
+.custom-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .custom-button img {
+    width: 24px; /* Adjust the size of the image as needed */
+    height: 24px;
+    margin-right: 8px; /* Adjust spacing between image and text */
+  }
+
+.help-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.help-title{
+    color: #172f17;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.help-underline{
+    width: 160px;
+    height: 3px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+.welcome{
+    color: #172f17;
+    font-size: 18px;
+    font-weight: 600;
+}

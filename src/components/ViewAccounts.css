@@ -1,0 +1,42 @@
+.accounts-list {
+    margin-top: 20px;
+}
+
+.account-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.account-item {
+    margin-bottom: 10px;
+}
+
+.account-checkbox {
+    display: none;
+}
+
+.account-label {
+    display: block;
+    cursor: pointer;
+}
+
+.account-details {
+    display: flex;
+    align-items: center;
+}
+
+.account-number {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-divider {
+    margin-top: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+}

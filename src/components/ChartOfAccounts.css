@@ -1,0 +1,139 @@
+/* ChartOfAccounts.css */
+
+.coa-underline {
+    width: 150px;
+    height: 6px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+.accounts-list {
+    margin-top: 20px;
+}
+
+.coa-subUnderline {
+    width: 170px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+}
+
+.coaSearch-subUnderline {
+    width: 420px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+}
+
+.coa-search{
+    display: flex;
+    gap: 50px;
+    margin: 5px auto auto;
+}
+
+.coa-search-btn{
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 25px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.coa-btns {
+    margin: 20px auto;
+}
+
+.prev, .next, .coa-viewJournal {
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.next {
+    margin-left: 30px;
+}
+
+.prev:hover, .next:hover, .coa-viewJournal:hover, .coa-search-btn:hover, .create-journal-btn, .view-journal-btn {
+    background-color: #2e5b2e;
+}
+
+.coa-viewJournal{
+    width: 200px;
+    margin-left: 20%;
+}
+
+.journal-nav{
+    display: flex;
+    gap: 10px;
+    margin-left: 25%;
+}
+
+.coa-table {
+    width: 65%;
+    margin-top: 20px;
+    margin-left: 20%;
+    margin-bottom: 10px;
+}
+
+.coa-table td {
+    padding-left: 27px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.coa-inputs {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    background: whitesmoke;
+    border-radius: 6px;
+    margin: 20px auto auto;
+}
+
+.coa-inputs input {
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: dimgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+    margin-left: 10px;
+}
+
+/* CSS for links */
+a.coa-table-link {
+    color: inherit; /* Use the color inherited from the parent */
+    text-decoration: none; /* Remove underline */
+}
+
+a.coa-table-link:hover {
+    /* Style when hovered over */
+    color: inherit; /* Use the color inherited from the parent */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+a.coa-table-link:visited {
+    /* Style when visited */
+    color: inherit; /* Use the color inherited from the parent */
+}
+
+a.coa-table-link:focus {
+    /* Style when focused */
+    outline: none; /* Remove default focus outline */
+}

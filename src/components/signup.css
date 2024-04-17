@@ -1,0 +1,98 @@
+.signup-logo{
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.signup-underline{
+    width: 80px;
+    height: 6px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+.signup-select{
+    margin-top: 20px;
+}
+
+.signup-select select{
+    width: 350px;
+    text-align: center;
+    height: 60px;
+    background: whitesmoke;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+.signup-email, .signup-password, .signup-firstname, .signup-lastname, .signup-address{
+    display: flex;
+    align-items: center;
+    width: 350px;
+    height: 60px;
+    background: whitesmoke;
+    border-radius: 6px;
+    margin: 20px auto auto;
+}
+
+.signup-dob{
+    display: flex;
+    align-items: center;
+    width: 250px;
+    /*height: 60px;*/
+    /*border-radius: 6px;*/
+    margin: 10px auto auto;
+    gap: 20px;
+
+}
+
+.signup-dob div{
+    color: dimgray;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.signup-dob input{
+    width: 350px;
+    text-align: center;
+    height: 60px;
+    background: whitesmoke;
+    border-radius: 6px;
+    border: none;
+}
+
+.signup-email input, .signup-password input, .signup-firstname input, .signup-lastname input, .signup-address input{
+    height: 50px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: dimgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+    margin-left: 10px;
+}
+
+.login-link {
+    margin-top: 10px;
+    color: darkgray;
+    font-size: 18px;
+    display: block;
+}
+
+.login-link:hover{
+    color: #51a051;
+}
+
+.signup-box{
+    padding-top: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    width: 450px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    margin: 20px auto 30px;
+}

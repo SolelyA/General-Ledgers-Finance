@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { auth } from '../firebase'; // Import Firebase configuration
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { sendSignupNotification } from '../emailUtils';
+import '../components/signup.css'
+import photo from "../Images/image.png";
+import Navbar from '../components/Navbar';
+import HelpButton from '../components/HelpButton/HelpButton';
+import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
+import '../components/PopupCalendar/PopupCalendar.css';
 
 const Signup = () => {
   const userCol = collection(db, "users")
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +24,9 @@ const Signup = () => {
   const [dob, setDob] = useState('');
   const [address, setAddress] = useState('');
   const [userName, setUserName] = useState('');
+  const [userType, setUserType] = useState('');
+  const [accountState, setAccountState] = useState('');
+  const [selectedUserType, setSelectedUserType] = useState(''); // State to store selected user type
 
   const chars = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h',
     'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p',
@@ -33,6 +43,7 @@ const Signup = () => {
     try {
 
       const generatedUserName = createUserName();
+      setUserName(generatedUserName);
 
       addDoc(userCol, {
         email,
@@ -40,7 +51,9 @@ const Signup = () => {
         lastName,
         dob,
         address,
-        userName: generatedUserName
+        userName: generatedUserName,
+        accountState: 'Pending Admin Approval',
+        selectedUserType
       });
       console.log('User added successfully')
 
@@ -49,6 +62,9 @@ const Signup = () => {
       setLastName('');
       setDob('');
       setAddress('');
+      setPassword('');
+      setUserName('');
+      setSelectedUserType('');
 
     } catch (error) {
       console.error('Error occured when trying to add user to database', error)
@@ -104,12 +120,12 @@ const Signup = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       addUserToDB();
+      await sendSignupNotification(userName, email);
+      navigate('/waiting-for-access')
     } catch (error) {
       console.log(error.message)
       if (error.code === 'auth/email-already-in-use') {
         setError('Email is already in use')
-        // handle error, if you have multiple possible ones you could probably 
-        // try using switch statement 
       } else {
         console.error('Signup Error:', error)
         setError('An error occured during signup. Please try again later')
@@ -120,58 +136,111 @@ const Signup = () => {
 
   return (
     <div>
-      <h1>
-        Sign Up
-      </h1>
-      <form onSubmit={handleSignup}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <input
-          type="date"
-          placeholder="Date Of Birth"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
+      <Navbar />
+      <HelpButton
+                title="Edit Accounts Page"
+                welcome="Welcome to the Sign Up page!"
+                text="Here you able to sign up for a user account. Enter your user details and you'll be accepted into the website very soon."
+            />
+      <PopupCalendar /> {/*Render the PopupCalendar component*/}
+      <body>
 
-        <button type="submit">Sign Up</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        <img className={"signup-logo"} src={photo} />
 
-      {/* Link to another page */}
-      <div>
-      <Link to="/login"> Log In </Link>
-      </div>
+        <div className={"signup-box"}>
+
+          <div className={"login-header"}>
+            <div className={"login-title"}>Sign Up</div>
+            <div className={"signup-underline"}></div>
+          </div>
+
+          <div className={"signup-select"}>
+            <select value={selectedUserType}
+              onChange={(e) => setSelectedUserType(e.target.value)}
+              required>
+              <option value="">Select User Type</option>
+              <option value="Admin">Administrator</option>
+              <option value="Manager">Manager</option>
+              <option value="Accountant"> Accountant</option>
+            </select>
+          </div>
+
+          <form className={"inputs"} onSubmit={handleSignup}>
+
+            <div className={"signup-email"}>
+              <input required
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-password"}>
+              <input required
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-firstname"}>
+              <input
+                required
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-lastname"}>
+              <input
+                required
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-dob"}>
+              <div>Enter Your Date of Birth:</div>
+              <input
+                required
+                type="date"
+                placeholder="Date Of Birth"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+              />
+            </div>
+
+            <div className={"signup-address"}>
+              <input
+                required
+                type="text"
+                placeholder="Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+
+            <button className={"login-submit"} type="submit" title='Complete sign up'>Sign Up</button>
+
+          </form>
+
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+
+          {/* Link to another page */}
+          <Link to="/login" className={"login-link"}>Already have an account? Log In. </Link>
+
+        </div>
+
+      </body>
     </div>
   );
-  
+
 };
 
 export default Signup;

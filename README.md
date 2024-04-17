@@ -1,6 +1,6 @@
 # Packages to install
 
-npm install firebase, npm install react-router-dom
+npm firebase, npm react-router-dom, npm install emailjs-com
 
 # Getting Started with Create React App
 

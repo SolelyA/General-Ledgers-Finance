@@ -1,0 +1,74 @@
+.mod-underline{
+    width: 300px;
+    height: 6px;
+    background-color: #172f17;
+    border-radius: 9px;
+}
+
+.mod-subUnderline{
+    width: 200px;
+    height: 3px;
+    background-color: #2e5b2e;
+    border-radius: 9px;
+}
+
+.modAcc-inputs{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    background: whitesmoke;
+    border-radius: 6px;
+    margin: 10px auto auto;
+}
+
+.modAcc-inputs input{
+    height: 40px;
+    width: 400px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: dimgray;
+    font-size: 16px;
+    margin-bottom: 17px;
+    margin-left: 10px;
+}
+
+.modAcc-select{
+    margin: 10px auto;
+    width: 200px;
+    text-align: center;
+    height: 30px;
+    background: whitesmoke;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+.modAcc-select select{
+    width: 200px;
+    text-align: center;
+    height: 30px;
+    background: whitesmoke;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+.save{
+    margin-top: 0;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 30px;
+    color: whitesmoke;
+    background: rgba(23, 47, 23, 0.85);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+.save:hover{
+    background-color: #3d7b3d;
+}
