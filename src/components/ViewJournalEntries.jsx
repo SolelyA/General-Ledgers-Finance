@@ -9,15 +9,15 @@ import './JournalEntry.css';
 
 function ViewJournalEntries() {
     const [buttonPopup, setButtonPopup] = useState(false);
-        const [error, setError] = useState('');
-        const [allJournalData, setAllJournalData] = useState([]);
-        const [currentPage, setCurrentPage] = useState(0);
-        const [userData, setUserData] = useState('');
-        const [jEntryId, setJEntryId] = useState('');
-        const [filteredEntries, setFilteredEntries] = useState([]); // Initialize with an empty array
-        const [editIndex, setEditIndex] = useState(-1);
-        const [searchQuery, setSearchQuery] = useState('');
-    
+    const [error, setError] = useState('');
+    const [allJournalData, setAllJournalData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [userData, setUserData] = useState('');
+    const [jEntryId, setJEntryId] = useState('');
+    const [filteredEntries, setFilteredEntries] = useState([]); // Initialize with an empty array
+    const [editIndex, setEditIndex] = useState(-1);
+    const [searchQuery, setSearchQuery] = useState('');
+
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -75,7 +75,7 @@ function ViewJournalEntries() {
                 setFilteredEntries([]);
                 return;
             }
-        
+
             const filtered = allJournalData
                 .flatMap(entry => entry.entries)
                 .filter(entry =>
@@ -89,9 +89,9 @@ function ViewJournalEntries() {
         filterEntries();
     }, [searchQuery, allJournalData]);
 
-    
 
-    
+
+
 
     const handleButtonClick = () => {
         setButtonPopup(true);
@@ -269,7 +269,8 @@ function ViewJournalEntries() {
                                                     <td>{editIndex === index ? <input type="number" value={parseFloat(entry.debits).toFixed(2)} onChange={(e) => handleInputChange(e, 'debits', index)} /> : parseFloat(entry.debits).toFixed(2)}</td>
                                                     <td>{editIndex === index ? <input type="text" value={entry.creditParticulars} onChange={(e) => handleInputChange(e, 'creditParticulars', index)} /> : entry.creditParticulars}</td>
                                                     <td>{editIndex === index ? <input type="number" value={parseFloat(entry.credits).toFixed(2)} onChange={(e) => handleInputChange(e, 'credits', index)} /> : parseFloat(entry.credits).toFixed(2)}</td>
-                                                    <td>{allJournalData[currentPage].status}</td>
+                                                    <td>{allJournalData[currentPage].status} Adjusted: {entry.adjusted ? "true" : "false"}
+                                                    </td>
                                                     {(userData.selectedUserType === 'Admin' || userData.selectedUserType === 'Manager') && (
                                                         <td>
                                                             {allJournalData[currentPage].status === 'Pending' && (
@@ -308,7 +309,7 @@ function ViewJournalEntries() {
             </div>
         </>
     );
-    
+
 }
 
 export default ViewJournalEntries;
