@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
+import { getUserRole, getUserData } from '../components/firestoreUtils';
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton/HelpButton';
@@ -19,6 +20,13 @@ const ChartOfAccounts = () => {
     const [searchAcctName, SetSearchAcctName] = useState("")
     const [searchAcctNum, SetSearchAcctNum] = useState("")
     const [showEventLogs, setShowEventLogs] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [userData, setUserData] = useState('');
+
 
     const toggleEventLogs = () => {
         setShowEventLogs(!showEventLogs);
@@ -126,6 +134,18 @@ const ChartOfAccounts = () => {
             console.error("Error updating account balance", error);
         }
     };
+
+    const fetchData = async () => {
+        const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsAuthenticated(await getUserRole(uid) === "accountant" || await getUserRole(uid) === "Accountant");
+          console.log(isAuthenticated)
+        }
+      };
+
+      
 
     return (
         <div>

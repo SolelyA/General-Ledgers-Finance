@@ -114,6 +114,13 @@ function ViewJournalEntries() {
             const journalEntriesCollectionRef = collection(db, 'accts', journalEntry.account, 'journalEntries');
             const journalEntryRef = doc(journalEntriesCollectionRef, docId);
 
+            const acctRef =  doc(db, 'accts', journalEntry.account);
+
+            await updateDoc(acctRef, {
+                credit: journalEntry.credits,
+                debits: journalEntry.debits,
+            });
+
             await updateDoc(journalEntryRef, {
                 journalEntryStatus: 'Approved'
             });

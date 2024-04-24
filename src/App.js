@@ -12,6 +12,7 @@ import ChartOfAccounts from './pages/ChartOfAccounts';
 import EditAccounts from './pages/EditAccounts';
 import { getUserRole, getUserData } from './components/firestoreUtils'; // Assuming you have these functions implemented
 import Ledger from './components/Ledger';
+import ManagerPage from './pages/managerPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,6 +46,7 @@ function App() {
           <Route path="/landing-page" element={<LandingPage />} />
           <Route path="/chart-of-accounts" element={<ChartOfAccounts />} />
           <Route path="/ledger/:accountId" element={<Ledger />} />
+          <Route path='/manager-page' element={<ManagerPage />} />
           <Route
             path="/admin-page"
             element={renderProtectedRoute(Adminpage, "/admin-page")}

@@ -29,27 +29,30 @@ function Navbar() {
     return (
         <div>
             <div className='navbar'>
-            <div className='floatLeft libutton'> Journalizing</div>
+            <div>
+                    {userData && (userData.selectedUserType === 'Admin' || userData.selectedUserType === 'admin') ? (
+                        <div className='floatLeft libutton' onClick={() => navigate("/admin-page")}> Admin Page</div>
+                    ) : (
+                        userData && (userData.selectedUserType === 'Manager' || userData.selectedUserType === 'manager') ? (
+                            <div className='floatLeft libutton' onClick={() => navigate("/manager-page")}> Manager Page</div>
+                        ) : (
+                            <div className='floatLeft libutton' onClick={() => navigate("/landing-page")}> Home</div>
+                        )
+                    )}
+
+                </div>
                 <div>
-                    {userData ?(
+                    {userData ? (
                         <div className='floatLeft libutton' onClick={() => navigate("/chart-of-accounts")}> Chart Of Accounts</div>
-                    ):(
+                    ) : (
                         <div className='floatLeft libutton' onClick={() => navigate("/login")}> Chart Of Accounts</div>
 
                     )}
                 </div>
                 <div>
-                    {userData ?(
-                        <div className='floatLeft libutton' onClick={() => navigate("/admin-page")}> Admin Page</div>
-                    ):(
-                        <div className='floatLeft libutton' onClick={() =>  navigate("/login")}> Admin Page</div>
-                        
-                    )}
-                </div>
-                <div>
-                    {userData ?(
+                    {userData ? (
                         <div className='floatLeft libutton' onClick={() => navigate("/edit-accounts")}> Edit Accounts</div>
-                    ):(
+                    ) : (
                         <div className='floatLeft libutton' onClick={() => navigate("/login")}> Edit Accounts</div>
                     )}
                 </div>
@@ -66,6 +69,11 @@ function Navbar() {
                     ) : (
                         'Profile'
                     )}
+                </div>
+                <div>
+                    {userData && (userData.selectedUserType === 'Admin' || userData.selectedUserType === 'admin') ? (
+                        <div className='floatLeft libutton' onClick={() => navigate("/manager-page")}> Manager Page</div>
+                    ) : null}
                 </div>
             </div>
         </div>

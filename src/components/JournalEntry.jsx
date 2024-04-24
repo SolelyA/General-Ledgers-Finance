@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
@@ -16,7 +16,21 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalDebits, setTotalDebits] = useState(0);
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
-    //const [filteredEntries, setFilteredEntries] = useState(data);
+    const notifRef = collection(db, "notifications")
+    const[notifData, setNotifData] = useState("")
+    const [allAccts, setAllAccts] = useState([]);
+
+    const fetchNotifications = async () => {
+        try {
+            const notifications = collection(db, `notifications`);
+            const notifSnapshot = await getDocs(notifications);
+            const notifData = notifSnapshot.docs.map(doc => doc.data());
+            setNotifData(notifData);
+        } catch (error) {
+            console.error('Error fetching ledger data:', error);
+        }
+    }
+
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
@@ -69,6 +83,19 @@ export default function JournalEntry({ accountName, accountId }) {
             });
         });
     };
+
+    const createNotif = async () =>{
+        var acctName;
+        allAccts.map((account, key) =>{
+           acctName = account.acctName
+        })
+
+        await addDoc(notifRef, {
+            Message1: accountName,
+            read: false
+        })
+    
+    }
 
     const handleSubmit = async(e) => {
         e.preventDefault();
