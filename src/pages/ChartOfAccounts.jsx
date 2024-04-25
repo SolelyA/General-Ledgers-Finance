@@ -88,11 +88,10 @@ const ChartOfAccounts = () => {
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setAllAccts(allAcctsData);
-    
                 for (const account of allAcctsData) {
                     await calculateBalance(account.acctNumber);
                 }
+                setAllAccts(allAcctsData);
             } else {
                 console.log('No accounts found');
             }
@@ -162,6 +161,12 @@ const ChartOfAccounts = () => {
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
                 <div className={"coa-underline"}></div>
+            </div>
+            <div className={"coa-btns"}>
+                <button>Trial Balance</button>
+                <button>Income Statement</button>
+                <button>Balance Sheet</button>
+                <button>Retained Earnings Statement</button>
             </div>
 
             <div className={"admin-container"}>

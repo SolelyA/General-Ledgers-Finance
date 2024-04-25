@@ -1,7 +1,7 @@
 import { getUserData } from '../components/firestoreUtils'
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from '../firebase';
 import photo from "../Images/image.png";
 import React from "react";
@@ -15,10 +15,50 @@ import Popup from '../components/HelpButton/Popup'
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const acctsCol = collection(db, "accts");
     const [notifData, setNotifData] = useState('');
     const [userData, setUserData] = useState('');
     const [buttonPopup, setButtonPopup] = useState(false);
-    var readNotif = notifData.read
+    const [allAcctsData, setAllAccts] = useState([]);
+    const [currentRatio, setCurrentRatio] = useState();
+
+    let assets = 0;
+    let liabilities = 0;
+
+    const fetchAllAccts = async () => {
+        try {
+            const q = query(acctsCol);
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setAllAccts(allAcctsData);
+            } else {
+                console.log('No accounts found');
+            }
+        } catch (error) {
+            console.error("Error fetching account state", error)
+        }
+    }
+
+    const getRatioData = async () => {
+        for (const account of allAcctsData) {
+            if (account.acctCategory === 'Asset' || account.acctCategory === 'asset'){
+                assets += account.balance;
+            }
+            else if (account.acctCategory === 'Liability' || account.acctCategory === 'liability' ){
+                liabilities += account.balance;
+            }
+        }
+    };
+
+    const calculateRatio = async () => {
+        await getRatioData();
+        if (liabilities !== 0) {
+            setCurrentRatio(assets / liabilities);
+        } else {
+            setCurrentRatio("Cannot calculate ratio: liabilities are zero");
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +71,9 @@ const LandingPage = () => {
         };
 
         fetchData();
+        fetchAllAccts().then(() => {
+            calculateRatio();
+        });
     }, []);
 
     const fetchNotifications = async () => {
@@ -48,7 +91,6 @@ const LandingPage = () => {
         fetchNotifications();
     }, []);
 
-
     return (
         <div>
             <Navbar />
@@ -57,7 +99,7 @@ const LandingPage = () => {
                 welcome="Welcome to the Landing page!"
                 text="This is the home page."
             />
-            <PopupCalendar /> {/*Render the PopupCalendar component*/}
+            <PopupCalendar />
             <img className={"waiting-logo"} src={photo} />
             <div className={"waiting-text"}>
                 <h1>Welcome To the Application Domain</h1>
@@ -75,44 +117,24 @@ const LandingPage = () => {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Liquidity</td>
-                                    <td>Value 1</td>
+                                    <td>Current</td>
+                                    <td>{typeof currentRatio === 'undefined' ? 'Loading...' : parseFloat(currentRatio).toFixed(2)}</td>
                                 </tr>
-                                <tr>
-                                    <td>Profitability</td>
-                                    <td>Value 2</td>
-                                </tr>
-                                <tr>
-                                    <td>Solvency</td>
-                                    <td>Value 3</td>
-                                </tr>
-                                <tr>
-                                    <td>Efficiency</td>
-                                    <td>Value 4</td>
-                                </tr>
-                                <tr>
-                                    <td>Valuation</td>
-                                    <td>Value 5</td>
-                                </tr>
+                                {/* Add other ratio rows here */}
                             </tbody>
                         </table>
                         <h2>Notifications</h2>
                         <button onClick={() => setButtonPopup(true)}>
-                            {readNotif ? (
-                                "Click here to view notifications"
-                            ) : (
-                                "Click here to view notifications"
-                            )}
+                            {notifData.read ? "Click here to view notifications" : "Click here to view notifications"}
                         </button>
-
                         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                             {notifData && (
                                 <div>
                                     <h2>Notifications</h2>
                                     <table>
                                         <tbody>
-                                            {notifData.map((entry) => (
-                                                <tr>
+                                            {notifData.map((entry, index) => (
+                                                <tr key={index}>
                                                     <td>{entry.Message1} has made a new entry. Please review their table for approval</td>
                                                 </tr>
                                             ))}
@@ -128,7 +150,6 @@ const LandingPage = () => {
             </div>
         </div>
     )
-
 };
 
-export default LandingPage
+export default LandingPage;

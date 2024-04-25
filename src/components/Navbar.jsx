@@ -65,7 +65,7 @@ function Navbar() {
                 </div>
                 <div className='floatRight libutton'>
                     {userData ? (
-                        userData.firstName
+                        <div className='floatLeft libutton' onClick={() => navigate("/landing-page")}> {userData.firstName}</div>
                     ) : (
                         'Profile'
                     )}
