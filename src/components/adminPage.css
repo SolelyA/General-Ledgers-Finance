@@ -86,7 +86,7 @@ tr:hover{
     padding-top: 5px;
     background-color: rgba(255, 255, 255, 0.45);
     /*backdrop-filter: blur(5px);*/
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
     padding-bottom: 5px;
     width: 90%;
@@ -114,7 +114,7 @@ tr:hover{
 }
 
 .admin-buttons{
-    display: flex;
+    /*display: flex;*/
     gap: 20px;
     margin: 5px auto 10px;
 }
@@ -130,6 +130,7 @@ tr:hover{
     font-size: 16px;
     font-weight: 550;
     cursor: pointer;
+
 }
 
 .select-activate:hover, .select-reject:hover, .admin-coa-btn:hover, .admin-manageUsers:hover, .button:hover{
@@ -168,13 +169,11 @@ tr:hover{
     color: whitesmoke;
     background: rgba(23, 47, 23, 0.85);
     border-radius: 50px;
-    border-radius: 50px;
     font-size: 16px;
     font-weight: 550;
     cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 25px;
+
 }
 
 .button{

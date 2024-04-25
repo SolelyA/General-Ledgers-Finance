@@ -144,7 +144,7 @@ const ManagerPage = () => {
                 <h1>How'd you end up here? You must be lost. Here's a way to get home.</h1>
 
             )}
-            <button onClick={() => setButtonPopup(true)}>
+            <button className={"btns"} onClick={() => setButtonPopup(true)}>
                 {readNotif ? (
                     "Click here to view notifications"
                 ) : (

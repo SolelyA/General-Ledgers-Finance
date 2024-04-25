@@ -1,5 +1,5 @@
 .create-journal-btn, .view-journal-btn{
-    width: 300px;
+    width: 350px;
     height: 30px;
     color: whitesmoke;
     background: rgba(23, 47, 23, 0.85);
@@ -7,6 +7,10 @@
     font-size: 16px;
     font-weight: 550;
     cursor: pointer;
+}
+
+.view-journal-btn{
+    width: 300px;
 }
 
 .create-journal-btn:hover, .view-journal-btn:hover{
@@ -19,8 +23,7 @@
     margin-top: 20px;
 }
 
-.journal-table th,
-.journal-table td {
+.journal-table th, .journal-table td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
@@ -80,21 +83,21 @@
 
 .button-container {
     display: flex;
-    justify-content: center;
     margin-top: 20px;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
 .button-container button {
-    width: 90px;
+    width: 115px;
     height: 35px;
-    color: whitesmoke;
-    background: rgba(23, 47, 23, 0.85);
+    /*color: whitesmoke;*/
+    /*background: rgba(23, 47, 23, 0.85);*/
     border-radius: 15px;
     font-size: 13px;
     font-weight: 550;
     cursor: pointer;
-    margin-bottom: 25px;
+
 }
 
 .button-container button:hover {
