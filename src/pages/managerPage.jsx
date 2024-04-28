@@ -12,7 +12,7 @@ import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 import Popup from '../components/HelpButton/Popup'
 
-const ManagerPage = () => {
+const ManagerPage = () => { //Majority of code here borrowed from adminPage file previously created by Aaron Hannah
     const userCol = collection(db, "users");
     const [users, setUsers] = useState([]);
     const [buttonPopup, setButtonPopup] = useState(false);
@@ -43,7 +43,7 @@ const ManagerPage = () => {
         fetchData();
     }, []);
 
-    const fetchNotifications = async () => {
+    const fetchNotifications = async () => { //Based on previous data fetch methods provided by Aaron Hannah
         try {
             const notifications = collection(db, `notifications`);
             const notifSnapshot = await getDocs(notifications);
@@ -152,7 +152,8 @@ const ManagerPage = () => {
                 )}
             </button>
 
-            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}> 
+                {/*Notification code created by Derec M using popup notification code from adminPage created by Aaron Hannah*/}
                 {notifData && (
                     <div>
                         <h2>Notifications</h2>
