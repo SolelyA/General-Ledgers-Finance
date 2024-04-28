@@ -79,7 +79,7 @@ const Ledger = () => {
         await fetchJournalEntry(docId, accountId);
     };
 
-    const handleCheckboxChange = async (e, searchStatus) => {
+    const handleCheckboxChange = async (e, searchStatus) => { //Checkbox code obtained from modifyUsers code by Aaron Hannah
         e.preventDefault();
     
         if (ledgerData && searchStatus) {
@@ -91,7 +91,7 @@ const Ledger = () => {
         }
     };
     
-
+//The following search methods are based on previous search methods from the manageUsers page provided by Aaron Hannah. 
     const SearchJournalsByName = async (e) => { //Method for searching journal by name
         e.preventDefault();
         if (searchJournalName !== "") {
@@ -116,7 +116,8 @@ const Ledger = () => {
         ))
     }
 
-    const SearchEntryDate = async (e) => { //Method for searching account by date
+    const SearchEntryDate = async (e) => { /*Method for searching account by date. Created with aid from Aaron Hannah and the following websites: 
+    https://codesandbox.io/p/sandbox/react-table-filter-by-date-range-5mm07g?file=%2Fsrc%2Ffilters.js, https://react.dev/learn/rendering-lists, https://www.w3schools.com/jsref/jsref_isnan.asp*/
         e.preventDefault();
         try {
             if (searchJournalDate1 !== "" || searchJournalDate2 !== "") {
@@ -159,7 +160,8 @@ const Ledger = () => {
         }
     }
 
-    const uploadFile = (event) => { //Uploads file to accounts corresponding "Documents" folder
+    const uploadFile = (event) => { /*Uploads file to accounts corresponding "Documents" folder. Made with help from Aaron Hannah and the following websites: 
+    https://stackoverflow.com/questions/72541582/how-to-check-file-extension-using-react*/
         if (file === null) {
             alert("Please select a file to upload")
             return
@@ -243,6 +245,7 @@ const Ledger = () => {
 
             <h3>Filter by:</h3>
             <div className="StatusFilter">
+                {/*Code based on checkbox code from manageUser provided by Aaron Hannah*/}
 
                 <input
                     type="checkbox"
