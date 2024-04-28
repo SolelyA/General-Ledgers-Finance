@@ -88,6 +88,7 @@ const Ledger = () => {
         
     };
 
+    //Derec's Additions begin here. All search methods were based on search methods borrowed from the UserList file created by Aaron Hannah. 
     const SearchJournalsByName = async (e) => { //Method for searching journal by name
         e.preventDefault();
         if(searchJournalName !== ""){
@@ -110,7 +111,8 @@ const Ledger = () => {
         ))
     }
 
-    const SearchEntryDate = async (e) => { //Method for searching account by date
+    const SearchEntryDate = async (e) => { /*Method for searching account by date. Created with help from Aaron Hannah and the following websites: 
+    https://react.dev/learn/rendering-lists, https://react.dev/learn/rendering-lists, https://www.w3schools.com/jsref/jsref_isnan.asp, https://codesandbox.io/p/sandbox/react-table-filter-by-date-range-5mm07g?file=%2Fsrc%2Ffilters.js*/
         e.preventDefault();
         try{
         if(searchJournalDate1 !== "" || searchJournalDate2 !== ""){
@@ -153,7 +155,7 @@ const Ledger = () => {
     }
 }
 
-    const uploadFile = (event) =>{ //Uploads file to accounts corresponding "Documents" folder
+    const uploadFile = (event) =>{ //Uploads file to accounts corresponding "Documents" folder. Created using help from Aaron Hannah and the following websites: https://stackoverflow.com/questions/72541582/how-to-check-file-extension-using-react
         if(file === null){
             alert("Please select a file to upload")
             return
@@ -320,7 +322,7 @@ const Ledger = () => {
                                 </Popup>
 
                             </td>
-                            <td><input type="file" onChange={(event) => {setFile(event.target.files[0])}}/>
+                            <td><input type="file" onChange={(event) => {setFile(event.target.files[0])}}/> 
                                  <button onClick={uploadFile} label = "Upload file">Upload File</button></td>
                         </tr>
 
