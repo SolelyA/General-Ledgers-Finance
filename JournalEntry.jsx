@@ -108,7 +108,7 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
 
-    const createNotif = async () =>{
+    const createNotif = async () =>{ //Method added by Derec. Creates a new notification for manager. Based on add document code provided by Aaron Hannah
         var acctName;
         allAccts.map((account, key) =>{
            acctName = account.acctName
