@@ -429,7 +429,7 @@ const ChartOfAccounts = () => {
                         <ViewJournalEntries
                         />
                     </div>
-                    <div>{isAdmin?(
+                    <div>{isAdmin?( //Checks to see if user is an Admin. Also learned from code in Admin Page file provided by Aaron Hannah
                     emailComponent()
                     ):(<p></p>)}</div>
                 </div>
