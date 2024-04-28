@@ -25,6 +25,7 @@ const ChartOfAccounts = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [userData, setUserData] = useState('');
+    const [isAdmin, setIsAdmin] = useSate(false);
 
 
     const goToNextAccount = () => {
@@ -37,9 +38,21 @@ const ChartOfAccounts = () => {
 
     const currentAccount = allAccts[currentIndex];
 
+    const adminData = async () => {
+            const userDataString = localStorage.getItem("userData");
+            
+            if (userDataString) {
+              const uid = JSON.parse(userDataString);
+              console.log(await getUserRole(uid))
+              await setIsAdmin(await getUserRole(uid) === "admin" || await getUserRole(uid) === "Admin");
+              console.log(isAdmin)
+            }
+          };
+
     useEffect(() => {
         fetchData();
         fetchAllAccts();
+        adminData();
     }, []);
 
     const SearchAccountNumber = async (e) => {
@@ -141,7 +154,8 @@ const ChartOfAccounts = () => {
     };
 
 
-    const emailComponent = () => {
+    const emailComponent = () => { /*My portion starts here. This method displays the email portion of the Chart of accounts. This will only show when the user is an admin. 
+    The code was taken from an implementation in the Admin Page file by Aaron Hannah.*/ 
         return isAuthenticated ? <div className="email-form-container">
         <h2 className="email-form-title">Contact Form</h2>
         <form className="email-form" onSubmit={handleSubmit}>
@@ -217,7 +231,7 @@ const ChartOfAccounts = () => {
      {success && <p className="email-form-success">{success}</p>}
  </div>};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => { //Method for submitting email also taught by Aaron Hannah
     e.preventDefault();
 
     if (!toEmail || !subject || !message) {
@@ -415,7 +429,9 @@ const ChartOfAccounts = () => {
                         <ViewJournalEntries
                         />
                     </div>
-                    <div>{emailComponent()}</div>
+                    <div>{isAdmin?(
+                    emailComponent()
+                    ):(<p></p>)}</div>
                 </div>
             </div>
 
