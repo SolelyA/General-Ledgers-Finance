@@ -79,7 +79,7 @@ const Ledger = () => {
         await fetchJournalEntry(docId, accountId);
     };
 
-    const handleCheckboxChange = async (e, searchStatus) => { //Checkbox code obtained from modifyUsers code by Aaron Hannah
+    const handleCheckboxChange = async (e, searchStatus) => { //Checkbox code obtained from manageUsers code by Aaron Hannah
         e.preventDefault();
     
         if (ledgerData && searchStatus) {
