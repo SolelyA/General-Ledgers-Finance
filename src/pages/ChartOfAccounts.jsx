@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
+import { getUserRole, getUserData } from '../components/firestoreUtils'; 
+
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton/HelpButton';
@@ -8,21 +10,23 @@ import ViewJournalEntries from '../components/ViewJournalEntries';
 import '../components/ChartOfAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-import EventLogButton from '../components/EventLog/EventLogButton.jsx'
-import EventLogComponent from '../components/EventLog/EventLogComponent.jsx';
-import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter.jsx';
+
 
 const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
     const [allAccts, setAllAccts] = useState([]);
+    const [toEmail, setToEmail] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [searchAcctName, SetSearchAcctName] = useState("")
     const [searchAcctNum, SetSearchAcctNum] = useState("")
-    const [showEventLogs, setShowEventLogs] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [userData, setUserData] = useState('');
+    const [isAdmin, setIsAdmin] = useSate(false);
 
-    const toggleEventLogs = () => {
-        setShowEventLogs(!showEventLogs);
-      };
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -34,8 +38,21 @@ const ChartOfAccounts = () => {
 
     const currentAccount = allAccts[currentIndex];
 
+    const adminData = async () => {
+            const userDataString = localStorage.getItem("userData");
+            
+            if (userDataString) {
+              const uid = JSON.parse(userDataString);
+              console.log(await getUserRole(uid))
+              await setIsAdmin(await getUserRole(uid) === "admin" || await getUserRole(uid) === "Admin");
+              console.log(isAdmin)
+            }
+          };
+
     useEffect(() => {
+        fetchData();
         fetchAllAccts();
+        adminData();
     }, []);
 
     const SearchAccountNumber = async (e) => {
@@ -92,6 +109,15 @@ const ChartOfAccounts = () => {
             console.error("Error fetching account state", error)
         }
     }
+    const fetchData = async () => {
+        const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsAuthenticated(await getUserRole(uid) === "accountant" || await getUserRole(uid) === "Accountant");
+          console.log(isAuthenticated)
+        }
+      };
     
     const calculateBalance = async (accountNum) => {
         try {
@@ -127,16 +153,115 @@ const ChartOfAccounts = () => {
         }
     };
 
+
+    const emailComponent = () => { /*My portion starts here. This method displays the email portion of the Chart of accounts. This will only show when the user is an admin. 
+    The code was taken from an implementation in the Admin Page file by Aaron Hannah.*/ 
+        return isAuthenticated ? <div className="email-form-container">
+        <h2 className="email-form-title">Contact Form</h2>
+        <form className="email-form" onSubmit={handleSubmit}>
+            <div className="email-form-group">
+                <label className="email-form-label" htmlFor="toEmail">To Email:</label>
+                <input
+                    className="email-form-input"
+                    type="email"
+                    id="toEmail"
+                    value={toEmail}
+                    onChange={(e) => setToEmail(e.target.value)}
+                />
+            </div>
+            <div className="email-form-group">
+                <label className="email-form-label" htmlFor="subject">Subject:</label>
+                <input
+                    className="email-form-input"
+                    type="text"
+                    id="subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                />
+            </div>
+            <div className="email-form-group">
+                <label className="email-form-label" htmlFor="message">Message:</label>
+                <textarea
+                    className="email-form-textarea"
+                    id="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+            </div>
+            <button className="email-form-button" type="submit" title="Send the email">Send Email</button>
+        </form>
+        {error && <p className="email-form-error">{error}</p>}
+        {success && <p className="email-form-success">{success}</p>}
+    </div>
+     : <div className="email-form-container">
+     <h2 className="email-form-title">Contact Form</h2>
+     <form className="email-form" onSubmit={handleSubmit}>
+         <div className="email-form-group">
+             <label className="email-form-label" htmlFor="toEmail">To Email:</label>
+             <input
+                 className="email-form-input"
+                 type="email"
+                 id="toEmail"
+                 value={toEmail}
+                 onChange={(e) => setToEmail(e.target.value)}
+             />
+         </div>
+         <div className="email-form-group">
+             <label className="email-form-label" htmlFor="subject">Subject:</label>
+             <input
+                 className="email-form-input"
+                 type="text"
+                 id="subject"
+                 value={subject}
+                 onChange={(e) => setSubject(e.target.value)}
+             />
+         </div>
+         <div className="email-form-group">
+             <label className="email-form-label" htmlFor="message">Message:</label>
+             <textarea
+                 className="email-form-textarea"
+                 id="message"
+                 value={message}
+                 onChange={(e) => setMessage(e.target.value)}
+             ></textarea>
+         </div>
+         <button className="email-form-button" type="submit" title="Send the email">Send Email</button>
+     </form>
+     {error && <p className="email-form-error">{error}</p>}
+     {success && <p className="email-form-success">{success}</p>}
+ </div>};
+
+  const handleSubmit = (e) => { //Method for submitting email also taught by Aaron Hannah
+    e.preventDefault();
+
+    if (!toEmail || !subject || !message) {
+        setError('All fields are required');
+        return;
+    }
+
+    emailjs.sendForm('service_4exj81f', 'template_7mkgqeq', e.target)
+        .then((result) => {
+            console.log(result.text);
+            setSuccess('Email sent successfully!');
+            setToEmail('');
+            setSubject('');
+            setMessage('');
+            setError('');
+        }, (error) => {
+            console.error(error.text);
+            setError('An error occurred while sending the email.');
+        });
+};
+
+
     return (
         <div>
             <Navbar />
-
             <HelpButton
                 title="View Accounts Page"
                 welcome="Welcome to the View Accounts page!"
                 text="Here you able to view all active accounts."
             />
-
             <PopupCalendar /> {/*Render the PopupCalendar component*/}
 
             <div className={"login-header"}>
@@ -144,13 +269,13 @@ const ChartOfAccounts = () => {
                 <div className={"coa-underline"}></div>
             </div>
 
-            <div className={"admin-container"}>
+            <div className={"adminApproval"}>
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Search By Name or Number</div>
                     <div className={"coaSearch-subUnderline"}></div>
                 </div>
 
-                <div className="coa-search">
+                <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
                     <form onSubmit={async (e) => { await SearchAccountName(e) }}>
                         <div className={"coa-inputs"}>
                             <input
@@ -163,7 +288,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button className={"coa-search-btn"} type="submit">Search</button>
+                        <button type="submit">Search</button>
                     </form>
 
                     <form onSubmit={async (e) => {
@@ -182,7 +307,7 @@ const ChartOfAccounts = () => {
                             />
                         </div>
 
-                        <button className={"coa-search-btn"} type="submit">Search</button>
+                        <button type="submit">Search</button>
                     </form>
 
                 </div>
@@ -300,19 +425,13 @@ const ChartOfAccounts = () => {
                         <button className={"next"} onClick={goToNextAccount} title='Go to next entry'>Next</button>
                     </div>
 
-                    <div className={"journal-nav"}>
-                        <div >
-                            <ViewJournalEntries
-                            />
-                        </div>
-
-                        <div>
-                            <EventLogButton onClick={toggleEventLogs}/>
-                            {showEventLogs && <EventLogComponent/>}
-                        </div>
+                    <div className={'coa-btns'}>
+                        <ViewJournalEntries
+                        />
                     </div>
-
-
+                    <div>{isAdmin?( //Checks to see if user is an Admin. Also learned from code in Admin Page file provided by Aaron Hannah
+                    emailComponent()
+                    ):(<p></p>)}</div>
                 </div>
             </div>
 
@@ -321,5 +440,7 @@ const ChartOfAccounts = () => {
 
 }
 
+
+export default ChartOfAccounts;
 
 export default ChartOfAccounts;
