@@ -20,14 +20,14 @@ export default function JournalEntry({ accountName, accountId }) {
     const[notifData, setNotifData] = useState("")
     const [allAccts, setAllAccts] = useState([]);
 
-    const fetchNotifications = async () => {
+    const fetchNotifications = async () => { //Fetches notification database to store new notification in. Based on fetch methods provided by Aaron Hannah
         try {
             const notifications = collection(db, `notifications`);
             const notifSnapshot = await getDocs(notifications);
             const notifData = notifSnapshot.docs.map(doc => doc.data());
             setNotifData(notifData);
         } catch (error) {
-            console.error('Error fetching ledger data:', error);
+            console.error('Error fetching notifications:', error);
         }
     }
 
@@ -84,7 +84,7 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
 
-    const createNotif = async () =>{
+    const createNotif = async () =>{ //Creates new notification. Based on addDoc code provided below by Aaron Hannah
         var acctName;
         allAccts.map((account, key) =>{
            acctName = account.acctName
