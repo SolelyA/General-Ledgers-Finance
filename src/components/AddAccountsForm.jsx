@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, doc, addDoc, getDoc } from "firebase/firestore";
 import { db } from '../firebase';
+import { getUserData } from './firestoreUtils'
 import '../components/adminPage.css';
 import './AddAccountsForm.css'
 
@@ -23,21 +24,19 @@ function AddAccountsForm() {
     useEffect(() => {
     }, []);
 
-    const getUserEmail = async () => {
-        try {
-            const userDocRef = doc(db, "users", userId);
-            const userDocSnapshot = await getDoc(userDocRef);
-            if (userDocSnapshot.exists()) {
-                return userDocSnapshot.data().email;
-            } else {
-                console.log("User document does not exist");
-                return '';
+    const [userData, setUserData] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const userDataString = localStorage.getItem("userData");
+            if (userDataString) {
+                const userEmail = JSON.parse(userDataString);
+                const userData = await getUserData(userEmail);
+                setUserData(userData);
             }
-        } catch (error) {
-            console.error("Error fetching user email:", error);
-            return '';
-        }
-    };
+        };
+
+        fetchData();
+    }, []);
 
     const generateAccountNum = (category, order) => {
         const leadNum = {
@@ -55,7 +54,6 @@ function AddAccountsForm() {
         e.preventDefault();
         try {
             const generatedNum = generateAccountNum(acctCategory, order);
-            const userEmail = await getUserEmail();
 
             const nameQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctName", "==", acctName.toLowerCase())));
             const numQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctNumber", "==", generatedNum.toLowerCase())));
@@ -81,7 +79,7 @@ function AddAccountsForm() {
                     order,
                     statement,
                     acctStatus: 'Active',
-                    //userID: userEmail
+                    userID: userData.email
                 });
 
                 await addDoc(collection(accountRef, 'transactions'), {

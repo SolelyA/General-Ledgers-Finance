@@ -1,0 +1,28 @@
+.ratios-table {
+    padding-top: 5px;
+    background-color: rgba(255, 255, 255, 0.45);
+    /*backdrop-filter: blur(5px);*/
+    flex-direction: column;
+    padding-bottom: 5px;
+    width: 90%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    margin: 30px auto 30px;
+    padding: 20px;
+}
+
+.ratios-table th,
+.ratios-table td {
+    border: 1px solid #ddd; /* Add borders to table cells */
+    padding: 8px; /* Add padding inside cells */
+    text-align: left; /* Align text to the left */
+}
+
+.ratios-table th {
+    background-color: #d4d4d4; /* Add background color to table header */
+    font-weight: bold; /* Make table header text bold */
+}
+
+.ratios-table tbody tr:nth-child(even) {
+    background-color: #d4d4d4; /* Add alternate background color to even rows */
+}

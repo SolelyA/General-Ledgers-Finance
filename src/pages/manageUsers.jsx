@@ -333,7 +333,7 @@ const ManageUsers = () => {
                     </div>
 
                     <div className={"manage-input-group"}>
-                        <div className={"manage-sub"}>Enter Your Date of Birth:</div>
+                        <div className={"manage-sub"}>Enter Date of Birth:</div>
                         <div className={"manage-dob"}>
                             <input
                                 type="date"

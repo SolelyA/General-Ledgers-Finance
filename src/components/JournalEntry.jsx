@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import Popup from './HelpButton/Popup';
 import AddToErrorDB from './AddToErrorDB';
@@ -16,12 +16,27 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalDebits, setTotalDebits] = useState(0);
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
-    //const [filteredEntries, setFilteredEntries] = useState(data);
+    const notifRef = collection(db, "notifications")
+    const[notifData, setNotifData] = useState("")
+    const [allAccts, setAllAccts] = useState([]);
+
+    const fetchNotifications = async () => { //Fetches notification database to store new notification in. Based on fetch methods provided by Aaron Hannah
+        try {
+            const notifications = collection(db, `notifications`);
+            const notifSnapshot = await getDocs(notifications);
+            const notifData = notifSnapshot.docs.map(doc => doc.data());
+            setNotifData(notifData);
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    }
+
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
         setTotalDebits(debits);
         setTotalCredits(credits);
+        clearMessages();
     }, [data]);
 
     useEffect(() => {
@@ -69,6 +84,19 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
 
+    const createNotif = async () =>{ //Creates new notification. Based on addDoc code provided below by Aaron Hannah
+        var acctName;
+        allAccts.map((account, key) =>{
+           acctName = account.acctName
+        })
+
+        await addDoc(notifRef, {
+            Message1: accountName,
+            read: false
+        })
+    
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError('')
@@ -89,7 +117,7 @@ export default function JournalEntry({ accountName, accountId }) {
             console.log('data: ', data)
             await addDoc(jounralEntryCollectionsRef,{journalEntryStatus: 'Pending', account: accountId, entries: data})
             console.log('Journal entry added successfully')
-            setMessage('Success! Jounral Entry added successfully')
+            setMessage('Success! Journal Entry added successfully')
 
             clearAllInput();
 
@@ -112,6 +140,11 @@ export default function JournalEntry({ accountName, accountId }) {
             const updatedData = prevData.filter(row => row.id !== idToRemove);
             return updatedData;
         });
+    };
+
+    const clearMessages = () =>{
+        setError('');
+        setMessage('');
     };
 
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
 import { getUserRole, getUserData } from '../components/firestoreUtils'; 
-
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton/HelpButton';
@@ -19,6 +18,7 @@ const ChartOfAccounts = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [searchAcctName, SetSearchAcctName] = useState("")
     const [searchAcctNum, SetSearchAcctNum] = useState("")
+    const [showEventLogs, setShowEventLogs] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
@@ -26,7 +26,6 @@ const ChartOfAccounts = () => {
     const [success, setSuccess] = useState('');
     const [userData, setUserData] = useState('');
     const [isAdmin, setIsAdmin] = useSate(false);
-
 
     const goToNextAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === allAccts.length - 1 ? 0 : prevIndex + 1));
@@ -97,11 +96,10 @@ const ChartOfAccounts = () => {
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setAllAccts(allAcctsData);
-    
                 for (const account of allAcctsData) {
                     await calculateBalance(account.acctNumber);
                 }
+                setAllAccts(allAcctsData);
             } else {
                 console.log('No accounts found');
             }
@@ -152,7 +150,6 @@ const ChartOfAccounts = () => {
             console.error("Error updating account balance", error);
         }
     };
-
 
     const emailComponent = () => { /*My portion starts here. This method displays the email portion of the Chart of accounts. This will only show when the user is an admin. 
     The code was taken from an implementation in the Admin Page file by Aaron Hannah.*/ 
@@ -253,6 +250,18 @@ const ChartOfAccounts = () => {
         });
 };
 
+    const fetchData = async () => {
+        const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsAuthenticated(await getUserRole(uid) === "accountant" || await getUserRole(uid) === "Accountant");
+          console.log(isAuthenticated)
+        }
+      };
+
+      
+
 
     return (
         <div>
@@ -267,6 +276,12 @@ const ChartOfAccounts = () => {
             <div className={"login-header"}>
                 <div className={"login-title"}>Accounts</div>
                 <div className={"coa-underline"}></div>
+            </div>
+            <div className={"coa-btns"}>
+                <button>Trial Balance</button>
+                <button>Income Statement</button>
+                <button>Balance Sheet</button>
+                <button>Retained Earnings Statement</button>
             </div>
 
             <div className={"adminApproval"}>
@@ -440,7 +455,5 @@ const ChartOfAccounts = () => {
 
 }
 
-
-export default ChartOfAccounts;
 
 export default ChartOfAccounts;
