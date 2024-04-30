@@ -109,7 +109,7 @@ const Ledger = () => {
         }
     }
 
-    const FindPostReference = async (e) => { //Method for searching entries by name
+    const FindPostReference = async (e) => { //Method for searching entries by name. Based on data retrieval methods provided by Aaron Hannah. 
         e.preventDefault();
         setLedgerData(ledgerData.filter((ledgerData) =>
             ledgerData.postReference.includes("true")
