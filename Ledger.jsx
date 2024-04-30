@@ -27,6 +27,7 @@ const Ledger = () => {
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(0);
 
+
     useEffect(() => {
         const fetchLedgerData = async () => {
             try {
@@ -78,42 +79,34 @@ const Ledger = () => {
         await fetchJournalEntry(docId, accountId);
     };
 
-
+    const handleCheckboxChange = async (e, searchStatus) => {
+        e.preventDefault();
+        
+        setLedgerData(ledgerData.filter((ledgerData)=>
+            ledgerData.status.includes(searchStatus.toLowerCase())
+        ))
+        
+    };
 
     //Derec's Additions begin here. All search methods were based on search methods borrowed from the UserList file created by Aaron Hannah. 
-    const handleCheckboxChange = async (e, searchStatus) => { //Checkbox code obtained from manageUsers code by Aaron Hannah
-        e.preventDefault();
-    
-        if (ledgerData && searchStatus) {
-            setLedgerData(ledgerData.filter((ledgerEntry) =>
-                ledgerEntry.status && ledgerEntry.status.includes(searchStatus.toLowerCase())
-            ));
-        } else {
-            console.error("handleCheckboxChange: Missing ledgerData or searchStatus");
-        }
-    };
-    
-//The following search methods are based on previous search methods from the manageUsers page provided by Aaron Hannah. 
     const SearchJournalsByName = async (e) => { //Method for searching journal by name
         e.preventDefault();
-        if (searchJournalName !== "") {
-            setLedgerData(ledgerData.filter((ledgerData) =>
-                ledgerData.acctName.includes(searchJournalName.toLowerCase())
-            ))
-        }
+        if(searchJournalName !== ""){
+        setLedgerData(ledgerData.filter((ledgerData)=>
+            ledgerData.acctName.includes(searchJournalName.toLowerCase())
+        ))}
     }
     const SearchJournalsByAmount = async (e) => { //Method for searching entries by name
         e.preventDefault();
-        if (searchJournalAmount) {
-            setLedgerData(ledgerData.filter((ledgerData) =>
-                ledgerData.value.includes(searchJournalAmount.toLowerCase())
-            ))
-        }
+        if(searchJournalAmount){
+        setLedgerData(ledgerData.filter((ledgerData)=>
+            ledgerData.value.includes(searchJournalAmount.toLowerCase())
+        ))}
     }
 
-    const FindPostReference = async (e) => { //Method for searching entries by name. Based on data retrieval methods provided by Aaron Hannah. 
+    const FindPostReference = async (e) => { //Method for searching entries by name
         e.preventDefault();
-        setLedgerData(ledgerData.filter((ledgerData) =>
+        setLedgerData(ledgerData.filter((ledgerData)=>
             ledgerData.postReference.includes("true")
         ))
     }
@@ -169,7 +162,6 @@ const Ledger = () => {
         }
         const fileType = file.name
         const fileExtension = fileType.split('.').pop()
-
         if(file === null){
             return
         }
@@ -179,22 +171,20 @@ const Ledger = () => {
             setFile(null)
             return
         }
-
-        else {
-            addDoc(collection(db, `accts/${accountId}/transactions/Documents/source`), {
+        else{
+            addDoc(collection(db,`accts/${accountId}/transactions/Documents/source`),{
                 filename: file.name
             })
         }
 
     }
 
-
-    const handleSubmitFunc = (e) => {
+    const handleSubmitFunc = (e) =>{
         SearchJournalsByName(e)
         SearchEntryDate(e)
         SearchJournalsByAmount(e)
-
-    }
+    
+}
 
     return (
         <div>
@@ -338,6 +328,7 @@ const Ledger = () => {
 
                     ))}
                 </tbody>
+
             </table>
         </div>
     );
