@@ -1,4 +1,5 @@
-import { getUserData } from '../components/firestoreUtils'
+
+import { getUserData, getUserRole } from '../components/firestoreUtils';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, query } from "firebase/firestore";
@@ -9,8 +10,8 @@ import Navbar from "../components/Navbar";
 import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-import '../components/LandingPage.css'
-import Popup from '../components/HelpButton/Popup'
+import '../components/LandingPage.css';
+import Popup from '../components/HelpButton/Popup';
 
 
 const LandingPage = () => {
@@ -20,46 +21,16 @@ const LandingPage = () => {
     const [userData, setUserData] = useState('');
     const [buttonPopup, setButtonPopup] = useState(false);
     const [allAcctsData, setAllAccts] = useState([]);
-    const [currentRatio, setCurrentRatio] = useState();
-
-    let assets = 0;
-    let liabilities = 0;
-
-    const fetchAllAccts = async () => {
-        try {
-            const q = query(acctsCol);
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
-                const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setAllAccts(allAcctsData);
-            } else {
-                console.log('No accounts found');
-            }
-        } catch (error) {
-            console.error("Error fetching account state", error)
-        }
-    }
-
-    const getRatioData = async () => {
-        for (const account of allAcctsData) {
-            if (account.acctCategory === 'Asset' || account.acctCategory === 'asset'){
-                assets += account.balance;
-            }
-            else if (account.acctCategory === 'Liability' || account.acctCategory === 'liability' ){
-                liabilities += account.balance;
-            }
-        }
-    };
-
-    const calculateRatio = async () => {
-        await getRatioData();
-        if (liabilities !== 0) {
-            setCurrentRatio(assets / liabilities);
-        } else {
-            setCurrentRatio("Cannot calculate ratio: liabilities are zero");
-        }
-    };
-
+    const [assets, setAssets] = useState(0);
+    const [liabilities, setLiabilities] = useState(0);
+    const [equity, setEquity] = useState(0);
+    const [currentRatio, setCurrentRatio] = useState(null);
+    const [debtRatio, setDebtRatio] = useState(null);
+    const [debtToEquityRatio, setDebtToEquityRatio] = useState(null);
+    const [cash, setCash] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isManager, setIsManager] = useState(false);
+    const [isAccountant, setIsAccountant] = useState(false);
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -71,25 +42,133 @@ const LandingPage = () => {
         };
 
         fetchData();
-        fetchAllAccts().then(() => {
-            calculateRatio();
-        });
     }, []);
-
-    const fetchNotifications = async () => {
-        try {
-            const notifications = collection(db, `notifications`);
-            const notifSnapshot = await getDocs(notifications);
-            const notifData = notifSnapshot.docs.map(doc => doc.data());
-            setNotifData(notifData);
-        } catch (error) {
-            console.error('Error fetching ledger data:', error);
-        }
-    }
 
     useEffect(() => {
+        const fetchAllAccts = async () => {
+            try {
+                const q = query(acctsCol);
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    setAllAccts(allAcctsData);
+                } else {
+                    console.log('No accounts found');
+                }
+            } catch (error) {
+                console.error("Error fetching account state", error)
+            }
+        };
+
+        fetchAllAccts();
+    }, []);
+
+    useEffect(() => {
+        const getRatioData = () => {
+            let assetsTotal = 0;
+            let liabilitiesTotal = 0;
+            let equityTotal = 0;
+
+            for (const account of allAcctsData) {
+                if (account.acctCategory === 'Asset' || account.acctCategory === 'asset') {
+                    assetsTotal += parseFloat(account.balance);
+                } else if (account.acctCategory === 'Liability' || account.acctCategory === 'liability') {
+                    liabilitiesTotal += parseFloat(account.balance);
+                } else if (account.acctCategory === 'Equity' || account.acctCategory === 'equity') {
+                    equityTotal += parseFloat(account.balance);
+                }
+            }
+
+            setAssets(assetsTotal);
+            setLiabilities(liabilitiesTotal);
+            setEquity(equityTotal);
+        };
+
+        getRatioData();
+    }, [allAcctsData]);
+
+    useEffect(() => {
+        const calculateRatio = () => {
+            if (liabilities !== 0) {
+                setCurrentRatio(assets / liabilities);
+                setCash(assets + liabilities + equity / liabilities);
+            } else {
+                setCurrentRatio("Cannot calculate ratio: liabilities are zero");
+                setCash("Cannot calculate ratio: liabilities are zero")
+            }
+            if (assets !== 0) {
+                setDebtRatio(liabilities / assets);
+            } else {
+                setDebtRatio("Cannot calculate ratio: assets are zero");
+            }
+            if (equity !== 0) {
+                setDebtToEquityRatio(liabilities / equity);
+            } else {
+                setDebtToEquityRatio("Cannot calculate ratio: equity is zero");
+            }
+        };
+
+        calculateRatio();
+    }, [assets, liabilities, equity]);
+
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            try {
+                const notifications = collection(db, `notifications`);
+                const notifSnapshot = await getDocs(notifications);
+                const notifData = notifSnapshot.docs.map(doc => doc.data());
+                setNotifData(notifData);
+            } catch (error) {
+                console.error('Error fetching ledger data:', error);
+            }
+        };
+
+        const getIsAdmin = async () => { //Based on user authorization methods provided by Aaron Hannah
+            const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsAdmin(await getUserRole(uid) === "admin" || await getUserRole(uid) === "Admin");
+          console.log(isAdmin)
+        }
+        }
+
+        const getIsAccountant = async () => {
+            const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsAccountant(await getUserRole(uid) === "accountant" || await getUserRole(uid) === "Accountant");
+          console.log(isAccountant)
+        }
+        }
+
+        const getIsManager = async () => {
+            const userDataString = localStorage.getItem("userData");
+        if (userDataString) {
+          const uid = JSON.parse(userDataString);
+          console.log(await getUserRole(uid))
+          await setIsManager(await getUserRole(uid) === "manager" || await getUserRole(uid) === "Manager");
+          console.log(isManager)
+        }
+        }
+        getIsAdmin();
+        getIsManager();
+        getIsAccountant();
         fetchNotifications();
     }, []);
+
+    const getColor = (ratio) => {
+        if (ratio === null) {
+            return 'black'; // Default color for loading state
+        } else if (ratio >= 1) {
+            return 'green'; // Good ratio (e.g., >= 1 for Current Ratio)
+        } else if (ratio < 1 && ratio > 0) {
+            return 'yellow'; // Warning ratio (e.g., < 1 for Current Ratio)
+        } else {
+            return 'red'; // Bad ratio (e.g., < 0 for Debt to Equity Ratio)
+        }
+    };
 
     return (
         <div>
@@ -118,9 +197,29 @@ const LandingPage = () => {
                             <tbody>
                                 <tr>
                                     <td>Current</td>
-                                    <td>{typeof currentRatio === 'undefined' ? 'Loading...' : parseFloat(currentRatio).toFixed(2)}</td>
+
+                                    <td style={{ color: getColor(currentRatio) }}>
+                                        {currentRatio === null ? 'Loading...' : parseFloat(currentRatio).toFixed(2)}
+                                    </td>
                                 </tr>
-                                {/* Add other ratio rows here */}
+                                <tr>
+                                    <td>Debt</td>
+                                    <td style={{ color: getColor(debtRatio) }}>
+                                        {debtRatio === null ? 'Loading...' : parseFloat(debtRatio).toFixed(2)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Debt to Equity</td>
+                                    <td style={{ color: getColor(debtToEquityRatio) }}>
+                                        {debtToEquityRatio === null ? 'Loading...' : parseFloat(debtToEquityRatio).toFixed(2)}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cash</td>
+                                    <td style={{ color: getColor(cash) }}>
+                                        {cash === null ? 'Loading...' : parseFloat(cash).toFixed(2)}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <h2>Notifications</h2>
@@ -183,8 +282,6 @@ const LandingPage = () => {
                                 <p></p>
                             </div>)} 
                         </div>
-
-                        
                     </>
                 ) : (
                     <p>Please log in to view the dashboard</p>
