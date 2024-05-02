@@ -26,9 +26,10 @@
 }
 
 .coa-search{
-    display: flex;
     gap: 50px;
-    margin: 5px auto auto;
+    display: flex;
+    margin-left: 29%;
+    margin-top: 10px;
 }
 
 .coa-search-btn{
@@ -48,7 +49,7 @@
     margin: 20px auto;
 }
 
-.prev, .next, .coa-viewJournal {
+.prev, .next, .coa-viewJournal, .btns {
     justify-content: center;
     align-items: center;
     width: 100px;
@@ -61,11 +62,16 @@
     cursor: pointer;
 }
 
+.btns{
+    width: 260px;
+    height: 35px;
+}
+
 .next {
     margin-left: 30px;
 }
 
-.prev:hover, .next:hover, .coa-viewJournal:hover, .coa-search-btn:hover, .create-journal-btn, .view-journal-btn {
+.prev:hover, .next:hover, .coa-viewJournal:hover, .coa-search-btn:hover, .create-journal-btn, .view-journal-btn, .btns:hover {
     background-color: #2e5b2e;
 }
 
@@ -136,4 +142,28 @@ a.coa-table-link:visited {
 a.coa-table-link:focus {
     /* Style when focused */
     outline: none; /* Remove default focus outline */
+}
+
+/*LEDGER CSS BELOW*/
+
+.tester{
+    display: flex;
+    margin-left: 28%;
+    gap: 30px;
+}
+
+.ledger-checkbox{
+    margin: auto;
+}
+
+.ledger-filter{
+    color: #172f17;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.ledger-label td{
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 5px;
 }

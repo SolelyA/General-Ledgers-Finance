@@ -163,10 +163,10 @@ const ChartOfAccounts = () => {
                 <div className={"coa-underline"}></div>
             </div>
             <div className={"coa-btns"}>
-                <button>Trial Balance</button>
-                <button>Income Statement</button>
-                <button>Balance Sheet</button>
-                <button>Retained Earnings Statement</button>
+                <button className={"btns"}>Trial Balance</button>
+                <button className={"btns"}>Income Statement</button>
+                <button className={"btns"}>Balance Sheet</button>
+                <button className={"btns"}>Retained Earnings Statement</button>
             </div>
 
             <div className={"admin-container"}>
@@ -198,7 +198,6 @@ const ChartOfAccounts = () => {
                         <div className={"coa-inputs"}>
                             <input
                                 type="text"
-                                className="w-full placeholder-gray-400 text-gray-900 p-4"
                                 placeholder="Account Number"
                                 onChange={async (e) => {
                                     await SetSearchAcctNum(e.target.value)

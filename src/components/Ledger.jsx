@@ -191,148 +191,187 @@ const Ledger = () => {
     }
 
 
-
+    // LEDGER CSS IS IN COA CSS FILE AT THE BOTTOM
     return (
         <div>
-            <Navbar />
+            <Navbar/>
             <HelpButton
                 title="Account's Ledger Page"
                 welcome="Welcome to the Ledger page!"
                 text="Here you able to view the selected account's ledger."
             />
-
             <h1>Ledger Page</h1>
-            <div className="w-full maxw-xl flex mx-auto p-20 text-xl">
-                <form>
-                    <input
-                        type="text"
-                        className="w-full placeholder-gray-400 text-gray-900 p-4"
-                        placeholder="Account Name"
-                        onChange={(e) => { SetSearchJournalName(e.target.value) }}
-                        value={searchJournalName}
-                    />
-                </form>
 
-                <form onSubmit={(e) => { SearchEntryDate(e) }}>
-                    <input
-                        type="text"
-                        className="w-full placeholder-gray-400 text-gray-900 p-4"
-                        placeholder="Start Date"
-                        onChange={(e) => { SetSearchJournalDate1(e.target.value) }}
-                        value={searchJournalDate1}
-                    />
-                    <input
-                        type="text"
-                        className="w-full placeholder-gray-400 text-gray-900 p-4"
-                        placeholder="End Date"
-                        onChange={(e) => { SetSearchJournalDate2(e.target.value) }}
-                        value={searchJournalDate2}
-                    />
-                </form>
-                <form onSubmit={(e) => { SearchJournalsByAmount(e) }}>
-                    <input
-                        type="text"
-                        className="w-full placeholder-gray-400 text-gray-900 p-4"
-                        placeholder="Amount"
-                        onChange={(e) => { SetSearchJournalAmount(e.target.value) }}
-                        value={searchJournalAmount}
-                    />
-                </form>
-                <button type="submit" onClick={handleSubmitFunc}>Search</button>
+            <div className={"tester"}>
+                <div >
+                    <form className={"coa-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Account Name"
+                            onChange={(e) => {
+                                SetSearchJournalName(e.target.value)
+                            }}
+                            value={searchJournalName}
+                        />
+                    </form>
+
+                    <form onSubmit={(e) => {
+                        SearchEntryDate(e)
+                    }} >
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                placeholder="Start Date"
+                                onChange={(e) => {
+                                    SetSearchJournalDate1(e.target.value)
+                                }}
+                                value={searchJournalDate1}
+                            />
+                        </div>
+
+                        <div className={"coa-inputs"}>
+                            <input
+                                type="text"
+                                placeholder="End Date"
+                                onChange={(e) => {
+                                    SetSearchJournalDate2(e.target.value)
+                                }}
+                                value={searchJournalDate2}
+                            />
+                        </div>
+
+                    </form>
+                    <form onSubmit={(e) => {
+                        SearchJournalsByAmount(e)
+                    }} className={"coa-inputs"}>
+                        <input
+                            type="text"
+                            placeholder="Amount"
+                            onChange={(e) => {
+                                SetSearchJournalAmount(e.target.value)
+                            }}
+                            value={searchJournalAmount}
+                        />
+                    </form>
+                    <button className={"coa-search-btn"} type="submit" onClick={handleSubmitFunc}>Search</button>
+                </div>
+
+                <div className="StatusFilter">
+                    <div className={"ledger-filter"}>Filter by:</div>
+
+                    <table>
+                        <tr className={"ledger-label"}>
+                            <td>
+                                <input
+                                    className={"ledger-checkbox"}
+                                    type="checkbox"
+                                    onChange={(event) => handleCheckboxChange(event, "Approved")}
+                                />
+                            </td>
+                            <td>
+                                <label >
+                                    {`Approved`}
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr className={"ledger-label"}>
+                            <td >
+                                <input
+                                    className={"ledger-checkbox"}
+                                    type="checkbox"
+                                    onChange={(event) => handleCheckboxChange(event, "rejected")}
+                                />
+                            </td>
+                            <td >
+                                <label >
+                                    {`Rejected`}
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr className={"ledger-label"}>
+                            <td>
+                                <input
+                                    className={"ledger-checkbox"}
+                                    type="checkbox"
+                                    onChange={(event) => handleCheckboxChange(event, "pending")}
+                                />
+                            </td>
+                            <td>
+                                <label >
+                                    {`Pending Approval`}
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <button className={"coa-search-btn"} onClick={FindPostReference}>PR</button>
+                </div>
             </div>
 
-            <h3>Filter by:</h3>
-            <div className="StatusFilter">
-
-                <input
-                    type="checkbox"
-                    onChange={(event) => handleCheckboxChange(event, "Approved")}
-                />
-                <label>
-                    {`Approved`}
-                </label>
-
-                <input
-                    type="checkbox"
-                    onChange={(event) => handleCheckboxChange(event, "rejected")}
-                />
-                <label>
-                    {`Rejected`}
-                </label>
-
-                <input
-                    type="checkbox"
-                    onChange={(event) => handleCheckboxChange(event, "pending")}
-                />
-                <label>
-                    {`Pending Approval`}
-                </label>
-
-            </div>
-
-            <button onClick={FindPostReference}>PR</button>
 
             <div className={"admin-container"}>
                 <table className={"admin-table"}>
-                    <thead>
-                        <tr className={"headers"}>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Value</th>
-                            <th>Description</th>
-                            <th>Journal Entry</th>
-                        </tr>
+                <thead>
+                    <tr className={"headers"}>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                        <th>Journal Entry</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {ledgerData.map((entry, index) => (
+                    {ledgerData.map((entry, index) => (
 
-                            <tr>
-                                <td>{entry.date}</td>
-                                <td>{entry.type}</td>
-                                <td>{entry.value}</td>
-                                <td>{entry.desc}</td>
-                                <td className={"coa-table-btn"}>
-                                    <button className={"coa-viewJournal"} onClick={() => handleButtonClick(entry.journal, entry.accountID)}
+                        <tr>
+                            <td>{entry.date}</td>
+                            <td>{entry.type}</td>
+                            <td>{entry.value}</td>
+                            <td>{entry.desc}</td>
+                            <td className={"coa-table-btn"}>
+                                <button className={"coa-viewJournal"}
+                                        onClick={() => handleButtonClick(entry.journal, entry.accountID)}
                                         title='View All Journal Entries'>
-                                        View Journal Entry
-                                    </button>
+                                    View Journal Entry
+                                </button>
 
-                                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                                        {journalData.length > 0 && (
-                                            <div>
-                                                <h2>Journal Entry</h2>
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Date</th>
-                                                            <th>Debit Particulars</th>
-                                                            <th>Debits</th>
-                                                            <th>Credit Particulars</th>
-                                                            <th>Credits</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {journalData[0].entries.map((entry, index) => (
-                                                            <tr>
-                                                                <td>{entry.date}</td>
-                                                                <td>{entry.debitParticulars}</td>
-                                                                <td>{entry.debits}</td>
-                                                                <td>{entry.creditParticulars}</td>
-                                                                <td>{entry.credits}</td>
-                                                                <td>{journalData[0].status}</td>
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        )}
-                                    </Popup>
+                                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                                    {journalData.length > 0 && (
+                                        <div>
+                                            <h2>Journal Entry</h2>
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Debit Particulars</th>
+                                                    <th>Debits</th>
+                                                    <th>Credit Particulars</th>
+                                                    <th>Credits</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {journalData[0].entries.map((entry, index) => (
+                                                    <tr>
+                                                        <td>{entry.date}</td>
+                                                        <td>{entry.debitParticulars}</td>
+                                                        <td>{entry.debits}</td>
+                                                        <td>{entry.creditParticulars}</td>
+                                                        <td>{entry.credits}</td>
+                                                        <td>{journalData[0].status}</td>
+                                                    </tr>
+                                                ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )}
+                                </Popup>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
 
-                        ))}
+                    ))}
                     </tbody>
 
                 </table>
