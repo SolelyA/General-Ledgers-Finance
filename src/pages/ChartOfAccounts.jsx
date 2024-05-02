@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc } from "firebase/firestore";
-import { getUserRole, getUserData } from '../components/firestoreUtils';
+import { getUserRole } from '../components/firestoreUtils';
 import { db } from '../firebase';
 import Navbar from '../components/Navbar';
 import HelpButton from '../components/HelpButton/HelpButton';
@@ -11,7 +11,7 @@ import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 import EventLogButton from '../components/EventLog/EventLogButton.jsx'
 import EventLogComponent from '../components/EventLog/EventLogComponent.jsx';
-import JournalEntryFilter from '../components/JournalEntryFilter/JournalEntryFilter.jsx';
+
 
 const ChartOfAccounts = () => {
     const acctsCol = collection(db, "accts");
@@ -21,13 +21,8 @@ const ChartOfAccounts = () => {
     const [searchAcctNum, SetSearchAcctNum] = useState("")
     const [showEventLogs, setShowEventLogs] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const [userData, setUserData] = useState('');
 
-
+    //{ Methods to go to the next account or return to the previous one. ALso, to show the event log
     const toggleEventLogs = () => {
         setShowEventLogs(!showEventLogs);
       };
@@ -39,6 +34,7 @@ const ChartOfAccounts = () => {
     const goToPreviousAccount = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? allAccts.length - 1 : prevIndex - 1));
     };
+    // }
 
     const currentAccount = allAccts[currentIndex];
 
@@ -46,6 +42,7 @@ const ChartOfAccounts = () => {
         fetchAllAccts();
     }, []);
 
+    //Function that allows user to search by the account number
     const SearchAccountNumber = async (e) => {
         e.preventDefault();
         
@@ -65,7 +62,7 @@ const ChartOfAccounts = () => {
         }
     }
     
-
+    //Function that allows user to search by account name
     const SearchAccountName = async (e) => { //Method for searching account by name
         e.preventDefault();
         const q = query(acctsCol);
@@ -82,6 +79,7 @@ const ChartOfAccounts = () => {
         }
     }
 
+    //Fetches all the acconts  in the DB
     const fetchAllAccts = async () => {
         try {
             const q = query(acctsCol);
@@ -100,6 +98,7 @@ const ChartOfAccounts = () => {
         }
     }
     
+    //Calculates the balance of every account passed in
     const calculateBalance = async (accountNum) => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
@@ -134,18 +133,7 @@ const ChartOfAccounts = () => {
         }
     };
 
-    const fetchData = async () => {
-        const userDataString = localStorage.getItem("userData");
-        if (userDataString) {
-          const uid = JSON.parse(userDataString);
-          console.log(await getUserRole(uid))
-          await setIsAuthenticated(await getUserRole(uid) === "accountant" || await getUserRole(uid) === "Accountant");
-          console.log(isAuthenticated)
-        }
-      };
-
-      
-
+    
     return (
         <div>
             <Navbar />

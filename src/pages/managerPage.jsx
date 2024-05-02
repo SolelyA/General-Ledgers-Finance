@@ -13,11 +13,7 @@ import '../components/PopupCalendar/PopupCalendar.css';
 import Popup from '../components/HelpButton/Popup'
 
 const ManagerPage = () => {
-    const userCol = collection(db, "users");
-    const [users, setUsers] = useState([]);
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [pendingUsers, setPendingUsers] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
     const [toEmail, setToEmail] = useState('');
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
@@ -25,11 +21,12 @@ const ManagerPage = () => {
     const [success, setSuccess] = useState('');
     const [userData, setUserData] = useState('');
     const [notifData, setNotifData] = useState('');
-
+    //Inits the emailjs function
     emailjs.init('Vi1TKgZ8-4VjyfZEd');
 
     const navigate = useNavigate();
 
+    //Uses a hook to fetch the data
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -43,6 +40,7 @@ const ManagerPage = () => {
         fetchData();
     }, []);
 
+    //will fetch the notifcations about journal entries
     const fetchNotifications = async () => {
         try {
             const notifications = collection(db, `notifications`);
@@ -75,7 +73,7 @@ const ManagerPage = () => {
                 setError('An error occurred while sending the email.');
             });
     };
-
+    //hook used to fetch the notifications
     useEffect(() => {
         fetchNotifications();
     }, []);

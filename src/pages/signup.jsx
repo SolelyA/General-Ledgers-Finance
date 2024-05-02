@@ -38,7 +38,7 @@ const Signup = () => {
     '.', '>', '/', '?', '~', '`'];
 
   const specialCharacters = new RegExp("[^A-Za-z0-9]");
-
+//Adds the user to the database based on their inputs
   const addUserToDB = async () => {
     try {
 
@@ -56,7 +56,7 @@ const Signup = () => {
         selectedUserType
       });
       console.log('User added successfully')
-
+      //Resets the input fields
       setEmail('');
       setFirstName('');
       setLastName('');
@@ -71,7 +71,7 @@ const Signup = () => {
       setError('An error occured during signup. Please try again later');
     }
   }
-
+  //Creates a generated username for the user after they sign up
   const createUserName = () => {
     const dateName = new Date(dob);
     const month = dateName.getMonth() + 1;
@@ -92,10 +92,11 @@ const Signup = () => {
 
     return generatedUserName;
   }
-
+  //Handles the sign up function
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('')
+    //Checks the password requirements 
     if (password.length < 8) {
       setError('Password must be longer than 8 characters')
       console.error('Password has less than 8 characters')
@@ -116,7 +117,7 @@ const Signup = () => {
       console.error('Password does not contain a special character')
       return;
     }
-
+    //Will try to create the user in firebase, if the email is already in use then the function throws an error
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       addUserToDB();

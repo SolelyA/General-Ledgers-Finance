@@ -4,11 +4,13 @@ import { db } from '../firebase';
 import '../components/adminPage.css';
 import './DeactivateAccountsForm.css'
 
+//Function to deactivate any account in the database
 function DeactivateAccountsForm() {
     const [selectedItems, setSelectedItems] = useState([]);
     const [allAccts, setAllAccts] = useState([]);
     const acctsCol = collection(db, "accts");
 
+    //A function to handle the checkbox state updates
     const handleCheckboxChange = (event, accountId) => {
         const { checked } = event.target;
         setSelectedItems(prevSelectedItems => {
@@ -20,11 +22,14 @@ function DeactivateAccountsForm() {
         });
     };
 
+    //This function fetches all accounts currently in the database
     const fetchAllAccts = async () => {
         try {
+            //It will query the DB
             const q = query(acctsCol);
             const querySnapshot = await getDocs(q);
             if (!querySnapshot.empty) {
+                //It pushes all the accounts it gets into a variable
                 const allAcctsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 const filteredAcctsData = allAcctsData.filter(account => account.balance > 0);
                 setAllAccts(filteredAcctsData);
@@ -37,6 +42,7 @@ function DeactivateAccountsForm() {
         }
     }
 
+    //This functions takes in the accounts and updates all the balances in them to reflect the correct balance
     const updateBalances = async (accounts) => {
         try {
             await Promise.all(accounts.map(async (account) => {
@@ -46,6 +52,7 @@ function DeactivateAccountsForm() {
                 const parsedInitBalance = parseFloat(initBalance);
                 const parsedDebit = parseFloat(debit);
                 const parsedCredit = parseFloat(credit);
+                //Depending on which type of account it is, the function will calculate the balance differently
                 if (normalSide === 'credit' || normalSide === 'Credit') {
                     newBal = parsedInitBalance + parsedCredit - parsedDebit;
                 } else {
@@ -58,8 +65,10 @@ function DeactivateAccountsForm() {
         }
     };
 
+    //This function will sets the selected accounts to deactivated
     const setSelectedAccountsToDeactivatedHandler = async () => {
         try {
+            //It awaits a promise meaning that all information has to be updated first before moving on to the next call
             await Promise.all(selectedItems.map(async (accountId) => {
                 const acctsCol = doc(db, "accts", accountId);
                 await updateDoc(acctsCol, { acctStatus: 'Deactivated' });
@@ -72,6 +81,7 @@ function DeactivateAccountsForm() {
         }
     };
 
+    //A handler to fetch all the accounts 
     useEffect(() => {
         fetchAllAccts();
     }, []);
@@ -154,26 +164,6 @@ function DeactivateAccountsForm() {
                 <button className={"deactivate"} onClick={setSelectedAccountsToDeactivatedHandler}>Set Selected Accounts to Deactivated</button>
 
             </div>
-
-            {/*<ul>*/}
-            {/*    {allAccts.map((account) => (*/}
-            {/*        <React.Fragment key={account.id}>*/}
-            {/*            <li key={account.id}>*/}
-            {/*                <input*/}
-            {/*                    type="checkbox"*/}
-            {/*                    id={account.id}*/}
-            {/*                    checked={selectedItems.includes(account.id)}*/}
-            {/*                    onChange={(event) => handleCheckboxChange(event, account.id)}*/}
-            {/*                />*/}
-            {/*                <label htmlFor={account.id}>*/}
-            {/*                    {`${account.acctNumber} ${account.acctName} (Balance: $${account.balance}) (Account Category: ${account.acctCategory}) (Account Status: ${account.acctStatus})`}*/}
-            {/*                </label>*/}
-            {/*            </li>*/}
-            {/*            <hr/>*/}
-            {/*        </React.Fragment>*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
-
         </div>
     );
 }

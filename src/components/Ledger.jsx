@@ -21,13 +21,9 @@ const Ledger = () => {
     const [searchJournalDate1, SetSearchJournalDate1] = useState("")
     const [searchJournalDate2, SetSearchJournalDate2] = useState("")
     const [searchJournalAmount, SetSearchJournalAmount] = useState("")
-    const [searchStatus, SetSearchStatus] = useState("")
-    const [showModal, setShowModal] = useState(false);
     const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState("");
-    const [progress, setProgress] = useState(0);
-    const [selectedFile, setSelectedFile] = useState(0);
 
+    //Fetches the ledger data from the database
     useEffect(() => {
         const fetchLedgerData = async () => {
             try {
@@ -44,6 +40,7 @@ const Ledger = () => {
         fetchLedgerData();
     }, [accountId]);
 
+    //Fetches all the journal entries to make them viewable
     const fetchJournalEntry = async (docID, accountID) => {
         try {
             const allEntries = [];
@@ -91,7 +88,7 @@ const Ledger = () => {
         }
     };
     
-
+    //From line 92 - 157, these handle the search and filter functions in the ledger page
     const SearchJournalsByName = async (e) => { //Method for searching journal by name
         e.preventDefault();
         if (searchJournalName !== "") {

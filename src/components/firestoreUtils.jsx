@@ -1,7 +1,9 @@
 import { collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase'; // Assuming you have initialized Firestore in a separate file
+import { db } from '../firebase'; 
 
+//This file is utilites that are used throughout the application
 
+//This function grabs the userdata from firebase when needed
 async function getUserData(uid) {
   try {
     const usersRef = collection(db, 'users');
@@ -23,6 +25,7 @@ async function getUserData(uid) {
 
 export { getUserData };
 
+//This function returns a user's role
 async function getUserRole(uid){
   try {
     const usersRef = collection(db, 'users');

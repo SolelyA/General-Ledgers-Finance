@@ -11,6 +11,7 @@ function ModifyAccountsForm() {
     const [modifiedAccounts, setModifiedAccounts] = useState({});
     const [error, setError] = useState('');
 
+    //This function calculates the balance of account
     const calculateBalance = async (accountNum) => {
         try {
             const q = query(acctsCol, where('acctNumber', '==', accountNum));
@@ -70,7 +71,7 @@ function ModifyAccountsForm() {
         }));
     };
 
-
+    //This function saves the all changes that were modified 
     const handleSaveChanges = async () => {
         try {
             await Promise.all(selectedItems.map(async (accountId) => {
@@ -142,6 +143,7 @@ function ModifyAccountsForm() {
         fetchAllAccts();
     }, []);
 
+    //Fetches all the accounts in the DB
     const fetchAllAccts = async () => {
         try {
             const q = query(acctsCol);

@@ -6,6 +6,7 @@ import '../components/adminPage.css';
 import './AddAccountsForm.css'
 
 function AddAccountsForm() {
+     // State variables to manage form inputs and errors
     const [acctName, setAccountName] = useState('');
     const [acctCategory, setAccountCategory] = useState('');
     const [acctSubCategory, setAccountSubCate] = useState('');
@@ -19,11 +20,7 @@ function AddAccountsForm() {
     const [comment, setComment] = useState('');
     const [error, setError] = useState('');
 
-    const userId = 'KhpL6woPSEB0zyq6e0b0'; //auth.currentUser.uid
-
-    useEffect(() => {
-    }, []);
-
+    //Fetching user data from localStorage on component mount
     const [userData, setUserData] = useState('')
     useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +35,7 @@ function AddAccountsForm() {
         fetchData();
     }, []);
 
+    //Function to generate unique account number
     const generateAccountNum = (category, order) => {
         const leadNum = {
             asset: 1,
@@ -50,14 +48,18 @@ function AddAccountsForm() {
         return `${leadNum}${order.toString().substring(0, 3).padStart(3, "0")}`;
     };
 
+    //Function to handle submitting of adding new accounts
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            //Generates account number
             const generatedNum = generateAccountNum(acctCategory, order);
 
+            //Gets the account num and name
             const nameQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctName", "==", acctName.toLowerCase())));
             const numQuerySnapshot = await getDocs(query(collection(db, "accts"), where("acctNumber", "==", generatedNum.toLowerCase())));
             
+            //Checks to see if the name or number of an account already exists, if not it will add it to the DB with the correct details
             if (!nameQuerySnapshot.empty) {
                 setError('Error: Account Name already exists. Try using a different name.');
             } else if (!numQuerySnapshot.empty) {
@@ -105,7 +107,7 @@ function AddAccountsForm() {
             setError('An error occurred during account addition. Please try again later.');
         }
     };
-
+    //Clears all the forms
     const clearFormFields = () => {
         setAccountName('');
         setAccountCategory('');
@@ -122,14 +124,13 @@ function AddAccountsForm() {
 
     return (
         <div>
-
+            {/* Header */} 
             <div className={"login-header"}>
                 <div className={"login-title"}>Add Accounts</div>
                 <div className={"addAccounts-underline"}></div>
             </div>
-
+            {/* Form */}
             <div className={"signup-box"}>
-
                 <div className={"admin-subheader"}>
                     <div className={"admin-subtitle"}>Account Form</div>
                     <div className={"addAccounts-subUnderline"}></div>
@@ -247,7 +248,7 @@ function AddAccountsForm() {
                             onChange={(e) => setComment(e.target.value)}
                         />
                     </div>
-
+                    {/* Submit Button */}
                     <button className={"addAccount-submit"} type="submit">Create New Account</button>
 
                 </form>

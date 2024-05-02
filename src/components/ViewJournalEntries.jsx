@@ -7,6 +7,7 @@ import Popup from './HelpButton/Popup';
 import './HelpButton/Popup.css'
 import './JournalEntry.css';
 
+//This function enables the user to view the journal entries
 function ViewJournalEntries() {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [error, setError] = useState('');
@@ -14,10 +15,11 @@ function ViewJournalEntries() {
     const [currentPage, setCurrentPage] = useState(0);
     const [userData, setUserData] = useState('');
     const [jEntryId, setJEntryId] = useState('');
-    const [filteredEntries, setFilteredEntries] = useState([]); // Initialize with an empty array
+    const [filteredEntries, setFilteredEntries] = useState([]);
     const [editIndex, setEditIndex] = useState(-1);
     const [searchQuery, setSearchQuery] = useState('');
 
+    //Fetches the user data
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -30,7 +32,7 @@ function ViewJournalEntries() {
 
         fetchData();
     }, []);
-
+    //Fetches all the journal entries in the db using a hook
     useEffect(() => {
         const fetchAllJournalEntries = async () => {
             try {
@@ -69,6 +71,7 @@ function ViewJournalEntries() {
         fetchAllJournalEntries();
     }, []);
 
+    //Uses a hook to filter the entries 
     useEffect(() => {
         const filterEntries = () => {
             if (!searchQuery) {
@@ -91,7 +94,7 @@ function ViewJournalEntries() {
 
 
 
-
+    //These next three functions handle clicking through the journal entries
 
     const handleButtonClick = () => {
         setButtonPopup(true);
@@ -106,6 +109,7 @@ function ViewJournalEntries() {
         setCurrentPage(prevPage => prevPage - 1);
     };
 
+    //This function updates the journal entry  to approved 
     const updateStatusToApproved = async (index) => {
         try {
             const journalEntry = allJournalData[currentPage].entries[index];
@@ -114,7 +118,7 @@ function ViewJournalEntries() {
             const journalEntriesCollectionRef = collection(db, 'accts', journalEntry.account, 'journalEntries');
             const journalEntryRef = doc(journalEntriesCollectionRef, docId);
 
-            const acctRef =  doc(db, 'accts', journalEntry.account);
+            const acctRef = doc(db, 'accts', journalEntry.account);
 
             await updateDoc(acctRef, {
                 credit: journalEntry.credits,
@@ -143,6 +147,7 @@ function ViewJournalEntries() {
         }
     };
 
+    //This function updates the journal entry to rejected
     const updateStatusToRejected = async (index) => {
         try {
             const journalEntry = allJournalData[currentPage].entries[index];
@@ -164,7 +169,7 @@ function ViewJournalEntries() {
         }
     };
 
-
+    //The next two functions either edit and save the entry after modifying the entry
     const handleEditClick = (index) => {
         setEditIndex(index);
     };
@@ -219,6 +224,7 @@ function ViewJournalEntries() {
 
     };
 
+    //The next two functions will handle searching and saving the entry after modifying
     const handleInputChange = (e, fieldName, index) => {
         const newValue = e.target.value;
         setAllJournalData(prevData => {
@@ -232,9 +238,6 @@ function ViewJournalEntries() {
         setSearchQuery(e.target.value);
     };
 
-    const handleClearSearch = () => {
-        setSearchQuery('');
-    };
 
 
     return (
@@ -269,6 +272,7 @@ function ViewJournalEntries() {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {/*This renders  the journal entries*/}
                                             {(searchQuery ? filteredEntries : allJournalData[currentPage].entries).map((entry, index) => (
                                                 <tr key={index}>
                                                     <td>{editIndex === index ? <input type="date" value={entry.date} onChange={(e) => handleInputChange(e, 'date', index)} /> : entry.date}</td>

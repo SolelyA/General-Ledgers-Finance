@@ -4,7 +4,6 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from '../firebase'; //Import database
 import { useNavigate } from 'react-router-dom';
-import { sendSignupNotification } from '../emailUtils';
 import photo from "../Images/image.png";
 import '../components/forgotPassword.css'
 import Navbar from '../components/Navbar';
@@ -12,33 +11,13 @@ import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 
-
+//This function allows the user to reset their password through firebase
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
-    const [userReset, setUserReset] = useState('');
+    const [error, setError] = useState('');;
 
     const userCol = collection(db, "users")
     const navigate = useNavigate();
-
-    //Probably won't need this fetch function but i'll leave it here -Aaron
-    const fetchUserForReset = async (email) => {
-        try {
-            const q = query(userCol, where('email', '==', email));
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
-                const userForResetData = querySnapshot.docs[0]
-                const userId = userForResetData.data().email
-                setUserReset(userId);
-            } else {
-                console.log('No users with provided email');
-                setError('No user found with provided email address')
-            }
-        } catch (error) {
-            console.error("Error fetching for reset", error)
-            setError('An unknown error has occured. Please contact system admin.')
-        }
-    }
 
     const handleForgotPass = async (e) => {
         e.preventDefault()

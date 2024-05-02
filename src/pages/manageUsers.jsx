@@ -42,10 +42,11 @@ const ManageUsers = () => {
 
     const specialCharacters = new RegExp("[^A-Za-z0-9]");
 
+    //Hook to fetch all the users in a db
     useEffect(() => {
         fetchAllUsers();
     }, []);
-
+    //Function to fetch all the users
     const fetchAllUsers = async () => {
         try {
             const q = query(userCol);
@@ -60,7 +61,7 @@ const ManageUsers = () => {
             console.error("Error fetching users", error)
         }
     }
-
+    //Sets the selected users to active
     const setSelectedUsersToActiveHandler = async () => {
         try {
             await Promise.all(selectedItems.map(async (userId) => {
@@ -80,6 +81,7 @@ const ManageUsers = () => {
         }
     };
 
+    //sets the selected users to deactivated 
     const setSelectedUsersToDeactivedHandler = async () => {
         try {
             await Promise.all(selectedItems.map(async (userId) => {
@@ -106,7 +108,7 @@ const ManageUsers = () => {
             setSelectedItems(prevSelectedItems => prevSelectedItems.filter(item => item !== userId));
         }
     };
-
+    //handles the sign up when creating a new user through the manager user page
     const handleSignup = async (e) => {
         e.preventDefault();
         setError('')
@@ -146,6 +148,7 @@ const ManageUsers = () => {
 
     };
 
+    //Will then add the user to the db
     const addUserToDB = async () => {
         try {
 

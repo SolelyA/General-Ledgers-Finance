@@ -27,6 +27,7 @@ const LandingPage = () => {
     const [debtToEquityRatio, setDebtToEquityRatio] = useState(null);
     const [cash, setCash] = useState(null);
 
+    //Uses a hook to fetch the user data 
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -40,6 +41,7 @@ const LandingPage = () => {
         fetchData();
     }, []);
 
+    //Uses a hook to fetch all accounts
     useEffect(() => {
         const fetchAllAccts = async () => {
             try {
@@ -59,6 +61,7 @@ const LandingPage = () => {
         fetchAllAccts();
     }, []);
 
+    //Uses a hook to calulate the ratio data from the accounts 
     useEffect(() => {
         const getRatioData = () => {
             let assetsTotal = 0;
@@ -82,7 +85,7 @@ const LandingPage = () => {
 
         getRatioData();
     }, [allAcctsData]);
-
+    //Uses a hook to calculate the ratios from the calculated ratio data
     useEffect(() => {
         const calculateRatio = () => {
             if (liabilities !== 0) {
@@ -106,7 +109,7 @@ const LandingPage = () => {
 
         calculateRatio();
     }, [assets, liabilities, equity]);
-
+    //uses a hook to fetch the notifications 
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
@@ -121,7 +124,7 @@ const LandingPage = () => {
 
         fetchNotifications();
     }, []);
-
+    //Will update the color of the ratio dependent on the ratio state
     const getColor = (ratio) => {
         if (ratio === null) {
             return 'black'; // Default color for loading state

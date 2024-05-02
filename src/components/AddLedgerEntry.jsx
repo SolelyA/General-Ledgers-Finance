@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { collection, doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
-
+//Function to add a new ledger entry
 const AddLedgerEntry = async (account, credit, debit, creditDesc, debitDesc, journalID) => {
+    //Tries to create a new entry based on the parameters passed in
     try {
         const accountRef = doc(db, "accts", account);
         const transactionsCollectionRef = collection(accountRef, 'transactions');

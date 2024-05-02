@@ -7,7 +7,7 @@ import HelpButton from '../components/HelpButton/HelpButton';
 import './EditAccounts.css'
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-
+//This function allows the user to edit the accounts, connects with the modify accounts form
 function EditAccounts() {
     const [activeForm, setActiveForm] = useState('form1');
 

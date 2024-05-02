@@ -6,6 +6,7 @@ import AddToErrorDB from './AddToErrorDB';
 import './HelpButton/Popup.css';
 import './JournalEntry.css';
 
+//This function handles journal entries 
 export default function JournalEntry({ accountName, accountId }) {
     const [buttonPopup, setButtonPopup] = useState(false);
     const [data, setData] = useState([
@@ -17,20 +18,9 @@ export default function JournalEntry({ accountName, accountId }) {
     const [totalCredits, setTotalCredits] = useState(0);
     const [message, setMessage] = useState('');
     const notifRef = collection(db, "notifications")
-    const[notifData, setNotifData] = useState("")
     const [allAccts, setAllAccts] = useState([]);
 
-    const fetchNotifications = async () => {
-        try {
-            const notifications = collection(db, `notifications`);
-            const notifSnapshot = await getDocs(notifications);
-            const notifData = notifSnapshot.docs.map(doc => doc.data());
-            setNotifData(notifData);
-        } catch (error) {
-            console.error('Error fetching ledger data:', error);
-        }
-    }
-
+    //Use effect function to accurately get the total amount of debits and credits
     useEffect(() => {
         const debits = data.reduce((acc, entry) => acc + parseFloat(entry.debits || 0), 0);
         const credits = data.reduce((acc, entry) => acc + parseFloat(entry.credits || 0), 0);
@@ -38,13 +28,14 @@ export default function JournalEntry({ accountName, accountId }) {
         setTotalCredits(credits);
         clearMessages();
     }, [data]);
-
+    //Use effect function to accurately set the data for a journal entry
     useEffect(() => {
         setData([
             { id: 1, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0, journalEntryStatus: 'Pending', account: accountId }
         ]);
     }, [accountId]);
 
+    //This function updates the account id within a journal entry since it was not being passed in correctly 
     const updateAccountInData = (newAccountId) => {
         setData(prevData => {
             return prevData.map(item => {
@@ -53,7 +44,7 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
     
-
+    //This function handles the input change after creating the entry
     const handleInputChange = (id, fieldName, value) => {
         setData(prevData => {
             return prevData.map(item => {
@@ -64,7 +55,7 @@ export default function JournalEntry({ accountName, accountId }) {
             });
         });
     };
-
+    //Function to clear input after creating the entry
     const handleClearInput = (id) => {
         setData(prevData => {
             return prevData.map(item => {
@@ -84,19 +75,7 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
 
-    const createNotif = async () =>{
-        var acctName;
-        allAccts.map((account, key) =>{
-           acctName = account.acctName
-        })
-
-        await addDoc(notifRef, {
-            Message1: accountName,
-            read: false
-        })
-    
-    }
-
+    //Handles submit the journal entry 
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError('')
@@ -128,6 +107,7 @@ export default function JournalEntry({ accountName, accountId }) {
         }
     };
 
+    //Adds a row to the journal entry so you can have mulitple
     const addRow = () => {
         setData(prevData => {
             return [...prevData, { id: nextId, date: '', debitParticulars: '', debits: 0, creditParticulars: '', credits: 0  }];
@@ -135,6 +115,7 @@ export default function JournalEntry({ accountName, accountId }) {
         setNextId(prevId => prevId + 1);
     };
 
+    //Deletes a row entry
     const delRow = (idToRemove) => {
         setData(prevData => {
             const updatedData = prevData.filter(row => row.id !== idToRemove);
@@ -142,6 +123,7 @@ export default function JournalEntry({ accountName, accountId }) {
         });
     };
 
+    //Clears the messages
     const clearMessages = () =>{
         setError('');
         setMessage('');

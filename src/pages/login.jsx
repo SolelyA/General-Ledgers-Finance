@@ -24,6 +24,7 @@ const Login = () => {
     const [selectedUserType, setSelectedUserType] = useState(''); // State to store selected user type
     const [uid, setUid] = useState('');
 
+    //Function to update the account state 
     const updateAcctState = async (email, newValue) => {
         const q = query(userCol, where('email', '==', email));
         const querySnapshot = await getDocs(q);
@@ -39,6 +40,7 @@ const Login = () => {
         }
     };
 
+    //Function to fetch the account state
     const fetchAcctState = async (email) => {
         try {
             const q = query(userCol, where('email', '==', email));
@@ -60,9 +62,10 @@ const Login = () => {
             return null;
         }
     };
-
+    //Hook to handle the login logic
     useEffect(() => {
         const loginLogic = async () => {
+            //checks to see what the account state and will handle where the user is taken
             if (accountState === 'Suspended' || accountState === 'suspended') {
                 console.log('User account suspended');
                 setError('Account has been suspended. Please contact the system administrator.');
@@ -73,6 +76,7 @@ const Login = () => {
                 return;
             } else {
                 try {
+                    //tries to sign using the firebase functions
                     await signInWithEmailAndPassword(auth, email, password);
                     const userData = uid;
                     localStorage.setItem("userData", JSON.stringify(userData));
@@ -103,6 +107,7 @@ const Login = () => {
         }
     }, [accountState, email, password, uid, navigate, loginAttemptCount]);
 
+    //handles the actual login
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');

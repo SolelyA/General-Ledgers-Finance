@@ -1,11 +1,10 @@
-import Logo from '../logo';
 import '../components/waitingForAccess.css'
 import photo from "../Images/image.png";
 import React from "react";
 import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
-
+//A page that the user lands at if they are signed up but not approved for access
 const WaitingForAccess = () => {
     return (
 

@@ -1,6 +1,7 @@
 import { doc, addDoc } from "firebase/firestore";
 import { db } from '../firebase';
 
+//a function that adds errors to the database
 async function addToErrorDB(err) {
     try {
         const errorMessageDoc = doc(db, "errors");

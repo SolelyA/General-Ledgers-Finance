@@ -4,13 +4,13 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { getUserData } from './firestoreUtils'
 import { useState, useEffect } from "react";
-//import 'react-calendar/dist/Calendar.css';
 
-
+//This file handles the navbar component at the top of the page
 function Navbar() {
     const navigate = useNavigate();
-
     const [userData, setUserData] = useState('')
+
+    //Grabs the user's data
     useEffect(() => {
         const fetchData = async () => {
             const userDataString = localStorage.getItem("userData");
@@ -25,7 +25,7 @@ function Navbar() {
     }, []);
 
 
-
+//Based on the type of user that is signed up, it will display different buttons 
     return (
         <div>
             <div className='navbar'>

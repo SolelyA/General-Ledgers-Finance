@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { sendApprovalNotification } from '../emailUtils';
-import { auth } from '../firebase'; // Import Firebase configuration
-import Logo from '../logo';
 import photo from "../Images/image.png";
 import '../components/adminPage.css'
 import emailjs from 'emailjs-com';
 import Navbar from '../components/Navbar';
-import { getUserRole } from '../components/firestoreUtils';
 import HelpButton from '../components/HelpButton/HelpButton';
 import PopupCalendar from '../components/PopupCalendar/PopupCalendar';
 import '../components/PopupCalendar/PopupCalendar.css';
 
+//This file renders the admin page
 const AdminPage = () => {
     const userCol = collection(db, "users");
     const [users, setUsers] = useState([]);
@@ -25,11 +22,13 @@ const AdminPage = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    //inits the emailjs for sending emails
     emailjs.init('Vi1TKgZ8-4VjyfZEd');
 
 
     const navigate = useNavigate();
 
+    //Handles the submitting of an email
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -52,11 +51,13 @@ const AdminPage = () => {
             });
     };
 
+    //Uses a hook to fetch the users and pending users
     useEffect(() => {
         fetchUsers();
         fetchPendingUsers();
     }, []);
 
+    //Connects with the DB to fetch all users
     const fetchUsers = async () => {
         try {
             const querySnapshot = await getDocs(userCol);
@@ -67,6 +68,7 @@ const AdminPage = () => {
         }
     };
 
+    //Connects to the DB to fetch users whose account state is pending 
     const fetchPendingUsers = async () => {
         try {
             const q = query(userCol, where('accountState', '==', 'Pending Admin Approval'));
@@ -90,7 +92,7 @@ const AdminPage = () => {
             setSelectedItems(prevSelectedItems => prevSelectedItems.filter(item => item !== userId));
         }
     };
-
+    //Will set all of the selected users to active status 
     const setSelectedUsersToActiveHandler = async () => {
         try {
             await Promise.all(selectedItems.map(async (userId) => {
@@ -98,7 +100,6 @@ const AdminPage = () => {
                 await updateDoc(userRef, {
                     accountState: 'Active'
                 });
-                //await sendApprovalNotification(userRef.userName, userRef.email);
                 console.log(`Successfully updated account state to "Active" for user with ID: ${userId}`);
             }));
 
@@ -110,7 +111,7 @@ const AdminPage = () => {
             console.error('Error updating account states:', error);
         }
     };
-
+    //Will set all of the selected users to deactivated status
     const setSelectedUsersToRejectedHandler = async () => {
         try {
             await Promise.all(selectedItems.map(async (userId) => {
@@ -118,7 +119,6 @@ const AdminPage = () => {
                 await updateDoc(userRef, {
                     accountState: 'Rejected'
                 });
-                //await sendApprovalNotification(userRef.userName, userRef.email);
                 console.log(`Successfully updated account state to "Rejected" for user with ID: ${userId}`);
             }));
 
