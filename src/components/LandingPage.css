@@ -19,10 +19,10 @@
 }
 
 .ratios-table th {
-    background-color: #f2f2f2; /* Add background color to table header */
+    background-color: #d4d4d4; /* Add background color to table header */
     font-weight: bold; /* Make table header text bold */
 }
 
 .ratios-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Add alternate background color to even rows */
+    background-color: #d4d4d4; /* Add alternate background color to even rows */
 }

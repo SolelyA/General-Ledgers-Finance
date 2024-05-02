@@ -50,10 +50,10 @@ function Navbar() {
                     )}
                 </div>
                 <div>
-                    {userData ? (
+                    {userData && (userData.selectedUserType === 'Admin' || userData.selectedUserType === 'admin') ? (
                         <div className='floatLeft libutton' onClick={() => navigate("/edit-accounts")}> Edit Accounts</div>
                     ) : (
-                        <div className='floatLeft libutton' onClick={() => navigate("/login")}> Edit Accounts</div>
+                        null
                     )}
                 </div>
                 <div>
