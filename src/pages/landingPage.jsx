@@ -148,6 +148,7 @@ const LandingPage = () => {
             <div className={"waiting-text"}>
                 <h1>Welcome To the Application Domain</h1>
             </div>
+            {/*User filter created by Derec Mackiewicz. Based on user filter code provided by Aaron Hannah*/}
             <div>
                 {userData ? (
                     <>
