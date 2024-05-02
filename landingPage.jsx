@@ -258,7 +258,7 @@ const LandingPage = () => {
                                 </div>)
                                 }
                         </div>
-
+{/*User filter created by Derec Mackiewicz. Based on user filter code provided by Aaron Hannah*/}
                         <div>
                         {isManager ?(
                         <button className='floatLeft libutton' onClick={() => navigate("/manager-page")}> Manager Page</button>
