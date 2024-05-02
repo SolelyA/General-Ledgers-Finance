@@ -81,7 +81,7 @@ const AdminPage = () => {
         }
     }
     
-    /*const fetchExpPasswords = async () => {
+    /*const fetchExpPasswords = async () => { based on code provided by Aaron Hannah
         
         try{
             var passwords = []
@@ -263,7 +263,8 @@ const AdminPage = () => {
                 </table>
             </div>
             <div>
-            {/*<h2>Expired Passwords</h2>
+            {/* This code was meant to render data retrieved from the ExpPasswords retrieval method and was based on table rendering code provided by Aaron Hannah
+            <h2>Expired Passwords</h2> 
                         <button onClick={() => setButtonPopup(true)}>
                             {expPasswords.read ? "Click here to view Expired Passwords report" : "Click here to view Expired Passwords Report"}
                         </button>
